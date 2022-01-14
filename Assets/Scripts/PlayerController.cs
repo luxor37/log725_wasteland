@@ -22,33 +22,35 @@ public class PlayerController : MonoBehaviour
 
 
     private CharacterController _controller;
-    private MeshCollider _ground;
-
     private Vector3 _moveDirection;
+    private float _horizontal;
+    private float _vertical;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        // _rigidBody = this.GetComponent<Rigidbody>();
-        // _collider = this.GetComponent<CapsuleCollider>();
-        _ground = GameObject.Find("Ground_plane").GetComponent<MeshCollider>();
         _controller = GetComponent<CharacterController>();
+        _horizontal = Input.GetAxis("Horizontal");
+        _vertical = Input.GetAxis("Vertical");
     }
 
     // Update is called once per frame
     void Update()
     {
+        _horizontal = Input.GetAxis("Horizontal");
+        _vertical = Input.GetAxis("Vertical");
+        
         DetectMoveInputDirection();
+        Movement();
         SetInvisibleLimits();
-        MoveAndJump();
     }
 
     void DetectMoveInputDirection()
     {
-        if (Input.GetAxis("Horizontal") > 0f)
+        if (_horizontal > 0f)
             Direction = Direction.Right;
-        else if (Input.GetAxis("Horizontal") < 0f)
+        else if (_horizontal < 0f)
             Direction = Direction.Left;
         else
             Direction = Direction.Iddle;
@@ -66,17 +68,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void MoveAndJump()
+    void Movement()
     {
         float speed = moveSpeed;
-        if(Input.GetButton("Sprint")){
-            speed = moveSpeed * 2; 
+        if (Input.GetButton("Sprint"))
+        {
+            speed = moveSpeed * 2;
         }
 
         _moveDirection = new Vector3(
-            Input.GetAxis("Horizontal") * speed,
+            _horizontal * speed,
             _moveDirection.y,
-            Input.GetAxis("Vertical") * speed);
+            _vertical * speed);
+
+        if (_horizontal != 0 || _vertical != 0)
+        {
+            var desiredMoveDirection = Camera.main.transform.forward * _vertical + Camera.main.transform.right * _horizontal;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+        }
 
         if (_controller.isGrounded && Input.GetButtonDown("Jump"))
         {
