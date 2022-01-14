@@ -2,23 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Direction
-{
-    Left,
-    Right,
-    Iddle
-}
+public enum Direction { Left, Right, Iddle }
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
     public float gravityScale;
+    public Vector2 ZLimit = new Vector2(-3f, 2.4f);
+    public GameObject gameMenu;
 
 
-    // [HideInInspector] 
+    [HideInInspector] 
     public Direction Direction;
-
 
 
     private CharacterController _controller;
@@ -43,6 +39,7 @@ public class PlayerController : MonoBehaviour
         
         DetectMoveInputDirection();
         Movement();
+        OtherInputs();
         SetInvisibleLimits();
     }
 
@@ -58,13 +55,13 @@ public class PlayerController : MonoBehaviour
 
     void SetInvisibleLimits()
     {
-        if (transform.position.z <= -3f)
+        if (transform.position.z <= ZLimit.x)
         {
-            this.transform.position = new Vector3(transform.position.x, transform.position.y, -3f);
+            this.transform.position = new Vector3(transform.position.x, transform.position.y, ZLimit.x);
         }
-        if (transform.position.z >= 2.4f)
+        if (transform.position.z >= ZLimit.y)
         {
-            this.transform.position = new Vector3(transform.position.x, transform.position.y, 2.4f);
+            this.transform.position = new Vector3(transform.position.x, transform.position.y, ZLimit.y);
         }
     }
 
@@ -97,5 +94,11 @@ public class PlayerController : MonoBehaviour
 
         //applying move with deltatime so that movement is not tied to framerate
         _controller.Move(_moveDirection * Time.deltaTime);
+    }
+
+    void OtherInputs(){
+        if(Input.GetButtonDown("Menu") && gameMenu != null){
+            gameMenu.SetActive(!gameMenu.activeSelf);
+        }
     }
 }
