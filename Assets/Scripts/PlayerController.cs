@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private float _verticalAxis;
     private bool _isJumpingInput;
     private bool _isSprintingInput;
+    private bool _isAttackingInput;
 
 
     // Start is called before the first frame update
@@ -39,11 +40,13 @@ public class PlayerController : MonoBehaviour
         _verticalAxis = Input.GetAxis("Vertical");
         _isJumpingInput = Input.GetButtonDown("Jump");
         _isSprintingInput = Input.GetButton("Sprint");
+        _isAttackingInput = Input.GetButtonDown("Attack");
         
         DetectMoveInputDirection();
         Movement();
         OtherInputs();
         SetInvisibleLimits();
+        Attack();
     }
 
     void DetectMoveInputDirection()
@@ -109,5 +112,13 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Menu") && gameMenu != null){
             gameMenu.SetActive(!gameMenu.activeSelf);
         }
+    }
+
+    void Attack(){
+        animator.SetBool("isPunching", _isAttackingInput);
+
+        // if(_isAttackingInput){
+            
+        // }
     }
 }
