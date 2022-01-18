@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
     {
-        float speed = _isSprintingInput ? moveSpeed * 2 : moveSpeed;
+        float speed = _isSprintingInput ? moveSpeed * 0.1f : moveSpeed;
 
         animator.SetBool("isRunning", _isSprintingInput);
 
@@ -91,7 +91,16 @@ public class PlayerController : MonoBehaviour
         if (_horizontalAxis != 0 || _verticalAxis != 0)
         {
             var desiredMoveDirection = Camera.main.transform.forward * _verticalAxis + Camera.main.transform.right * _horizontalAxis;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+            if (_isSprintingInput)
+            {
+                Vector3 desiredForward = Vector3.RotateTowards(transform.forward, desiredMoveDirection, 1 * Time.deltaTime, 0f);
+                transform.rotation = Quaternion.LookRotation(desiredForward);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+            }
+
         }
 
         var grounded = _controller.isGrounded;
