@@ -20,23 +20,25 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController _controller;
     private Vector3 _moveDirection;
-    private float _horizontal;
-    private float _vertical;
+    private float _horizontalAxis;
+    private float _verticalAxis;
+    private bool _isJumpingInput;
+    private bool _isSprintingInput;
 
 
     // Start is called before the first frame update
     void Start()
     {
         _controller = GetComponent<CharacterController>();
-        _horizontal = Input.GetAxis("Horizontal");
-        _vertical = Input.GetAxis("Vertical");
     }
 
     // Update is called once per frame
     void Update()
     {
-        _horizontal = Input.GetAxis("Horizontal");
-        _vertical = Input.GetAxis("Vertical");
+        _horizontalAxis = Input.GetAxis("Horizontal");
+        _verticalAxis = Input.GetAxis("Vertical");
+        _isJumpingInput = Input.GetButtonDown("Jump");
+        _isSprintingInput = Input.GetButton("Sprint");
         
         DetectMoveInputDirection();
         Movement();
@@ -46,9 +48,9 @@ public class PlayerController : MonoBehaviour
 
     void DetectMoveInputDirection()
     {
-        if (_horizontal > 0f)
+        if (_horizontalAxis > 0f)
             Direction = Direction.Right;
-        else if (_horizontal < 0f)
+        else if (_horizontalAxis < 0f)
             Direction = Direction.Left;
         else
             Direction = Direction.Iddle;
@@ -68,33 +70,33 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
     {
-        float speed = moveSpeed;
-        if (Input.GetButton("Sprint"))
-        {
-            speed = moveSpeed * 2;
-        }
+        float speed = _isSprintingInput? moveSpeed*2 : moveSpeed;
 
-        animator.SetBool("isRunning", Input.GetButton("Sprint"));
+        animator.SetBool("isRunning", _isSprintingInput);
 
         _moveDirection = new Vector3(
-            _horizontal * speed,
+            _horizontalAxis * speed,
             _moveDirection.y,
-            _vertical * speed);
+            _verticalAxis * speed);
 
-        if (_horizontal != 0 || _vertical != 0)
+        //Character model orientation based on movement
+        if (_horizontalAxis != 0 || _verticalAxis != 0)
         {
-            var desiredMoveDirection = Camera.main.transform.forward * _vertical + Camera.main.transform.right * _horizontal;
+            var desiredMoveDirection = Camera.main.transform.forward * _verticalAxis + Camera.main.transform.right * _horizontalAxis;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
         }
 
-        if (_controller.isGrounded && Input.GetButtonDown("Jump"))
+        var grounded = _controller.isGrounded;
+
+        if (_controller.isGrounded && _isJumpingInput)
         {
             _moveDirection.y = jumpForce;
-            
+            grounded = false;
         }
         
+        //setting animator conditions to determine which animation to use
         animator.SetFloat("Speed", _controller.velocity.magnitude);
-        animator.SetBool("isGrounded", _controller.isGrounded);
+        animator.SetBool("isGrounded", grounded);
         
         //applying gravity
         _moveDirection.y += Physics.gravity.y * gravityScale * Time.deltaTime;
