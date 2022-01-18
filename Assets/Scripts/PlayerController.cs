@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float gravityScale;
     public Vector2 ZLimit = new Vector2(-3f, 2.4f);
     public GameObject gameMenu;
+    public Animator animator;
 
 
     [HideInInspector] 
@@ -73,6 +74,8 @@ public class PlayerController : MonoBehaviour
             speed = moveSpeed * 2;
         }
 
+        animator.SetBool("isRunning", Input.GetButton("Sprint"));
+
         _moveDirection = new Vector3(
             _horizontal * speed,
             _moveDirection.y,
@@ -87,8 +90,12 @@ public class PlayerController : MonoBehaviour
         if (_controller.isGrounded && Input.GetButtonDown("Jump"))
         {
             _moveDirection.y = jumpForce;
+            
         }
-
+        
+        animator.SetFloat("Speed", _controller.velocity.magnitude);
+        animator.SetBool("isGrounded", _controller.isGrounded);
+        
         //applying gravity
         _moveDirection.y += Physics.gravity.y * gravityScale * Time.deltaTime;
 
