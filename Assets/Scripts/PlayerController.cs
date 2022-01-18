@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
 
 
-    [HideInInspector] 
+    [HideInInspector]
     public Direction Direction;
 
 
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool _isJumpingInput;
     private bool _isSprintingInput;
     private bool _isAttackingInput;
+    private bool _gamePaused = false;
 
 
     // Start is called before the first frame update
@@ -41,12 +42,16 @@ public class PlayerController : MonoBehaviour
         _isJumpingInput = Input.GetButtonDown("Jump");
         _isSprintingInput = Input.GetButton("Sprint");
         _isAttackingInput = Input.GetButtonDown("Attack");
-        
-        DetectMoveInputDirection();
-        Movement();
+
         OtherInputs();
-        SetInvisibleLimits();
-        Attack();
+
+        if (!_gamePaused)
+        {
+            DetectMoveInputDirection();
+            Movement();
+            SetInvisibleLimits();
+            Attack();
+        }
     }
 
     void DetectMoveInputDirection()
@@ -73,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
     {
-        float speed = _isSprintingInput? moveSpeed*2 : moveSpeed;
+        float speed = _isSprintingInput ? moveSpeed * 2 : moveSpeed;
 
         animator.SetBool("isRunning", _isSprintingInput);
 
@@ -96,11 +101,11 @@ public class PlayerController : MonoBehaviour
             _moveDirection.y = jumpForce;
             grounded = false;
         }
-        
+
         //setting animator conditions to determine which animation to use
         animator.SetFloat("Speed", _controller.velocity.magnitude);
         animator.SetBool("isGrounded", grounded);
-        
+
         //applying gravity
         _moveDirection.y += Physics.gravity.y * gravityScale * Time.deltaTime;
 
@@ -108,17 +113,24 @@ public class PlayerController : MonoBehaviour
         _controller.Move(_moveDirection * Time.deltaTime);
     }
 
-    void OtherInputs(){
-        if(Input.GetButtonDown("Menu") && gameMenu != null){
-            gameMenu.SetActive(!gameMenu.activeSelf);
+    void OtherInputs()
+    {
+
+        if (Input.GetButtonDown("Menu") && gameMenu != null)
+        {
+            _gamePaused = !_gamePaused;
+            gameMenu.SetActive(_gamePaused);
+
+            Time.timeScale = _gamePaused ? 0 : 1;
         }
     }
 
-    void Attack(){
+    void Attack()
+    {
         animator.SetBool("isPunching", _isAttackingInput);
 
         // if(_isAttackingInput){
-            
+
         // }
     }
 }
