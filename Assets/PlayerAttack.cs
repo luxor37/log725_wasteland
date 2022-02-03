@@ -15,11 +15,13 @@ public class PlayerAttack : MonoBehaviour
 
     public List<Animation> attackAnimation;
 
+    private Animator _animator;
+
     // Start is called before the first frame update
     void Start()
     {
         attackArea = transform.GetChild(0).gameObject;
-        
+        _animator = this.gameObject.GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 attacking = false;
                 //attackArea.SetActive(attacking);
-                this.gameObject.GetComponent<Animator>().SetBool("isAttacking",attacking);
+                _animator.SetBool("isAttacking",attacking);
                 timer = 0f;
             }
         }
@@ -53,8 +55,8 @@ public class PlayerAttack : MonoBehaviour
             AttackIndex++;
         }
         attacking = true;
-        this.gameObject.GetComponent<Animator>().SetBool("isAttacking",attacking);
-        this.gameObject.GetComponent<Animator>().SetInteger("AttackIndex",AttackIndex);
+        _animator.SetBool("isAttacking",attacking);
+        _animator.SetInteger("AttackIndex",AttackIndex);
         //attackArea.SetActive(attacking);
     }
 }

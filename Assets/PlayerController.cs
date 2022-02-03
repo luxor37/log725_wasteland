@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         moveSpeed = 3f;
         _rigidbody = this.gameObject.GetComponent<Rigidbody>();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         isRunningHash = Animator.StringToHash("isRuning");
     }
 
@@ -41,6 +37,7 @@ public class PlayerController : MonoBehaviour
         horizontal = -Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
     }
+
     private void FixedUpdate()
     {
         //User input to Movement
@@ -53,7 +50,7 @@ public class PlayerController : MonoBehaviour
         
         //Use 3d vector as character backward direction
         Vector3 desiredForward =
-            Vector3.RotateTowards(transform.forward, _CharacterMovement, rotationSpeed * Time.deltaTime, 0f);
+            Vector3.RotateTowards(transform.forward, _CharacterMovement, rotationSpeed * Time.fixedDeltaTime, 0f);
 
         _Rotation = Quaternion.LookRotation(desiredForward);
     }
