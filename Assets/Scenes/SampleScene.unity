@@ -470,6 +470,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerDeadZone: 0.2
+--- !u!114 &294374392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294374389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560d494bb1995ce4a885f44fbe8f81f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 10
+  moveSpeed: 5
+  jumpForce: 75
+  gravityScale: 1
 --- !u!4 &343960478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4170674992953130, guid: 3f7bfd9d8ed0e494fb30060acd925091, type: 3}
@@ -1894,7 +1910,8 @@ PrefabInstance:
       propertyPath: gravityScale
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6828787556588118917, guid: af169be12f376ce46a3e6b4bee8b8ffe, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: af169be12f376ce46a3e6b4bee8b8ffe, type: 3}
 --- !u!4 &712574813 stripped
 Transform:

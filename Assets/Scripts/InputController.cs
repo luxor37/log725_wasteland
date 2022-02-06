@@ -32,6 +32,10 @@ public class InputController : MonoBehaviour
         VerticalAxis = GetAxis("Vertical");
         IsJumping = Input.GetButtonDown("Jump");
         Direction = GetHorizontalDirection(HorizontalAxis);
+
+        if(IsJumping){
+            Debug.Log(IsJumping);
+        }
     }
 
     private float GetAxis(string axisName){
