@@ -54,29 +54,35 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool(_isRunningHash, hasHorizontal);
 
         Movement();
-        Jump();
         Rotation();
+        Jump();
 
-        _controller.Move(_moveDirection * Time.deltaTime);
+        
         gameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, pZ);
     }
 
-    Vector3 Movement()
+    // override this so that movement doesn't get screwed
+    void OnAnimatorMove()
+    {
+        _controller.Move(_moveDirection * Time.deltaTime);
+    }
+
+
+    void Movement()
     {
         float speed = _isSprintingInput ? moveSpeed * 2f : moveSpeed;
 
         //User input to Movement
         _moveDirection.x = _horizontal * speed;
-        return _moveDirection;
     }
 
-    Vector3 Jump()
+    void Jump()
     {
         var grounded = _controller.isGrounded;
         if (grounded)
         {
             _animator.SetBool("isJumping", false);
-            //moveDirection.y = 0f;
+            _moveDirection.y = 0f;
             
             if (_isJumpingInput)
             {
@@ -85,20 +91,14 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("isJumping", true);
             }
 
-            if (_moveDirection.y < 0)
-            {
-                _moveDirection.y = 0;
-            }
         }
 
         //applying gravity
         _moveDirection.y += Physics.gravity.y * gravityScale * Time.deltaTime;
         _animator.SetBool("isGrounded", grounded);
-
-        return _moveDirection;
     }
 
-    Vector3 Rotation()
+    void Rotation()
     {
         if (!Mathf.Approximately(_horizontal, 0f))
         {
@@ -108,6 +108,5 @@ public class PlayerController : MonoBehaviour
             // using below because of rigid body issue
             transform.forward = desiredMoveDirection;
         }
-        return _moveDirection;
     }
 }
