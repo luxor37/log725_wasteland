@@ -44,16 +44,11 @@ namespace Player
                     yMovement = jumpForce;
                 }
             }
-<<<<<<< HEAD
             else if(!isGrounded || InputController.IsJumping){
                 yMovement += Physics.gravity.y * gravityScale * Time.deltaTime;
             }
 
             
-=======
-
-            yMovement += Physics.gravity.y * gravityScale * Time.deltaTime;
->>>>>>> def7ac5797098317a073a7dd75e017fdd8a6b389
 
             return yMovement;
         }
