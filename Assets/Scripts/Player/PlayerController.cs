@@ -31,7 +31,6 @@ namespace Player
             _controller.Move(_desiredMovement * Time.deltaTime);
 
             PlayerAnimationController.Animate(_animator, _controller.isGrounded);
-            Debug.Log(_controller.isGrounded);
         }
     }
 }

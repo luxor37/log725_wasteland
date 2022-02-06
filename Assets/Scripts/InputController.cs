@@ -1,3 +1,4 @@
+using CustomAttributes;
 using UnityEngine;
 
 public enum Direction { Left, Right, Iddle }
@@ -13,6 +14,7 @@ public class InputController : MonoBehaviour
     [HideInInspector]
     public static float VerticalAxis = 0f;
     
+    [ReadOnly]
     public static Direction Direction;
 
     [HideInInspector]
