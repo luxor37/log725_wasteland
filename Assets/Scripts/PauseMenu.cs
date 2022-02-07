@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void ReturnToLobby(){
+        Debug.Log("Returning to Lobby Scene");
         SceneManager.LoadScene("Lobby");
     }
 }
