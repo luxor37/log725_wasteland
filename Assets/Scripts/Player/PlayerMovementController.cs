@@ -32,6 +32,8 @@ namespace Player
             return -InputController.HorizontalAxis * speed;
         }
 
+        private static bool canJump = true;
+
         private static float GetVerticalMovement(float y, bool isGrounded, float jumpForce, float gravityScale)
         {
             var yMovement = y;
@@ -39,12 +41,16 @@ namespace Player
             if (isGrounded)
             {
                 yMovement = 0f;
-                if (InputController.IsJumping)
-                {
-                    yMovement = jumpForce;
-                }
+                canJump = true;
             }
-            else if (!isGrounded || InputController.IsJumping)
+
+            if (InputController.IsJumping && canJump)
+            {
+                yMovement = jumpForce;
+                canJump = false;
+            }
+
+            if (!isGrounded)
             {
                 yMovement += Physics.gravity.y * gravityScale * Time.deltaTime;
             }
