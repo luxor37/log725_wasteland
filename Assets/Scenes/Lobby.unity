@@ -1879,6 +1879,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4777518717230246, guid: 03217d2f531422d4fb57d9c08df4fcc0, type: 3}
   m_PrefabInstance: {fileID: 1169244308}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &900147519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4500258782172135332, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
+  m_PrefabInstance: {fileID: 4499279862532597638}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &900147520
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900147519}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!4 &907989447 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4200914420162956, guid: 8e578596767278f40861a66c5c586eb3, type: 3}
@@ -2588,6 +2607,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1466255407}
+  - component: {fileID: 1466255409}
+  - component: {fileID: 1466255408}
   m_Layer: 0
   m_Name: Manhole
   m_TagString: Untagged
@@ -2611,6 +2632,32 @@ Transform:
   m_Father: {fileID: 1377893068}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1466255408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466255406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb748c9d332f421408221a639c577b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Level1
+--- !u!135 &1466255409
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466255406}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.574682
+  m_Center: {x: 0.024983168, y: 0, z: 0}
 --- !u!4 &1501046690 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4350831834186614, guid: 0ac3d11c8cf5cc84e842a38373f754e8, type: 3}
@@ -4320,7 +4367,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4991782439887723481, guid: d79e0ee6c7f78f44eb4a96b0b080052c, type: 3}
+    - target: {fileID: 4500258782172135332, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4503345080171662214, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
