@@ -9,7 +9,7 @@ namespace Player
             if (!Mathf.Approximately(InputController.HorizontalAxis, 0f))
             {
                 var desiredMoveDirection = Camera.main.transform.right * InputController.HorizontalAxis;
-                return Quaternion.Slerp(currentRotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+                return Quaternion.Slerp(currentRotation, Quaternion.LookRotation(desiredMoveDirection), 0.5f);
             }
             return currentRotation;
         }
