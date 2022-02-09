@@ -1187,6 +1187,23 @@ MonoBehaviour:
   yMax: 100
   xMin: -7
   xMax: 12
+--- !u!1 &542155332 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4991782438469684581, guid: d79e0ee6c7f78f44eb4a96b0b080052c, type: 3}
+  m_PrefabInstance: {fileID: 4991782437939239741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &542155337
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542155332}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!4 &591764544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4225338022271296, guid: 5e4c65eb65d67aa4d814e89ab02f861a, type: 3}
@@ -4347,6 +4364,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 123666862488781993}
+    - target: {fileID: 4991782438469684577, guid: d79e0ee6c7f78f44eb4a96b0b080052c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4991782438469684577, guid: d79e0ee6c7f78f44eb4a96b0b080052c, type: 3}
       propertyPath: m_PlaneDistance
       value: 0.1
