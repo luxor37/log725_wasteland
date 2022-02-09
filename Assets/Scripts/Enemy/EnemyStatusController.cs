@@ -15,5 +15,10 @@ namespace Enemy
         {
             base.TakeDamage(damage);
         }
+
+        public int getCurrentHealth()
+        {
+            return this.currentHealth;
+        }
     }
 }

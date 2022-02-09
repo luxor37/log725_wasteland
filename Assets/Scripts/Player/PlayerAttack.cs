@@ -34,7 +34,8 @@ namespace Player
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                Attack();
+                if(!attacking)
+                    Attack();
             }
             if (attacking)
             {
@@ -71,7 +72,7 @@ namespace Player
                 if(damagebleable != null)
                     damagebleable.TakeDamage(attack);
             }
-            //attackArea.SetActive(attacking);
+           
         }
 
         private void OnDrawGizmos()
