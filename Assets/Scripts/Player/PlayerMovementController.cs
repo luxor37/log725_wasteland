@@ -9,29 +9,9 @@ namespace Player
             if (!Mathf.Approximately(InputController.HorizontalAxis, 0f))
             {
                 var desiredMoveDirection = Camera.main.transform.right * InputController.HorizontalAxis;
-                return Quaternion.Slerp(currentRotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+                return Quaternion.Slerp(currentRotation, Quaternion.LookRotation(desiredMoveDirection), 0.5f);
             }
             return currentRotation;
-        }
-
-        public static Vector3 VerifyWorldLimits(Vector3 playerPosition){
-            if(playerPosition.y > WorldConfig.YMax){
-                playerPosition.y = WorldConfig.YMax;
-            }
-
-            if(playerPosition.y < WorldConfig.YMin){
-                playerPosition.y = WorldConfig.YMin;
-            }
-
-            if(playerPosition.x > WorldConfig.XMax){
-                playerPosition.x = WorldConfig.XMax;
-            }
-
-            if(playerPosition.x < WorldConfig.XMin){
-                playerPosition.x = WorldConfig.XMin;
-            }
-
-            return playerPosition;
         }
 
         public static Vector3 GetMovement(float y, float moveSpeed, bool isGrounded, float jumpForce, float gravityScale)
@@ -52,8 +32,6 @@ namespace Player
             return -InputController.HorizontalAxis * speed;
         }
 
-        private static bool canJump = true;
-
         private static float GetVerticalMovement(float y, bool isGrounded, float jumpForce, float gravityScale)
         {
             var yMovement = y;
@@ -61,16 +39,12 @@ namespace Player
             if (isGrounded)
             {
                 yMovement = 0f;
-                canJump = true;
+                if (InputController.IsJumping)
+                {
+                    yMovement = jumpForce;
+                }
             }
-
-            if (InputController.IsJumping && canJump)
-            {
-                yMovement = jumpForce;
-                canJump = false;
-            }
-
-            if (!isGrounded)
+            else if (!isGrounded || InputController.IsJumping)
             {
                 yMovement += Physics.gravity.y * gravityScale * Time.deltaTime;
             }

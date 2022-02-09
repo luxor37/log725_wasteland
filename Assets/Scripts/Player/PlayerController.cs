@@ -7,8 +7,7 @@ namespace Player
         private Animator _animator;
         private CharacterController _controller;
         private Vector3 _desiredMovement;
-        public bool _isGrounded = false;
-        public float y;
+        private bool _isGrounded = false;
 
 
         public float rotationSpeed = 10f;
@@ -27,17 +26,20 @@ namespace Player
         //So it is always after InputController's Update
         void LateUpdate()
         {
-            if (!PauseMenu.isGamePaused)
-            {
-                transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
-
-                _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, moveSpeed, _controller.isGrounded, jumpForce, gravityScale);
-                _controller.Move(_desiredMovement * Time.deltaTime);
-
-                transform.position = PlayerMovementController.VerifyWorldLimits(transform.position);
-
-                PlayerAnimationController.Animate(_animator, _controller.isGrounded);
+            if(!_isGrounded){
+                _isGrounded = _controller.isGrounded;
             }
+            
+            transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
+
+            _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, moveSpeed,_isGrounded, jumpForce, gravityScale);
+            _controller.Move(_desiredMovement * Time.deltaTime);
+
+            if(_desiredMovement.y >= Mathf.Abs(Physics.gravity.y * gravityScale * Time.deltaTime)){
+                _isGrounded = false;
+            }
+
+            PlayerAnimationController.Animate(_animator, _isGrounded);
         }
     }
 }
