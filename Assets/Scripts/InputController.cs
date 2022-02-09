@@ -7,25 +7,14 @@ public class InputController : MonoBehaviour
 {
     [Range(0.1f, 0.9f)]
     public float controllerDeadZone = 0.2f;
-
-    [HideInInspector]
     public static float HorizontalAxis = 0f;
-
-    [HideInInspector]
     public static float VerticalAxis = 0f;
-
     public static HorizontalDirection HorizontalDirection;
-
     public static VerticalDirection VerticalDirection;
-
-    [HideInInspector]
     public static bool IsJumping = false;
-
-    [HideInInspector]
     public static bool IsSprinting = false;
-
-    [HideInInspector]
     public static bool IsAttacking = false;
+    public static bool IsPausing = false;
 
     void Update()
     {
@@ -34,6 +23,7 @@ public class InputController : MonoBehaviour
         IsJumping = Input.GetButtonDown("Jump");
         HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
         VerticalDirection = GetVerticalDirection(VerticalAxis);
+        IsPausing = Input.GetButtonDown("Menu");
     }
 
     private float GetAxis(string axisName)

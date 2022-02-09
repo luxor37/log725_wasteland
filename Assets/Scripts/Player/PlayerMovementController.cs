@@ -14,6 +14,26 @@ namespace Player
             return currentRotation;
         }
 
+        public static Vector3 VerifyWorldLimits(Vector3 playerPosition){
+            if(playerPosition.y > WorldConfig.YMax){
+                playerPosition.y = WorldConfig.YMax;
+            }
+
+            if(playerPosition.y < WorldConfig.YMin){
+                playerPosition.y = WorldConfig.YMin;
+            }
+
+            if(playerPosition.x > WorldConfig.XMax){
+                playerPosition.x = WorldConfig.XMax;
+            }
+
+            if(playerPosition.x < WorldConfig.XMin){
+                playerPosition.x = WorldConfig.XMin;
+            }
+
+            return playerPosition;
+        }
+
         public static Vector3 GetMovement(float y, float moveSpeed, bool isGrounded, float jumpForce, float gravityScale)
         {
             var desiredMovement = new Vector3(
