@@ -27,14 +27,17 @@ namespace Player
         //So it is always after InputController's Update
         void LateUpdate()
         {
-            
-            transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
+            if (!PauseMenu.isGamePaused)
+            {
+                transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
 
-            _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, moveSpeed, _controller.isGrounded, jumpForce, gravityScale);
-            _controller.Move(_desiredMovement * Time.deltaTime);
+                _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, moveSpeed, _controller.isGrounded, jumpForce, gravityScale);
+                _controller.Move(_desiredMovement * Time.deltaTime);
 
+                transform.position = PlayerMovementController.VerifyWorldLimits(transform.position);
 
-            PlayerAnimationController.Animate(_animator,  _controller.isGrounded);
+                PlayerAnimationController.Animate(_animator, _controller.isGrounded);
+            }
         }
     }
 }
