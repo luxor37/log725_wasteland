@@ -21,12 +21,10 @@ public class PauseMenu : MonoBehaviour
     {
         if (InputController.IsPausing)
         {
-            isGamePaused = !isGamePaused;
-            menu.alpha = isGamePaused? 1: 0;
+            Pause(!isGamePaused);
+            menu.alpha = isGamePaused ? 1 : 0;
             menu.interactable = isGamePaused;
             menu.blocksRaycasts = isGamePaused;
-
-            Time.timeScale = isGamePaused ? 0 : 1;
         }
 
         if (isGamePaused)
@@ -39,21 +37,25 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    void Pause(bool isPaused)
+    {
+        isGamePaused = isPaused;
+
+        Time.timeScale = isPaused ? 0 : 1;
+    }
+
     public void Quit()
     {
-        Debug.Log("HELLLO");
-#if UNITY_EDITOR
-        Debug.Log("Quitting Editor");
+        #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Debug.Log("Quitting");
+        #else
         Application.Quit();
-#endif
+        #endif
     }
 
     public void ReturnToLobby()
     {
-        Debug.Log("Returning to Lobby Scene");
+        Pause(false);
         SceneManager.LoadScene("Lobby");
     }
 }
