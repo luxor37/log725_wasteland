@@ -1,65 +1,74 @@
-using System.Collections;
+
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 namespace Player
 {
     public class PlayerAttack : MonoBehaviour
     {
-        // public GameObject attackArea = default;
+        public Transform attackPoint;
+        public Vector3 attackRange = new Vector3(1,1,1);
+        public LayerMask enemyLayers;
+        public int attack;
+        
+        private bool attacking = false;
+        private int AttackIndex;
 
-        // private bool attacking = false;
-        // private float timeToAttack = 0.25f;
-        // private float timer = 0f;
+        private Animator _animator;
+        private PlayerController _playerController;
 
-        // private int AttackIndex;
+        // Start is called before the first frame update
+        void Start()
+        {
+            _animator = GetComponent<Animator>();
+            _playerController = GetComponent<PlayerController>();
+        }
 
-        // public List<Animation> attackAnimation;
+        // Update is called once per frame
+        void Update()
+        {
+            if (InputController.IsAttacking)
+            {
+                //TODO change this
+                if(PlayerMovementController.canJump)
+                    Attack();
+            }
+        }
+        private void Attack()
+        {
+            _animator.SetTrigger("Attack");
+            attacking = true;
+        }
 
-        // private Animator _animator;
+        private void Hit()
+        {
+            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange,Quaternion.identity, enemyLayers);
+            foreach (Collider enemies in hitEnemies)
+            {
+                Debug.Log(enemies.name);
+                IDamageble damagebleable = enemies.GetComponent<IDamageble>();
+                if(damagebleable != null)
+                    damagebleable.TakeDamage(attack);
+            }
+        }
 
-        // // Start is called before the first frame update
-        // void Start()
-        // {
-        //     attackArea = transform.GetChild(0).gameObject;
-        //     _animator = this.gameObject.GetComponentInChildren<Animator>();
-        // }
+        private void SetAttacking()
+        {
+            this.attacking = false;
+        }
 
-        // // Update is called once per frame
-        // void Update()
-        // {
-        //     if (Input.GetButtonDown("Fire1"))
-        //     {
-        //         Attack();
-        //     }
-        //     if (attacking)
-        //     {
-        //         timer += Time.deltaTime;
-        //         if (timer >= timeToAttack)
-        //         {
-        //             attacking = false;
-        //             //attackArea.SetActive(attacking);
-        //             _animator.SetBool("isAttacking",attacking);
-        //             timer = 0f;
-        //         }
-        //     }
-        // }
+        public bool GetAttacking()
+        {
+            return this.attacking;
+        }
 
-        // private void Attack()
-        // {
-        //     if (AttackIndex == 1)
-        //     {
-        //         AttackIndex = 0;
-        //     }
-        //     else
-        //     {
-        //         AttackIndex++;
-        //     }
-        //     attacking = true;
-        //     _animator.SetBool("isAttacking",attacking);
-        //     _animator.SetInteger("AttackIndex",AttackIndex);
-        //     //attackArea.SetActive(attacking);
-        // }
+        private void OnDrawGizmos()
+        {
+            if (attackPoint == null)
+                return;
+            Gizmos.DrawWireCube(attackPoint.position, attackRange);
+        }
     }
 }

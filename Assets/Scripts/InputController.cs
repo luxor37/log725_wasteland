@@ -21,6 +21,7 @@ public class InputController : MonoBehaviour
         HorizontalAxis = GetAxis("Horizontal");
         VerticalAxis = GetAxis("Vertical");
         IsJumping = Input.GetButtonDown("Jump");
+        IsAttacking = Input.GetButtonDown("Attack");
         HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
         VerticalDirection = GetVerticalDirection(VerticalAxis);
         IsPausing = Input.GetButtonDown("Menu");

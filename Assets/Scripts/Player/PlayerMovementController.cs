@@ -4,12 +4,14 @@ namespace Player
 {
     public class PlayerMovementController
     {
+        public static bool canJump = true;
+
         public static Quaternion GetRotation(Quaternion currentRotation)
         {
             if (!Mathf.Approximately(InputController.HorizontalAxis, 0f))
             {
                 var desiredMoveDirection = Camera.main.transform.right * InputController.HorizontalAxis;
-                return Quaternion.Slerp(currentRotation, Quaternion.LookRotation(desiredMoveDirection), 0.1f);
+                return Quaternion.LookRotation(desiredMoveDirection);
             }
             return currentRotation;
         }
@@ -34,6 +36,7 @@ namespace Player
             return playerPosition;
         }
 
+
         public static Vector3 GetMovement(float y, float moveSpeed, bool isGrounded, float jumpForce, float gravityScale)
         {
             var desiredMovement = new Vector3(
@@ -51,8 +54,6 @@ namespace Player
             //User input to Movement
             return -InputController.HorizontalAxis * speed;
         }
-
-        private static bool canJump = true;
 
         private static float GetVerticalMovement(float y, bool isGrounded, float jumpForce, float gravityScale)
         {
@@ -76,6 +77,7 @@ namespace Player
             }
 
             return yMovement;
+
         }
     }
 }

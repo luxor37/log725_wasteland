@@ -7,8 +7,7 @@ namespace Player
         private Animator _animator;
         private CharacterController _controller;
         private Vector3 _desiredMovement;
-        public bool _isGrounded = false;
-        public float y;
+        private bool _isGrounded = false;
 
 
         public float rotationSpeed = 10f;
@@ -16,12 +15,14 @@ namespace Player
         public float jumpForce = 10f;
         public float gravityScale = 1f;
 
+        private PlayerAttack _playerAttack;
 
         // Start is called before the first frame update
         void Start()
         {
             _controller = GetComponent<CharacterController>();
             _animator = GetComponentInChildren<Animator>();
+            _playerAttack = GetComponent<PlayerAttack>();
         }
 
         //So it is always after InputController's Update
@@ -38,6 +39,13 @@ namespace Player
 
                 PlayerAnimationController.Animate(_animator, _controller.isGrounded);
             }
+
         }
+
+        public bool getIsGrounded()
+        {
+            return this._isGrounded;
+        }
+
     }
 }
