@@ -1,29 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace Player
 {
     public class PlayerUIController : MonoBehaviour
     {
         public Slider HPStrip;
-        private int currentHP;
-        private int maxHP;
+        private GameEntity entity;
 
         // Start is called before the first frame update
-        void Awake()
+        void Start()
         {
-            HPStrip.value = currentHP;
+            entity = gameObject.GetComponent<GameEntity>();
+
+            HPStrip.maxValue = entity.maxHealth;
         }
 
         // Update is called once per frame
         void Update()
         {
-        
+            HPStrip.value = entity.currentHealth;;
         }
 
         void getHP()
         {
-        
+
         }
     }
 }

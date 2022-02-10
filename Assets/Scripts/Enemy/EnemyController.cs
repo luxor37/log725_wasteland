@@ -45,4 +45,13 @@ public class EnemyController : MonoBehaviour
             _animator.SetBool("isWalking", false);
         }
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.name);
+        if (other.name == "Player_Rui"){
+            var statusCtrl = other.gameObject.GetComponent<Player.PlayerStatusController>();
+            statusCtrl.TakeDamage(100);
+        }
+    }
 }

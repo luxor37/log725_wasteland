@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameEntity : MonoBehaviour, IDamageble
 {
     public int maxHealth;
-    [SerializeField] protected int currentHealth;
+    public int currentHealth;
     protected bool isDead;
 
     //Action when an entity dead

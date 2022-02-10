@@ -47,7 +47,7 @@ namespace Player
             Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange,Quaternion.identity, enemyLayers);
             foreach (Collider enemies in hitEnemies)
             {
-                Debug.Log(enemies.name);
+                // Debug.Log(enemies.name);
                 IDamageble damagebleable = enemies.GetComponent<IDamageble>();
                 if(damagebleable != null)
                     damagebleable.TakeDamage(attack);

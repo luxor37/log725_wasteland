@@ -13,12 +13,6 @@ namespace Player
             _animator = this.gameObject.GetComponent<Animator>();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-
         public void TakeDamage(int damage)
         {
             base.TakeDamage(damage);
