@@ -28,23 +28,18 @@ namespace Player
         //So it is always after InputController's Update
         void LateUpdate()
         {
-            if(!_isGrounded){
-                _isGrounded = _controller.isGrounded;
-            }
-            
-            transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
+            if (!PauseMenu.isGamePaused)
+            {
+                transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
 
-            _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, moveSpeed,_isGrounded, jumpForce, gravityScale);
+                _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, moveSpeed, _controller.isGrounded, jumpForce, gravityScale);
+                _controller.Move(_desiredMovement * Time.deltaTime);
 
-   
-            _controller.Move(_desiredMovement * Time.deltaTime);
-            
+                transform.position = PlayerMovementController.VerifyWorldLimits(transform.position);
 
-            if(_desiredMovement.y >= Mathf.Abs(Physics.gravity.y * gravityScale * Time.deltaTime)){
-                _isGrounded = false;
+                PlayerAnimationController.Animate(_animator, _controller.isGrounded);
             }
 
-            PlayerAnimationController.Animate(_animator, _isGrounded);
         }
 
         public bool getIsGrounded()

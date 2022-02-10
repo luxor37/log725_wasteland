@@ -29,9 +29,10 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.G) )
+            if (InputController.IsAttacking)
             {
-                if(_playerController.getIsGrounded())
+                //TODO change this
+                if(PlayerMovementController.canJump)
                     Attack();
             }
         }

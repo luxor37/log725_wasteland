@@ -4,15 +4,38 @@ namespace Player
 {
     public class PlayerMovementController
     {
+        public static bool canJump = true;
+
         public static Quaternion GetRotation(Quaternion currentRotation)
         {
             if (!Mathf.Approximately(InputController.HorizontalAxis, 0f))
             {
                 var desiredMoveDirection = Camera.main.transform.right * InputController.HorizontalAxis;
-                return Quaternion.Slerp(currentRotation, Quaternion.LookRotation(desiredMoveDirection), 0.5f);
+                return Quaternion.LookRotation(desiredMoveDirection);
             }
             return currentRotation;
         }
+
+        public static Vector3 VerifyWorldLimits(Vector3 playerPosition){
+            if(playerPosition.y > WorldConfig.YMax){
+                playerPosition.y = WorldConfig.YMax;
+            }
+
+            if(playerPosition.y < WorldConfig.YMin){
+                playerPosition.y = WorldConfig.YMin;
+            }
+
+            if(playerPosition.x > WorldConfig.XMax){
+                playerPosition.x = WorldConfig.XMax;
+            }
+
+            if(playerPosition.x < WorldConfig.XMin){
+                playerPosition.x = WorldConfig.XMin;
+            }
+
+            return playerPosition;
+        }
+
 
         public static Vector3 GetMovement(float y, float moveSpeed, bool isGrounded, float jumpForce, float gravityScale)
         {
@@ -39,17 +62,22 @@ namespace Player
             if (isGrounded)
             {
                 yMovement = 0f;
-                if (InputController.IsJumping)
-                {
-                    yMovement = jumpForce;
-                }
+                canJump = true;
             }
-            else if (!isGrounded || InputController.IsJumping)
+
+            if (InputController.IsJumping && canJump)
+            {
+                yMovement = jumpForce;
+                canJump = false;
+            }
+
+            if (!isGrounded)
             {
                 yMovement += Physics.gravity.y * gravityScale * Time.deltaTime;
             }
 
             return yMovement;
+
         }
     }
 }
