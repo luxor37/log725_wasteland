@@ -15,12 +15,14 @@ namespace Player
         public float jumpForce = 10f;
         public float gravityScale = 1f;
 
+        private PlayerAttack _playerAttack;
 
         // Start is called before the first frame update
         void Start()
         {
             _controller = GetComponent<CharacterController>();
             _animator = GetComponentInChildren<Animator>();
+            _playerAttack = GetComponent<PlayerAttack>();
         }
 
         //So it is always after InputController's Update
@@ -33,7 +35,10 @@ namespace Player
             transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
 
             _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, moveSpeed,_isGrounded, jumpForce, gravityScale);
+
+   
             _controller.Move(_desiredMovement * Time.deltaTime);
+            
 
             if(_desiredMovement.y >= Mathf.Abs(Physics.gravity.y * gravityScale * Time.deltaTime)){
                 _isGrounded = false;
@@ -41,5 +46,11 @@ namespace Player
 
             PlayerAnimationController.Animate(_animator, _isGrounded);
         }
+
+        public bool getIsGrounded()
+        {
+            return this._isGrounded;
+        }
+
     }
 }

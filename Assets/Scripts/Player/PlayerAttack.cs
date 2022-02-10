@@ -17,11 +17,13 @@ namespace Player
         private int AttackIndex;
 
         private Animator _animator;
+        private PlayerController _playerController;
 
         // Start is called before the first frame update
         void Start()
         {
-            _animator = this.gameObject.GetComponentInChildren<Animator>();
+            _animator = GetComponent<Animator>();
+            _playerController = GetComponent<PlayerController>();
         }
 
         // Update is called once per frame
@@ -29,12 +31,14 @@ namespace Player
         {
             if (Input.GetKeyDown(KeyCode.G) )
             {
-                Attack();
+                if(_playerController.getIsGrounded())
+                    Attack();
             }
         }
         private void Attack()
         {
             _animator.SetTrigger("Attack");
+            attacking = true;
         }
 
         private void Hit()
@@ -47,6 +51,16 @@ namespace Player
                 if(damagebleable != null)
                     damagebleable.TakeDamage(attack);
             }
+        }
+
+        private void SetAttacking()
+        {
+            this.attacking = false;
+        }
+
+        public bool GetAttacking()
+        {
+            return this.attacking;
         }
 
         private void OnDrawGizmos()
