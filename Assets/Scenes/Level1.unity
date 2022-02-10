@@ -2423,7 +2423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 322d6962b7949b0409331628f1720244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 573739261}
 --- !u!4 &1134988066 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4613649733699380, guid: 78c3f73ed790607479ab45a5f5f0d4e9, type: 3}
@@ -4135,6 +4135,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4835256697444204807, guid: fa8611dfc6ae49e44a82d621c4f1221f, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4835279459468091789, guid: fa8611dfc6ae49e44a82d621c4f1221f, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -4342,6 +4346,14 @@ PrefabInstance:
     - target: {fileID: 4836530578060153565, guid: fa8611dfc6ae49e44a82d621c4f1221f, type: 3}
       propertyPath: rotationSpeed
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836530578060153566, guid: fa8611dfc6ae49e44a82d621c4f1221f, type: 3}
+      propertyPath: attack
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836530578060153566, guid: fa8611dfc6ae49e44a82d621c4f1221f, type: 3}
+      propertyPath: AttackRate
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4836530578674131453, guid: fa8611dfc6ae49e44a82d621c4f1221f, type: 3}
       propertyPath: m_Layer
