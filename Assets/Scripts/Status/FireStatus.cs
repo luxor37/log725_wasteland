@@ -12,14 +12,17 @@ namespace Status
         public int curStacks = 0;
         public int initialDmg = 0;
         public int perSecDmg = 50;
+        public string particleToSpawn = "FX_Fire_01";
+
 
         public FireStatus(StatusController controller) : base(controller)
         {
+            name = "Fire";
         }
 
         private void Start()
         {
-           
+            
         }
 
         public override void StatusTick(float deltaTime)
@@ -34,6 +37,8 @@ namespace Status
                 _controller.TakeDamage(perSecDmg);
                 lastTick = timer;
             }
+
+            _controller.SetParticleSystem(particleToSpawn, duration);
 
             timer += deltaTime;
             if (timer > duration)

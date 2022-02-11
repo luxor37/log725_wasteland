@@ -9,7 +9,7 @@ namespace Status
     public class StatusController : GameEntity
     {
         private Animator _animator;
-
+        private ParticlesController _particlesController;
         private bool isHit;
 
         public List<IStatus> statuses;
@@ -25,13 +25,14 @@ namespace Status
         {
             base.Start();
             _animator = GetComponent<Animator>();
+            _particlesController = GetComponent<ParticlesController>();
             statuses = new List<IStatus>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            foreach (IStatus status in statuses)
+            foreach (IStatus status in statuses.ToArray())
             {
                 status.StatusTick(Time.deltaTime);
             }
@@ -45,28 +46,20 @@ namespace Status
         public void AddStatus(IStatus status)
         {
             // check duplicate first
-            //foreach (IStatus s in statuses)
-            //{
-           //     if (s.GetName().Equals(status.GetName()))
-          //      {
-          //          s.AddStack(1);
-         //           return;
-           //     }
-           // }
+            foreach (IStatus s in statuses)
+            {
+                if (s.GetName().Equals(status.GetName()))
+                {
+                    s.AddStack(1);
+                    return;
+                }
+            }
             statuses.Add(status);
         }
 
         public void EndStatus(string name)
-        {
-            //foreach (IStatus s in statuses)
-           // {
-            //    if (s.GetName().Equals(name))
-            //    {
-           //         statuses.Remove(s);
-            //    }
-           // }
-            statuses = new List<IStatus>();
-
+        {         
+            statuses.Remove(statuses.Find(s => s.GetName() == name));
         }
 
         public void TakeDamage(int damage)
@@ -93,6 +86,12 @@ namespace Status
         public void ResetHit()
         {
             isHit = false;
+        }
+
+        public void SetParticleSystem(string name, float duration)
+        {
+            if (_particlesController)
+                _particlesController.ChangeParticles(name, duration);
         }
 
         public void SetAnimationState(string name, bool state)

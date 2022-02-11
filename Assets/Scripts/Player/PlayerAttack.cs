@@ -51,7 +51,7 @@ namespace Player
                 IDamageble damagebleable = enemy.GetComponent<IDamageble>();
                 if(damagebleable != null)
                 {
-                    // damagebleable.TakeDamage(attack);
+                    damagebleable.TakeDamage(attack);
                     var enemyStatusController = enemy.GetComponent<Status.StatusController>();
                     // TODO: be able to change this with element attack system
                     var newStatus = new Status.FireStatus(enemyStatusController);
