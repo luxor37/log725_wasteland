@@ -45,12 +45,21 @@ namespace Player
         private void Hit()
         {
             Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange,Quaternion.identity, enemyLayers);
-            foreach (Collider enemies in hitEnemies)
+            foreach (Collider enemy in hitEnemies)
             {
                 // Debug.Log(enemies.name);
-                IDamageble damagebleable = enemies.GetComponent<IDamageble>();
+                IDamageble damagebleable = enemy.GetComponent<IDamageble>();
                 if(damagebleable != null)
-                    damagebleable.TakeDamage(attack);
+                {
+                    // damagebleable.TakeDamage(attack);
+                    var enemyStatusController = enemy.GetComponent<Status.StatusController>();
+                    // TODO: be able to change this with element attack system
+                    var newStatus = new Status.FireStatus(enemyStatusController);
+                    newStatus.initialDmg = attack;
+                    enemyStatusController.AddStatus(newStatus);
+                    enemyStatusController.Knockback();
+                }
+                    
             }
         }
 
