@@ -2,11 +2,58 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerMovementController
+    public class PlayerMovementController : MonoBehaviour
     {
-        public static bool canJump = true;
+        private CharacterController _controller;
+        private Vector3 _desiredMovement;
+        private static bool _isGrounded = false;
+        
+        public float jumpForce = 10f;
+        public float gravityScale = 1f;
+        private static bool isJumping = false;
+        
 
-        public static Quaternion GetRotation(Quaternion currentRotation)
+        private PlayerCharacter _character;
+        private Animator _animator;
+        
+        // Start is called before the first frame update
+        void Start()
+        {
+            _controller = GetComponent<CharacterController>();
+            _animator = GetComponent<Animator>();
+            _character = this.gameObject.GetComponent<PlayerCharacter>();
+        }
+
+        //So it is always after InputController's Update
+        void LateUpdate()
+        {
+            if (!PauseMenu.isGamePaused)
+            {
+                transform.rotation = GetRotation(transform.rotation);
+
+                _desiredMovement = GetMovement(_desiredMovement.y, _character.movementSpeed, _controller.isGrounded, jumpForce, gravityScale);
+                _controller.Move(_desiredMovement * Time.deltaTime);
+                transform.position = VerifyWorldLimits(transform.position);
+
+                bool hasHorizontal = !Mathf.Approximately(InputController.HorizontalAxis, 0.0f);
+                _animator.SetBool("isRunning", hasHorizontal);
+
+                if(!_controller.isGrounded && InputController.IsJumping){
+                    isJumping = true;
+                }
+                if(_controller.isGrounded){
+                    if(InputController.IsJumping)
+                        isJumping = true;
+                    isJumping = false;
+                }
+
+                _animator.SetBool("isJumping",isJumping);
+                _animator.SetBool("isGrounded", _controller.isGrounded);
+            }
+
+        }
+
+        public Quaternion GetRotation(Quaternion currentRotation)
         {
             if (!Mathf.Approximately(InputController.HorizontalAxis, 0f))
             {
@@ -16,7 +63,7 @@ namespace Player
             return currentRotation;
         }
 
-        public static Vector3 VerifyWorldLimits(Vector3 playerPosition){
+        public Vector3 VerifyWorldLimits(Vector3 playerPosition){
             if(playerPosition.y > WorldConfig.YMax){
                 playerPosition.y = WorldConfig.YMax;
             }
@@ -37,7 +84,7 @@ namespace Player
         }
 
 
-        public static Vector3 GetMovement(float y, float moveSpeed, bool isGrounded, float jumpForce, float gravityScale)
+        public  Vector3 GetMovement(float y, float moveSpeed, bool isGrounded, float jumpForce, float gravityScale)
         {
             var desiredMovement = new Vector3(
                 GetHorizontalMovement(moveSpeed),
@@ -47,7 +94,7 @@ namespace Player
             return desiredMovement;
         }
 
-        private static float GetHorizontalMovement(float moveSpeed)
+        private  float GetHorizontalMovement(float moveSpeed)
         {
             float speed = InputController.IsSprinting ? moveSpeed * 2f : moveSpeed;
 
@@ -55,20 +102,20 @@ namespace Player
             return -InputController.HorizontalAxis * speed;
         }
 
-        private static float GetVerticalMovement(float y, bool isGrounded, float jumpForce, float gravityScale)
+        private  float GetVerticalMovement(float y, bool isGrounded, float jumpForce, float gravityScale)
         {
             var yMovement = y;
 
             if (isGrounded)
             {
                 yMovement = 0f;
-                canJump = true;
+                _character.CanJump = true;
             }
 
-            if (InputController.IsJumping && canJump)
+            if (InputController.IsJumping && _character.CanJump)
             {
                 yMovement = jumpForce;
-                canJump = false;
+                _character.CanJump = false;
             }
 
             if (!isGrounded)
@@ -79,5 +126,6 @@ namespace Player
             return yMovement;
 
         }
+
     }
 }

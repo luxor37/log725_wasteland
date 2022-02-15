@@ -1,12 +1,13 @@
 
 using System;
 using System.Collections.Generic;
+using Enemy;
 using UnityEngine;
 
 
 namespace Player
 {
-    public class PlayerAttack : MonoBehaviour
+    public class PlayerAttackController : MonoBehaviour
     {
         public Transform attackPoint;
         public Vector3 attackRange = new Vector3(1,1,1);
@@ -17,13 +18,13 @@ namespace Player
         private int AttackIndex;
 
         private Animator _animator;
-        private PlayerController _playerController;
+        private PlayerCharacter _playerCharacter;
 
         // Start is called before the first frame update
         void Start()
         {
             _animator = GetComponent<Animator>();
-            _playerController = GetComponent<PlayerController>();
+            _playerCharacter = this.gameObject.GetComponent<PlayerCharacter>();
         }
 
         // Update is called once per frame
@@ -32,7 +33,7 @@ namespace Player
             if (InputController.IsAttacking)
             {
                 //TODO change this
-                if(PlayerMovementController.canJump)
+                if(_playerCharacter.CanJump)
                     Attack();
             }
         }
@@ -42,28 +43,32 @@ namespace Player
             attacking = true;
         }
 
-        private void Hit()
+        private void Hit(Attack atk)
         {
-            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange,Quaternion.identity, enemyLayers);
-            foreach (Collider enemies in hitEnemies)
+            if (atk.AttackType == AttackType.Aoe)
             {
-                // Debug.Log(enemies.name);
-                IDamageble damagebleable = enemies.GetComponent<IDamageble>();
-                if(damagebleable != null)
-                    damagebleable.TakeDamage(attack);
+                Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange,Quaternion.identity, enemyLayers);
+                foreach (Collider enemies in hitEnemies)
+                {
+                    //TODO : play vfx
+                    //TODO : play sound
+                    enemies.GetComponent<EnemyCharacter>().TakeDamage(atk);
+                }
             }
+            else if(atk.AttackType == AttackType.Single)
+            {
+                //TODO : use Raycast 
+            }
+
+
         }
 
-        private void SetAttacking()
+        public void MeleeAttack()
         {
-            this.attacking = false;
+            Attack atk = new Attack(_playerCharacter.basicAttack, AttackType.Aoe, AttackForm.Melee, attackPoint, null, null,CharacterElement.Fire);
+            Hit(atk);
         }
-
-        public bool GetAttacking()
-        {
-            return this.attacking;
-        }
-
+        
         private void OnDrawGizmos()
         {
             if (attackPoint == null)

@@ -3010,6 +3010,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2778268930956006104, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
   m_PrefabInstance: {fileID: 2778268929612104251}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1345048804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345048803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d99a170742544f795d0bd227de3932e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: 
+  maxHealth: 1000
+  currentHealth: 0
+  basicAttack: 10
+  movementSpeed: 5
 --- !u!1001 &1364322599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3467,7 +3484,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadfc16a8ed266f4ebc9461cf0a3ad1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1345048803}
   stopDistance: 2
 --- !u!114 &1473739826
 MonoBehaviour:
@@ -3481,8 +3497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6387542a8b9b23f4ba37cf52d119ffb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
-  currentHealth: 1000
 --- !u!1001 &1479058062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5064,7 +5078,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2778268930956006097, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.123
       objectReference: {fileID: 0}
     - target: {fileID: 2778268930956006097, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9640,6 +9654,7 @@ GameObject:
   - component: {fileID: 1473739819}
   - component: {fileID: 1473739820}
   - component: {fileID: 1473739826}
+  - component: {fileID: 4876447099192923861}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Untagged
@@ -9647,6 +9662,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4876447099192923861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4876447099192923860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebddda3e421c4833acda17b2d76d5f45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterName: 
+  maxHealth: 1000
+  currentHealth: 0
+  basicAttack: 10
+  movementSpeed: 5
+  _target: {fileID: 1345048803}
 --- !u!1 &4876467373567815578
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,43 +1,21 @@
-﻿using Player;
+﻿using System;
+using System.Runtime.Serialization;
+using Player;
 using UnityEditor;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyStatusController : GameEntity, IknockBack
+    public class EnemyStatusController : MonoBehaviour
     {
+        private EnemyCharacter _enemyCharacter;
         private Animator _animator;
 
-        private bool isHit;
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
+            _enemyCharacter = this.gameObject.GetComponent<EnemyCharacter>();
             _animator = GetComponent<Animator>();
         }
-
-        public override void TakeDamage(int damage)
-        {
-            base.TakeDamage(damage);
-            Knockback();
-        }
-
-        public int getCurrentHealth()
-        {
-            return this.currentHealth;
-        }
-
-        public void Knockback()
-        {
-            if (!isHit)
-            {
-                isHit = true;
-                _animator.SetTrigger("isHit");
-            }
-        }
-
-        public void ResetHit()
-        {
-            isHit = false;
-        }
+        
     }
 }

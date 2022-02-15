@@ -2,11 +2,20 @@
 using Player;
 using UnityEngine;
 
-public class GameEntity : MonoBehaviour, IDamageble
+public class GameCharacter : MonoBehaviour
 {
+    public String CharacterName;
     public int maxHealth;
-    public int currentHealth;
-    protected bool isDead;
+    [SerializeField]protected int currentHealth;
+    public int basicAttack;
+    public int movementSpeed;
+    private Vector3 movementDirection;
+
+    protected bool isAttacking;
+    protected bool isHit = false;
+    protected bool isDead = false;
+
+    protected GameObject characterObject;
 
     //Action when an entity dead
     public event Action onDeath;
@@ -15,13 +24,13 @@ public class GameEntity : MonoBehaviour, IDamageble
     {
         currentHealth = maxHealth;
     }
-    
+
     //When call Die(), we trigger onDeath event
     protected void Die()
     {
         isDead = true;
-        Destroy(this.gameObject);
-        
+
+        Destroy(gameObject);
         if (onDeath != null)
             onDeath();
     }
@@ -39,4 +48,13 @@ public class GameEntity : MonoBehaviour, IDamageble
     {
         return 0;
     }
+
+    public virtual void knockBack()
+    {
+        if (!isHit)
+        {
+            isHit = true;
+        }
+    }
+
 }

@@ -1,27 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class EnemyMovementController : MonoBehaviour
 {
-    private NavMeshAgent _navMeshAgent;
-    public GameObject _target;
+    private EnemyCharacter _enemyCharacter;
     private Animator _animator;
+    private NavMeshAgent _navMeshAgent;
+    public float stopDistance;
 
-    public float stopDistance = 2f;
-    
     // Start is called before the first frame update
     private void Start()
     {
-        
-    }
-
-    private void Awake()
-    {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _enemyCharacter = this.gameObject.GetComponent<EnemyCharacter>();
         _animator = GetComponent<Animator>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -32,7 +28,7 @@ public class EnemyController : MonoBehaviour
 
     void move()
     {
-        _navMeshAgent.SetDestination(_target.transform.position);
+        _navMeshAgent.SetDestination(_enemyCharacter.Target.transform.position);
         float remainingDistance = _navMeshAgent.remainingDistance;
         _navMeshAgent.stoppingDistance = stopDistance;
 
@@ -46,12 +42,4 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.name);
-        if (other.name == "Player_Rui"){
-            var statusCtrl = other.gameObject.GetComponent<Player.PlayerStatusController>();
-            statusCtrl.TakeDamage(100);
-        }
-    }
 }
