@@ -9,12 +9,12 @@ public class EnemyUIController : MonoBehaviour
     public Slider healthBar;
     public Gradient _Gradient;
     public Image GradientHP;
-    private EnemyStatusController _enemyStatusController;
+    private Status.StatusController _enemyStatusController;
     
     // Start is called before the first frame update
     void Start()
     {
-        _enemyStatusController = this.gameObject.GetComponent<EnemyStatusController>();
+        _enemyStatusController = this.gameObject.GetComponent<Status.StatusController>();
         healthBar.maxValue = _enemyStatusController.maxHealth;
         healthBar.value = _enemyStatusController.getCurrentHealth();
     }
