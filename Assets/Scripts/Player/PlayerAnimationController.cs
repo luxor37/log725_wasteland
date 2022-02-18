@@ -13,6 +13,7 @@ namespace Player
             if(!isGrounded && InputController.IsJumping){
                 isJumping = true;
             }
+
             if(isGrounded){
                 if(InputController.IsJumping)
                     isJumping = true;

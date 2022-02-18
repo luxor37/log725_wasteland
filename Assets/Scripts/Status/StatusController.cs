@@ -45,6 +45,8 @@ namespace Status
 
         public void AddStatus(IStatus status)
         {
+            if (status == null)
+                return;
             // check duplicate first
             foreach (IStatus s in statuses)
             {
@@ -67,6 +69,17 @@ namespace Status
             // adjust damage based on stats, buffs, etc
             // call TakeDamage from component (GameEntity for now)
             base.TakeDamage(damage);
+        }
+
+        public void TakeHeal(int heal)
+        {
+            // TODO do this better
+            base.TakeDamage(-heal);
+        }
+
+        public void AttackMultiplier(float multiplier)
+        {
+            // TODO find player and enemy attack controller - implement inheritance?
         }
 
         public int getCurrentHealth()

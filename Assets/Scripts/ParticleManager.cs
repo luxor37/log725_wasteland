@@ -7,16 +7,31 @@ public class ParticleManager : MonoBehaviour
 
     public List<ParticleSystem> particles = new List<ParticleSystem>();
 
-    // Start is called before the first frame update
-    void Start()
+
+    private static ParticleManager instance = null;
+
+
+
+
+    private void Awake()
     {
-        
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public static ParticleManager Instance
     {
-        
+        get
+        {
+            return instance;
+        }
+
     }
 
     public ParticleSystem GetParticle(string name)

@@ -12,6 +12,11 @@ public class ParticlesController : MonoBehaviour
     float duration;
     string curParticleName;
 
+    private void Start()
+    {
+        particleManager = ParticleManager.Instance;    
+    }
+
     public void ChangeParticles(string name, float duration)
     {
         if (curParticleSystem && curParticleName == name)
