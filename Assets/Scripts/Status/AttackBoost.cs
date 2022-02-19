@@ -9,9 +9,9 @@ namespace Status
         public float duration = 5f;
         public int maxStacks = 1;
         public int curStacks = 0;
-        public int initialBoost = 50;
-        public int perSecBoost = 0;
-        // public string particleToSpawn = "";
+        public int flatBoost = 50;
+        public int multiBoost = 2;
+        public string particleToSpawn = "Fx_Sparks_01";
 
 
         public AttackBoost(StatusController controller) : base(controller)
@@ -27,20 +27,22 @@ namespace Status
         public override void StatusTick(float deltaTime)
         {
             // damage
-            if (timer == 0f && initialDmg > 0f)
+            if (timer == 0f)
             {
-                _controller.AttackMultiplier(initialBoost);
+                _controller.AttackMultiplier(multiBoost, flatBoost);
+                _controller.SetParticleSystem(particleToSpawn, duration);
             }
-            else if (timer - lastTick > 1f && perSecDmg > 0f)
+            else if (timer - lastTick > 1f)
             {
                 lastTick = timer;
             }
 
-            _controller.SetParticleSystem(particleToSpawn, duration);
+            
 
             timer += deltaTime;
             if (timer > duration)
             {
+                _controller.AttackMultiplierRevert(multiBoost, flatBoost);
                 EndStatus();
             }
 

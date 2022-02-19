@@ -31,6 +31,7 @@ namespace Status
             if (timer == 0f && initialDmg > 0f)
             {
                 _controller.TakeDamage(initialDmg);
+                _controller.SetParticleSystem(particleToSpawn, duration);
             } else if (timer - lastTick > 1f && perSecDmg > 0f)
             {
                 Debug.Log("tick dmg");
@@ -38,7 +39,7 @@ namespace Status
                 lastTick = timer;
             }
 
-            _controller.SetParticleSystem(particleToSpawn, duration);
+           
 
             timer += deltaTime;
             if (timer > duration)

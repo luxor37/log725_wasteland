@@ -26,18 +26,19 @@ namespace Status
         public override void StatusTick(float deltaTime)
         {
             // damage
-            if (timer == 0f && initialDmg > 0f)
+            if (timer == 0f)
             {
                 _controller.TakeHeal(initialHeal);
+                _controller.SetParticleSystem(particleToSpawn, duration);
             }
-            else if (timer - lastTick > 1f && perSecDmg > 0f)
+            else if (timer - lastTick > 1f && perSecHeal > 0f)
             {
                 Debug.Log("tick dmg");
                 _controller.TakeHeal(perSecHeal);
                 lastTick = timer;
             }
 
-            _controller.SetParticleSystem(particleToSpawn, duration);
+            
 
             timer += deltaTime;
             if (timer > duration)

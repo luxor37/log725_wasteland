@@ -19,6 +19,7 @@ public class GameEntity : MonoBehaviour, IDamageble
     //When call Die(), we trigger onDeath event
     protected void Die()
     {
+        Debug.Log(gameObject.name + " Died");
         isDead = true;
         Destroy(this.gameObject);
         

@@ -77,9 +77,18 @@ namespace Status
             base.TakeDamage(-heal);
         }
 
-        public void AttackMultiplier(float multiplier)
+        public void AttackMultiplier(int multiplier, int flat)
         {
-            // TODO find player and enemy attack controller - implement inheritance?
+          
+            gameObject.GetComponent<Player.PlayerAttack>().attack *= multiplier;
+            gameObject.GetComponent<Player.PlayerAttack>().attack += flat;
+            
+        }
+
+        public void AttackMultiplierRevert(int multiplier, int flat)
+        {
+            gameObject.GetComponent<Player.PlayerAttack>().attack -= flat;
+            gameObject.GetComponent<Player.PlayerAttack>().attack /= multiplier;
         }
 
         public int getCurrentHealth()
