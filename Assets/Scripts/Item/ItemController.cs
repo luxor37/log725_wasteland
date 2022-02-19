@@ -10,7 +10,6 @@ public class ItemController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("player collided with item");
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("player collided with item");
