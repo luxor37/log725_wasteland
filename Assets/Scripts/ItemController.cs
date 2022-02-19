@@ -6,23 +6,18 @@ public class ItemController : MonoBehaviour
 {
 
     Status.IStatus ItemStatus;
+    public string statusName;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        Debug.Log("player collided with item");
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("player collided with item");
+            var controller = other.GetComponent<Status.StatusController>();
+            ItemStatus = StatusManager.Instance.GetNewStatusObject(statusName, controller);
+            controller.AddStatus(ItemStatus);
+            Destroy(gameObject);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OnPlayerEnter()
-    {
-
-    }
-
-
 }

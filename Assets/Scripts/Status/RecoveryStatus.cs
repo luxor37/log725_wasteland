@@ -10,7 +10,7 @@ namespace Status
         public int curStacks = 0;
         public int initialHeal = 0;
         public int perSecHeal = 50;
-       // public string particleToSpawn = "";
+        public string particleToSpawn = "FX_BloodSplat_01";
 
 
         public RecoveryStatus(StatusController controller) : base(controller)
