@@ -48,8 +48,7 @@ public class EnemyController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
-        if (other.name == "Player_Rui"){
+        if (other.name == "Player"){
             var statusCtrl = other.gameObject.GetComponent<Player.PlayerStatusController>();
             statusCtrl.TakeDamage(100);
         }
