@@ -39,7 +39,7 @@ class ProjectileController : MonoBehaviour
             
             other.GetComponent<Status.StatusController>().AddStatus(new Status.FireStatus(other.GetComponent<Status.StatusController>()));
         }
-
-        Destroy(gameObject);
+        if (other.gameObject.tag != "Player")
+            Destroy(gameObject);
     }
 }
