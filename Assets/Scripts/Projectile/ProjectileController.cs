@@ -33,12 +33,12 @@ class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.layer.Equals(targetLayer.value));
-       // if (other.gameObject.layer.ToString() == "Enemy")
-       // {
+       
+       if (targetLayer.value == (targetLayer.value | (1 << other.gameObject.layer)))
+        {
             
             other.GetComponent<Status.StatusController>().AddStatus(new Status.FireStatus(other.GetComponent<Status.StatusController>()));
-       // }
+        }
 
         Destroy(gameObject);
     }

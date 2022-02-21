@@ -8,22 +8,26 @@ namespace Player
 {
     public class PlayerAttack : MonoBehaviour
     {
+        public enum AttackType { MELEE = 0, RANGED = 1 };
+
         public Transform attackPoint;
         public Vector3 attackRange = new Vector3(1,1,1);
         public LayerMask enemyLayers;
         public int attack;
-        
+        public AttackType attackType;
         private bool attacking = false;
         private int AttackIndex;
 
         private Animator _animator;
         private PlayerController _playerController;
+        private InputController _inputController;
 
         // Start is called before the first frame update
         void Start()
         {
             _animator = GetComponent<Animator>();
             _playerController = GetComponent<PlayerController>();
+            _inputController = GetComponent<InputController>();
         }
 
         // Update is called once per frame
@@ -31,14 +35,27 @@ namespace Player
         {
             if (InputController.IsAttacking)
             {
+                attackType = (AttackType)(_inputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
+                Debug.Log(attackType);
                 //TODO change this
-                if(PlayerMovementController.canJump)
+                if(PlayerMovementController.canJump && attackType == AttackType.MELEE)
                     Attack();
+
+                if (attackType == AttackType.RANGED)
+                    RangeAttack();
             }
         }
         private void Attack()
         {
             _animator.SetTrigger("Attack");
+            attacking = true;
+        }
+
+        private void RangeAttack()
+        {
+            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("FireProjectile");
+            newProjectile.GetComponent<ProjectileController>().direction = transform.forward;
+            Instantiate(newProjectile, attackPoint.position, attackPoint.rotation);
             attacking = true;
         }
 

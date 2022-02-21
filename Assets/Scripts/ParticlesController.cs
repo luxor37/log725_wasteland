@@ -28,20 +28,7 @@ public class ParticlesController : MonoBehaviour
 
     public void ChangeParticles(string name, float duration)
     {
-        Debug.Log("change particles");
-        /**
-        if (curParticleSystem && curParticleName == name)
-            return;
-       
-        curParticleSystem = particleManager.GetParticle(name);
-        if (curParticleSystem != null)
-        {
-            timer = 0f;
-            this.duration = duration;
-            curParticleSystem = Instantiate(curParticleSystem, gameObject.transform);
-            curParticleName = name;
-        }
-        */
+
         if (particlesMap.ContainsKey(name))
             return;
         var newParticles = particleManager.GetParticle(name);
@@ -68,14 +55,6 @@ public class ParticlesController : MonoBehaviour
                 maxDurationMap.Remove(name);
             }
         }
-        /**
-        timer += Time.deltaTime;
-        if (timer > duration && curParticleSystem)
-        {
-            Destroy(curParticleSystem);
-            curParticleSystem = null;
-        }
-        */
             
     }
 }

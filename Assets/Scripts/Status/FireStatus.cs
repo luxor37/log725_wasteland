@@ -28,7 +28,7 @@ namespace Status
         public override void StatusTick(float deltaTime)
         {
             // damage
-            if (timer == 0f && initialDmg > 0f)
+            if (timer == 0f)
             {
                 _controller.TakeDamage(initialDmg);
                 _controller.SetParticleSystem(particleToSpawn, duration);

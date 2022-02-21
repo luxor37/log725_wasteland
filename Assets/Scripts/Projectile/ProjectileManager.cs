@@ -6,7 +6,7 @@ namespace Projectile
 {
     public class ProjectileManager : MonoBehaviour
     {
-        List<GameObject> projectiles;
+        public List<GameObject> projectiles;
 
         static ProjectileManager instance;
 
