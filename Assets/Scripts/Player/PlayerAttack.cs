@@ -59,7 +59,6 @@ namespace Player
                     enemyStatusController.AddStatus(newStatus);
                     enemyStatusController.Knockback();
                 }
-                    
             }
         }
 
