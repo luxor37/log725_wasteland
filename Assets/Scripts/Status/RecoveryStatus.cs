@@ -1,52 +1,51 @@
-﻿using UnityEditor;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Status
 {
-    
-    public class FireStatus : IStatus
+    public class RecoveryStatus : IStatus
     {
-
         public float duration = 5f;
         public int maxStacks = 1;
         public int curStacks = 0;
-        public int initialDmg = 0;
-        public int perSecDmg = 50;
-        public string particleToSpawn = "FX_Fire_01";
+        public int initialHeal = 0;
+        public int perSecHeal = 50;
+        public string particleToSpawn = "FX_BloodSplat_01";
 
 
-        public FireStatus(StatusController controller) : base(controller)
+        public RecoveryStatus(StatusController controller) : base(controller)
         {
-            name = "Fire";
+            name = "Recovery";
         }
 
         private void Start()
         {
-            Debug.Log("Fire applied");
+            Debug.Log("Recovery applied");
         }
 
         public override void StatusTick(float deltaTime)
         {
             // damage
-            if (timer == 0f && initialDmg > 0f)
+            if (timer == 0f)
             {
-                _controller.TakeDamage(initialDmg);
+                _controller.TakeHeal(initialHeal);
                 _controller.SetParticleSystem(particleToSpawn, duration);
-            } else if (timer - lastTick > 1f && perSecDmg > 0f)
+            }
+            else if (timer - lastTick > 1f && perSecHeal > 0f)
             {
                 Debug.Log("tick dmg");
-                _controller.TakeDamage(perSecDmg);
+                _controller.TakeHeal(perSecHeal);
                 lastTick = timer;
             }
 
-           
+            
 
             timer += deltaTime;
             if (timer > duration)
             {
                 EndStatus();
             }
-            
+
         }
     }
 }

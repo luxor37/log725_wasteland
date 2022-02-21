@@ -54,8 +54,8 @@ namespace Player
                     damagebleable.TakeDamage(attack);
                     var enemyStatusController = enemy.GetComponent<Status.StatusController>();
                     // TODO: be able to change this with element attack system
-                    var newStatus = new Status.FireStatus(enemyStatusController);
-                    newStatus.initialDmg = attack;
+                    // var newStatus = new Status.FireStatus(enemyStatusController);
+                    var newStatus = StatusManager.Instance.GetNewStatusObject("Fire", enemyStatusController);
                     enemyStatusController.AddStatus(newStatus);
                     enemyStatusController.Knockback();
                 }
