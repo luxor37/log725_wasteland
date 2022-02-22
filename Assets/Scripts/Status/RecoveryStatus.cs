@@ -8,7 +8,7 @@ namespace Status
         public float duration = 5f;
         public int maxStacks = 1;
         public int curStacks = 0;
-        public int initialHeal = 0;
+        public int initialHeal = 100;
         public int perSecHeal = 50;
         public string particleToSpawn = "FX_BloodSplat_01";
 
