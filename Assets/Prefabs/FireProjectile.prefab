@@ -113,7 +113,8 @@ MonoBehaviour:
   - Fire
   name: FireProjectile
   duration: 1
-  speed: 5
+  speed: 20
+  acceleration: -40
   direction: {x: -1, y: 0, z: 0}
   targetLayer:
     serializedVersion: 2

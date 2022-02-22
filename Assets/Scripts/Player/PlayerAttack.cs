@@ -22,6 +22,7 @@ namespace Player
         private PlayerController _playerController;
         private InputController _inputController;
 
+        public GameObject rangedWeapon;
         private float rangeTimer = 0f;
         public float rangeCooldown = 1f;
 
@@ -38,6 +39,10 @@ namespace Player
         {
             rangeTimer += Time.deltaTime;
             attackType = (AttackType)(_inputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
+            if (attackType == AttackType.MELEE)
+                rangedWeapon.SetActive(false);
+            else if (attackType == AttackType.RANGED)
+                rangedWeapon.SetActive(true);
             _animator.SetBool("isRanged", attackType == AttackType.RANGED);
 
             if (InputController.IsAttacking)
