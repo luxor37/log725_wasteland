@@ -10,6 +10,7 @@ namespace Status
     {
         private Animator _animator;
         private ParticlesController _particlesController;
+        private Player.PlayerStatusController _playerStatusController;
         private bool isHit;
 
         public List<IStatus> statuses;
@@ -26,6 +27,7 @@ namespace Status
             base.Start();
             _animator = GetComponent<Animator>();
             _particlesController = GetComponent<ParticlesController>();
+            _playerStatusController = GetComponent<Player.PlayerStatusController>();
             statuses = new List<IStatus>();
         }
 
@@ -68,13 +70,21 @@ namespace Status
         {
             // adjust damage based on stats, buffs, etc
             // call TakeDamage from component (GameEntity for now)
-            base.TakeDamage(damage);
+            
+            if (gameObject.tag == "Player")
+            {
+                _playerStatusController.TakeDamage(damage);
+            } else
+                base.TakeDamage(damage);
         }
 
         public void TakeHeal(int heal)
         {
-            // TODO do this better
-            base.TakeDamage(-heal);
+            if (gameObject.tag == "Player")
+            {
+                _playerStatusController.TakeHeal(heal);
+            } else
+                base.TakeHeal(heal);
         }
 
         public void AttackMultiplier(int multiplier, int flat)
