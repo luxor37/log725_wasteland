@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum HorizontalDirection { Left, Right, Iddle }
@@ -15,6 +16,7 @@ public class InputController : MonoBehaviour
     public static bool IsSprinting = false;
     public static bool IsAttacking = false;
     public static bool IsPausing = false;
+    public int AttackType = 0;
 
     public static bool characterChange;
 
@@ -28,6 +30,7 @@ public class InputController : MonoBehaviour
         VerticalDirection = GetVerticalDirection(VerticalAxis);
         IsPausing = Input.GetButtonDown("Menu");
         characterChange = Input.GetKeyDown(KeyCode.K);
+        AttackType = AttackType + Convert.ToInt32(Input.GetButtonDown("WeaponChange"));
     }
 
     private float GetAxis(string axisName)
