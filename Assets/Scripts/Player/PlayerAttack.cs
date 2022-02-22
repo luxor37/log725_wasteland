@@ -22,6 +22,10 @@ namespace Player
         private PlayerController _playerController;
         private InputController _inputController;
 
+        public GameObject rangedWeapon;
+        private float rangeTimer = 0f;
+        public float rangeCooldown = 1f;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -33,9 +37,16 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
+            rangeTimer += Time.deltaTime;
+            attackType = (AttackType)(_inputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
+            if (attackType == AttackType.MELEE)
+                rangedWeapon.SetActive(false);
+            else if (attackType == AttackType.RANGED)
+                rangedWeapon.SetActive(true);
+            _animator.SetBool("isRanged", attackType == AttackType.RANGED);
+
             if (InputController.IsAttacking)
             {
-                attackType = (AttackType)(_inputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
                 Debug.Log(attackType);
                 //TODO change this
                 if(PlayerMovementController.canJump && attackType == AttackType.MELEE)
@@ -53,6 +64,10 @@ namespace Player
 
         private void RangeAttack()
         {
+            if (rangeTimer < rangeCooldown)
+                return;
+            rangeTimer = 0f;
+            _animator.SetTrigger("Attack");
             var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("FireProjectile");
             newProjectile.GetComponent<ProjectileController>().direction = transform.forward;
             Instantiate(newProjectile, attackPoint.position, attackPoint.rotation);

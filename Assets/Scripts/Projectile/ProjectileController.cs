@@ -8,6 +8,7 @@ class ProjectileController : MonoBehaviour
     public string name;
     public float duration = 1f;
     public float speed;
+    public float acceleration = 0f;
     public Vector3 direction;
     public LayerMask targetLayer;
 
@@ -27,7 +28,7 @@ class ProjectileController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        speed = Mathf.Max(0f, speed + acceleration * Time.deltaTime);
         transform.position += direction.normalized * speed * Time.deltaTime;
     }
 
@@ -39,7 +40,7 @@ class ProjectileController : MonoBehaviour
             
             other.GetComponent<Status.StatusController>().AddStatus(new Status.FireStatus(other.GetComponent<Status.StatusController>()));
         }
-
-        Destroy(gameObject);
+        if (other.gameObject.tag != "Player")
+            Destroy(gameObject);
     }
 }

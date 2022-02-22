@@ -3265,6 +3265,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2778268930956006104, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
   m_PrefabInstance: {fileID: 2778268929612104251}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1354038079 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8145808070083438535, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
+  m_PrefabInstance: {fileID: 2778268929612104251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1364322599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5291,6 +5296,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2778268930956006096, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 1354038079}
     - target: {fileID: 2778268930956006097, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
       propertyPath: m_RootOrder
       value: 4
