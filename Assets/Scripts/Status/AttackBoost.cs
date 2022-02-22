@@ -1,28 +1,27 @@
-﻿using UnityEditor;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Status
 {
-    
-    public class FireStatus : IStatus
+    public class AttackBoost : IStatus
     {
 
         public float duration = 5f;
         public int maxStacks = 1;
         public int curStacks = 0;
-        public int initialDmg = 0;
-        public int perSecDmg = 50;
-        public string particleToSpawn = "FX_Fire_01";
+        public int flatBoost = 50;
+        public int multiBoost = 2;
+        public string particleToSpawn = "Fx_Sparks_01";
 
 
-        public FireStatus(StatusController controller) : base(controller)
+        public AttackBoost(StatusController controller) : base(controller)
         {
-            name = "Fire";
+            name = "AttackBoost";
         }
 
         private void Start()
         {
-            Debug.Log("Fire applied");
+            Debug.Log("Attack boost applied");
         }
 
         public override void StatusTick(float deltaTime)
@@ -30,23 +29,23 @@ namespace Status
             // damage
             if (timer == 0f)
             {
-                _controller.TakeDamage(initialDmg);
+                _controller.AttackMultiplier(multiBoost, flatBoost);
                 _controller.SetParticleSystem(particleToSpawn, duration);
-            } else if (timer - lastTick > 1f && perSecDmg > 0f)
+            }
+            else if (timer - lastTick > 1f)
             {
-                Debug.Log("tick dmg");
-                _controller.TakeDamage(perSecDmg);
                 lastTick = timer;
             }
 
-           
+            
 
             timer += deltaTime;
             if (timer > duration)
             {
+                _controller.AttackMultiplierRevert(multiBoost, flatBoost);
                 EndStatus();
             }
-            
+
         }
     }
 }

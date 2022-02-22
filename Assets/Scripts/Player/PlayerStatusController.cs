@@ -18,6 +18,11 @@ namespace Player
             base.TakeDamage(damage);
         }
 
+        public void TakeHeal(int heal)
+        {
+            base.TakeHeal(heal);
+        }
+
         public int CalculateDamage()
         {
             return 0;

@@ -10,6 +10,7 @@ namespace Status
     {
         private Animator _animator;
         private ParticlesController _particlesController;
+        private Player.PlayerStatusController _playerStatusController;
         private bool isHit;
 
         public List<IStatus> statuses;
@@ -26,6 +27,7 @@ namespace Status
             base.Start();
             _animator = GetComponent<Animator>();
             _particlesController = GetComponent<ParticlesController>();
+            _playerStatusController = GetComponent<Player.PlayerStatusController>();
             statuses = new List<IStatus>();
         }
 
@@ -45,6 +47,8 @@ namespace Status
 
         public void AddStatus(IStatus status)
         {
+            if (status == null)
+                return;
             // check duplicate first
             foreach (IStatus s in statuses)
             {
@@ -66,7 +70,35 @@ namespace Status
         {
             // adjust damage based on stats, buffs, etc
             // call TakeDamage from component (GameEntity for now)
-            base.TakeDamage(damage);
+            
+            if (gameObject.tag == "Player")
+            {
+                _playerStatusController.TakeDamage(damage);
+            } else
+                base.TakeDamage(damage);
+        }
+
+        public void TakeHeal(int heal)
+        {
+            if (gameObject.tag == "Player")
+            {
+                _playerStatusController.TakeHeal(heal);
+            } else
+                base.TakeHeal(heal);
+        }
+
+        public void AttackMultiplier(int multiplier, int flat)
+        {
+          
+            gameObject.GetComponent<Player.PlayerAttack>().attack *= multiplier;
+            gameObject.GetComponent<Player.PlayerAttack>().attack += flat;
+            
+        }
+
+        public void AttackMultiplierRevert(int multiplier, int flat)
+        {
+            gameObject.GetComponent<Player.PlayerAttack>().attack -= flat;
+            gameObject.GetComponent<Player.PlayerAttack>().attack /= multiplier;
         }
 
         public int getCurrentHealth()
