@@ -14,6 +14,7 @@ namespace Status
         private bool isHit;
 
         public List<IStatus> statuses;
+        public GameObject floatingPoint;
 
         // TODO: reference
         // MovementController
@@ -76,6 +77,8 @@ namespace Status
                 _playerStatusController.TakeDamage(damage);
             } else
                 base.TakeDamage(damage);
+            Instantiate(floatingPoint, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
+            floatingPoint.GetComponentInChildren<TextMesh>().text = "-" + damage;
         }
 
         public void TakeHeal(int heal)

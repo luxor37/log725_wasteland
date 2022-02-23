@@ -5,6 +5,7 @@ namespace Player
     public class PlayerStatusController : GameEntity
     {
         private Animator _animator;
+        public GameObject floatingPoint;
 
         // Start is called before the first frame update
         void Start()
@@ -15,11 +16,14 @@ namespace Player
 
         public void TakeDamage(int damage)
         {
+            Instantiate(floatingPoint, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
+            floatingPoint.GetComponentInChildren<TextMesh>().text = "-" + damage;
             base.TakeDamage(damage);
         }
 
         public void TakeHeal(int heal)
         {
+            
             base.TakeHeal(heal);
         }
 

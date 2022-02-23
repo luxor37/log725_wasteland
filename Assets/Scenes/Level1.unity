@@ -1484,6 +1484,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6693942696897615628, guid: 4cc4ef1a88da30f45b20eb76a58d9f89, type: 3}
+      propertyPath: floatingPoint
+      value: 
+      objectReference: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
     - target: {fileID: 6693942696897615629, guid: 4cc4ef1a88da30f45b20eb76a58d9f89, type: 3}
       propertyPath: m_Name
       value: Zombie
@@ -3206,6 +3210,7 @@ MonoBehaviour:
       m_Bits: 64
     _NavMeshAgent: {fileID: 0}
     _target: {fileID: 0}
+  attackPoint: {fileID: 795778514}
 --- !u!114 &952674518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5750,7 +5755,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9160790435012885673, guid: 5f8bd575414c9ce4facf5040c4f1eb79, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9160790435012885673, guid: 5f8bd575414c9ce4facf5040c4f1eb79, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6515,6 +6520,10 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 1345048813, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
+      propertyPath: floatingPoint
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2778268929515556703, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6525,7 +6534,7 @@ PrefabInstance:
       objectReference: {fileID: 1354038079}
     - target: {fileID: 2778268930956006097, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2778268930956006097, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6571,6 +6580,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character1
       objectReference: {fileID: 0}
+    - target: {fileID: 2778268930956006111, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
+      propertyPath: floatingPoint
+      value: 
+      objectReference: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a7ec04c7b1722e4fb452175583396f9, type: 3}
 --- !u!1001 &5566117861819696526
