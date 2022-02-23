@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,6 +33,8 @@ namespace Enemy
         public Parameter parameter;
         private IState currentState;
         private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
+
+        public GameObject attackPoint;
 
         private Vector3 rightSide = new Vector3(1, 0, 0);
         private Vector3 leftSide = new Vector3(-1, 0, 0);
@@ -103,7 +106,11 @@ namespace Enemy
 
         public void ZombieAttack()
         {
-            Debug.Log("Zombie Attack!!!");
+            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.transform.position, new Vector3(parameter.attackRange,1,1),Quaternion.identity, parameter.layer);
+            foreach (Collider player in hitEnemies)
+            {
+                player.GetComponent<PlayerStatusController>().TakeDamage(100);
+            }
         }
 
         private void OnDrawGizmos()
