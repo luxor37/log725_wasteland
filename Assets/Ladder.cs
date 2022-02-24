@@ -7,8 +7,15 @@ public class Ladder : MonoBehaviour
     private bool _areTouching = false;
     private PlayerController player;
 
+    public TextMesh instructions;
+
     void Start(){
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        if (instructions != null)
+        {
+            instructions.characterSize = 0;
+        }
     }
     
     void Update()
@@ -26,8 +33,13 @@ public class Ladder : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Player")
+        if (other.name == "Player"){
             _areTouching = true;
+            if (instructions != null)
+            {
+                instructions.characterSize = 1;
+            }
+        }
     }
 
     public void OnTriggerExit(Collider other)
@@ -35,6 +47,10 @@ public class Ladder : MonoBehaviour
         if (other.name == "Player"){
             _areTouching = false;
             player.isClimbing = false;
+            if (instructions != null)
+            {
+                instructions.characterSize = 0;
+            }
         }
     }
 }
