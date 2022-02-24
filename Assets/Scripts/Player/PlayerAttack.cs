@@ -41,7 +41,7 @@ namespace Player
             attackType = (AttackType)(_inputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
             if (attackType == AttackType.MELEE && rangedWeapon != null)
                 rangedWeapon.SetActive(false);
-            else if (attackType == AttackType.RANGED)
+            else if (attackType == AttackType.RANGED && rangedWeapon != null)
                 rangedWeapon.SetActive(true);
             _animator.SetBool("isRanged", attackType == AttackType.RANGED);
 
