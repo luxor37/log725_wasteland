@@ -39,7 +39,7 @@ namespace Player
         {
             rangeTimer += Time.deltaTime;
             attackType = (AttackType)(_inputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
-            if (attackType == AttackType.MELEE)
+            if (attackType == AttackType.MELEE && rangedWeapon != null)
                 rangedWeapon.SetActive(false);
             else if (attackType == AttackType.RANGED)
                 rangedWeapon.SetActive(true);
