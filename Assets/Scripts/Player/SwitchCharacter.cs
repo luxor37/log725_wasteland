@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class SwtichCharacter : MonoBehaviour
+public class SwitchCharacter : MonoBehaviour
 {
     private int characterIndex = 0;
 
