@@ -16,20 +16,25 @@ namespace Player
             return currentRotation;
         }
 
-        public static Vector3 VerifyWorldLimits(Vector3 playerPosition){
-            if(playerPosition.y > WorldConfig.YMax){
+        public static Vector3 VerifyWorldLimits(Vector3 playerPosition)
+        {
+            if (playerPosition.y > WorldConfig.YMax)
+            {
                 playerPosition.y = WorldConfig.YMax;
             }
 
-            if(playerPosition.y < WorldConfig.YMin){
+            if (playerPosition.y < WorldConfig.YMin)
+            {
                 playerPosition.y = WorldConfig.YMin;
             }
 
-            if(playerPosition.x > WorldConfig.XMax){
+            if (playerPosition.x > WorldConfig.XMax)
+            {
                 playerPosition.x = WorldConfig.XMax;
             }
 
-            if(playerPosition.x < WorldConfig.XMin){
+            if (playerPosition.x < WorldConfig.XMin)
+            {
                 playerPosition.x = WorldConfig.XMin;
             }
 
@@ -78,6 +83,16 @@ namespace Player
 
             return yMovement;
 
+        }
+
+        public static Vector3 GetClimbingMovement(float climbingSpeed)
+        {
+            var desiredMovement = new Vector3(
+                0f,
+                InputController.VerticalAxis * climbingSpeed,
+                0f);
+
+            return desiredMovement;
         }
     }
 }
