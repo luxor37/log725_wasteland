@@ -39,5 +39,12 @@ namespace Item
             }
             return null;
         }
+
+        public GameObject GetRandomItem()
+        {
+            int randIndex = Random.Range(0, items.Count);
+            
+            return items[randIndex];
+        }
     }
 }
