@@ -15,7 +15,10 @@ public class ItemController : MonoBehaviour
             Debug.Log("player collided with item");
             var controller = other.GetComponent<Status.StatusController>();
             ItemStatus = StatusManager.Instance.GetNewStatusObject(statusName, controller);
-            controller.AddStatus(ItemStatus);
+            if (controller != null)
+            {
+                controller.AddStatus(ItemStatus);
+            }
             Destroy(gameObject);
         }
     }

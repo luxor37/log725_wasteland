@@ -20,7 +20,6 @@ namespace Enemy
         public void OnEnter()
         {
             _parameter._animator.SetBool("isWalking", false);
-            Debug.Log("Im Idle");
         }
 
         public void OnUpdate()
@@ -53,7 +52,6 @@ namespace Enemy
 
         public void OnEnter()
         {
-            Debug.Log("Im Chase");
             _parameter._animator.SetBool("isWalking", true);
         }
 
@@ -102,7 +100,6 @@ namespace Enemy
 
         public void OnEnter()
         {
-            Debug.Log("Im Attack");
             _parameter._animator.SetBool("isWalking", false);
         }
 
@@ -146,7 +143,6 @@ namespace Enemy
 
         public void OnEnter()
         {
-            Debug.Log("Im Reset");
             _parameter._animator.SetBool("isWalking", true);
             _parameter._NavMeshAgent.stoppingDistance = 0.5f;
             _parameter._NavMeshAgent.SetDestination(_parameter.originPosition);
@@ -154,7 +150,6 @@ namespace Enemy
 
         public void OnUpdate()
         {
-            Debug.Log(_parameter._NavMeshAgent.remainingDistance);
             _enemyStatesController.FlipTo(_parameter.originPosition);
             
             if (_enemyStatesController.findPlayer())

@@ -17,7 +17,6 @@ namespace Player
         public float jumpForce = 10f;
         public float gravityScale = 1f;
 
-        [HideInInspector]
         public bool isClimbing = false;
         [HideInInspector]
         public float ladderAngle = 0;
