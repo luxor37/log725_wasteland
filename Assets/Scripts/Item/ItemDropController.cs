@@ -8,9 +8,11 @@ namespace Item
 
         public string itemName;
 
+        public bool getRandomItem;
+
         private void OnDestroy()
         {
-            var itemToSpawn = ItemManager.Instance.GetItem(itemName);
+            var itemToSpawn = getRandomItem? ItemManager.Instance.GetRandomItem() : ItemManager.Instance.GetItem(itemName);
             if (itemToSpawn != null)
             {
                 Debug.Log(itemName + " Dropped");
