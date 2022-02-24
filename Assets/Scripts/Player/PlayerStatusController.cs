@@ -16,14 +16,17 @@ namespace Player
 
         public void TakeDamage(int damage)
         {
-            Instantiate(floatingPoint, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
-            floatingPoint.GetComponentInChildren<TextMesh>().text = "-" + damage;
+            if (floatingPoint != null)
+            {
+                Instantiate(floatingPoint, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
+                floatingPoint.GetComponentInChildren<TextMesh>().text = "-" + damage;
+            }
             base.TakeDamage(damage);
         }
 
         public void TakeHeal(int heal)
         {
-            
+
             base.TakeHeal(heal);
         }
 
