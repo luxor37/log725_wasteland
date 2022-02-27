@@ -2,7 +2,7 @@
 using Player;
 using UnityEngine;
 
-public class GameEntity : MonoBehaviour, IDamageble
+public class GameCharacter : MonoBehaviour, IDamageble
 {
     public int maxHealth;
     public int currentHealth;

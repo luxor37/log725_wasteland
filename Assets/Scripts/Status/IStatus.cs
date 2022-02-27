@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Status
 {
-
     // A status can be a buff, debuff, element application, damage (over time or one time)
     public abstract class IStatus
     {

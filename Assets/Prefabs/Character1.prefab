@@ -5183,8 +5183,9 @@ GameObject:
   - component: {fileID: 2778268930956006103}
   - component: {fileID: 1345048813}
   - component: {fileID: 1345048814}
+  - component: {fileID: 8476276099296204641}
   m_Layer: 6
-  m_Name: Player
+  m_Name: Character1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5285,8 +5286,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 100
   moveSpeed: 5
+  climbingSpeed: 1
   jumpForce: 5
   gravityScale: 1
+  isClimbing: 0
+  ladderAngle: 0
 --- !u!114 &2778268930956006096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5306,6 +5310,7 @@ MonoBehaviour:
     m_Bits: 128
   attack: 100
   attackType: 0
+  rangedWeapon: {fileID: 0}
   rangeCooldown: 1
 --- !u!114 &2778268930956006111
 MonoBehaviour:
@@ -5321,6 +5326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1000
   currentHealth: 1000
+  floatingPoint: {fileID: 0}
 --- !u!114 &2778268930956006103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5348,6 +5354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   currentHealth: 0
+  floatingPoint: {fileID: 0}
 --- !u!114 &1345048814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5361,6 +5368,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleManager: {fileID: 0}
+--- !u!114 &8476276099296204641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778268930956006104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74275e4766c7be3409c798f6b92b362a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1000
+  currentHealth: 0
+  floatingPoint: {fileID: 0}
 --- !u!1 &2778268930961301227
 GameObject:
   m_ObjectHideFlags: 0

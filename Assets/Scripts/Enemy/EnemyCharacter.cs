@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyStatusController : GameEntity, IknockBack
+    public class EnemyCharacter : GameCharacter, IknockBack
     {
         private Animator _animator;
+        public GameObject floatingPoint;
 
         private bool isHit;
         protected override void Start()
@@ -17,6 +18,8 @@ namespace Enemy
 
         public override void TakeDamage(int damage)
         {
+            Instantiate(floatingPoint, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
+            floatingPoint.GetComponentInChildren<TextMesh>().text = "-" + damage;
             base.TakeDamage(damage);
             Knockback();
         }

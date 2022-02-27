@@ -109,7 +109,7 @@ namespace Enemy
             Collider[] hitEnemies = Physics.OverlapBox(attackPoint.transform.position, new Vector3(parameter.attackRange,1,1),Quaternion.identity, parameter.layer);
             foreach (Collider player in hitEnemies)
             {
-                player.GetComponent<PlayerStatusController>().TakeDamage(100);
+                player.GetComponent<PlayerCharacter>().TakeDamage(100);
             }
         }
 
