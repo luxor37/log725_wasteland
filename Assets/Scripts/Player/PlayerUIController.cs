@@ -7,12 +7,12 @@ namespace Player
     public class PlayerUIController : MonoBehaviour
     {
         public Slider HPStrip;
-        private GameEntity entity;
+        private GameCharacter entity;
 
         // Start is called before the first frame update
         void Start()
         {
-            entity = gameObject.GetComponent<GameEntity>();
+            entity = gameObject.GetComponent<GameCharacter>();
 
             HPStrip.maxValue = entity.maxHealth;
         }

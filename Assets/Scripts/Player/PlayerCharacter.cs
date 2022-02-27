@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerStatusController : GameEntity
+    public class PlayerCharacter : GameCharacter
     {
         private Animator _animator;
         public GameObject floatingPoint;

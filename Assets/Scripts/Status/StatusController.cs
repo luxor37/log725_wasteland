@@ -6,15 +6,14 @@ namespace Status
 {
     // subclass sandbox (I guess component sandbox in this case) pattern. Statuses should only affect the game by using methods available here.
     // every component that might be affected by Status should be referenced here.
-    public class StatusController : GameEntity
+    public class StatusController : MonoBehaviour
     {
         private Animator _animator;
         private ParticlesController _particlesController;
-        private Player.PlayerStatusController _playerStatusController;
+        private GameCharacter gameCharacter;
         private bool isHit;
 
         public List<IStatus> statuses;
-        public GameObject floatingPoint;
 
         // TODO: reference
         // MovementController
@@ -22,13 +21,11 @@ namespace Status
         // ParticleController
         // SoundController
         // AIController
-
-        protected override void Start()
+        void Start()
         {
-            base.Start();
             _animator = GetComponent<Animator>();
             _particlesController = GetComponent<ParticlesController>();
-            _playerStatusController = GetComponent<Player.PlayerStatusController>();
+            gameCharacter = GetComponent<GameCharacter>();
             statuses = new List<IStatus>();
         }
 
@@ -74,20 +71,17 @@ namespace Status
             
             if (gameObject.tag == "Player")
             {
-                _playerStatusController.TakeDamage(damage);
-            } else
-                base.TakeDamage(damage);
-            Instantiate(floatingPoint, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
-            floatingPoint.GetComponentInChildren<TextMesh>().text = "-" + damage;
+                gameCharacter.TakeDamage(damage);
+            } 
+            
         }
 
         public void TakeHeal(int heal)
         {
             if (gameObject.tag == "Player")
             {
-                _playerStatusController.TakeHeal(heal);
-            } else
-                base.TakeHeal(heal);
+                gameCharacter.TakeHeal(heal);
+            } 
         }
 
         public void AttackMultiplier(int multiplier, int flat)
@@ -103,21 +97,7 @@ namespace Status
             gameObject.GetComponent<Player.PlayerAttack>().attack -= flat;
             gameObject.GetComponent<Player.PlayerAttack>().attack /= multiplier;
         }
-
-        public int getCurrentHealth()
-        {
-            return this.currentHealth;
-        }
-
-        public void Knockback()
-        {
-            if (!isHit)
-            {
-                isHit = true;
-                _animator.SetTrigger("isHit");
-            }
-        }
-
+        
         public void ResetHit()
         {
             isHit = false;
@@ -127,11 +107,6 @@ namespace Status
         {
             if (_particlesController)
                 _particlesController.ChangeParticles(name, duration);
-        }
-
-        public void SetAnimationState(string name, bool state)
-        {
-
         }
 
     }

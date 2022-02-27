@@ -73,6 +73,8 @@ namespace Player
             Instantiate(newProjectile, attackPoint.position, attackPoint.rotation);
             attacking = true;
         }
+        
+        
 
         private void Hit()
         {
@@ -89,7 +91,6 @@ namespace Player
                     // var newStatus = new Status.FireStatus(enemyStatusController);
                     var newStatus = StatusManager.Instance.GetNewStatusObject("Fire", enemyStatusController);
                     enemyStatusController.AddStatus(newStatus);
-                    enemyStatusController.Knockback();
                 }
             }
         }
