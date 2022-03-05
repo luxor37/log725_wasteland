@@ -1,10 +1,8 @@
 using System;
 using TMPro;
 using Unity.Mathematics;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
-using UnityEngine.Video;
 
 namespace Player
 {
@@ -13,12 +11,7 @@ namespace Player
     {
         private Animator _animator;
         private CharacterController _controller;
-        
-        [Header("moving parameter")]
-        public float moveSpeed = 5f;
-        public float currentSpeed = 0f;
-        [SerializeField] private Vector3 _desiredMoveDirection;
-        [SerializeField] private Vector3 _desiredMovement;
+        private Vector3 _desiredMovement;
 
         [Header("Surronding check parameter")] [SerializeField]
         private bool _isTouchWall = false;
@@ -49,14 +42,14 @@ namespace Player
         private bool canJump = true;
         private bool isJumping = false;
 
-        [Header("Climbing parameter")] 
+        [Header("Climbing parameter")] public float moveSpeed = 5f;
         public float climbingSpeed = 2f;
-        [SerializeField]public bool isClimbing = false;
-        public Transform ClimbTatget;
+        public bool isClimbing = false;
+        private bool isLadder;
 
-
+        private Transform ladderPosition;
         private BoxCollider _collider;
-        private float timer = 0f;
+        
         public LayerMask GroundLayer;
 
         // Start is called before the first frame update
@@ -65,7 +58,6 @@ namespace Player
             _collider = GetComponent<BoxCollider>();
             _controller = GetComponent<CharacterController>();
             _animator = GetComponentInChildren<Animator>();
-            currentSpeed = moveSpeed;
         }
 
         //So it is always after InputController's Update
@@ -79,35 +71,29 @@ namespace Player
 
                 isGroundCheck(); //Check and setup if Character on land
                 isWallCheck(); //Check if character forward has a wall
+                isClimbEdgeCheck(); //Check if character forward has an edge
 
                 //Find movement
-  
                 _desiredMovement = GetMovement();
-                
                 Climb();
                 jump();
-                _controller.Move(_desiredMovement * Time.deltaTime); //Final move
-                if (isClimbing)
-                {
-                    _controller.gameObject.transform.position = new Vector3(ClimbTatget.position.x,
-                        transform.position.y, transform.position.z);
-                }
                 
+                _controller.Move(_desiredMovement * Time.deltaTime); //Final move
 
             }
-
-            
         }
 
         private void isGroundCheck()
         {
+            Debug.Log(Physics.Raycast(ForwardGroundCheckPoint.position, Vector3.down,
+                ForwardgroundCheckDistance, GroundLayer) );
             _isGrounded = Physics.Raycast(_collider.bounds.center, Vector3.down,
                               _collider.bounds.extents.y + groundCheckDistance, GroundLayer) ||
                           Physics.Raycast(ForwardGroundCheckPoint.position, Vector3.down,
                               ForwardgroundCheckDistance, GroundLayer) ||
                           Physics.Raycast(BackGroundCheckPoint.position, Vector3.down,
                               BackgroundCheckDistance, GroundLayer);
-            _animator.speed = 1;
+            
             _animator.SetBool("isGrounded", _isGrounded);
         }
 
@@ -117,30 +103,54 @@ namespace Player
                 _collider.bounds.extents.x + wallCheckDistance, GroundLayer);
         }
 
+        private void isClimbEdgeCheck()
+        {
+            if (edgeCheckPoint != null && _isTouchWall)
+            {
+                _isTouchEdge = !Physics.Raycast(edgeCheckPoint.position, transform.forward,
+                    edgeCheckDistance, GroundLayer);
+            }
 
-        void jump()
+            if (_isTouchEdge && !_isGrounded && _isTouchWall)
+            {
+                edgeDectected = true;
+            }
+        }
+
+        private void playClimbEdge()
+        {
+            if (edgeDectected)
+            {
+                _desiredMovement = new Vector3(0, 0, 0);
+                edgePosTop = edgeCheckPoint.position + new Vector3(-edgeClimbXoffset1,edgeClimbYoffset1,0);
+                _animator.SetTrigger("ClmbEdge");
+               
+                
+            }
+        }
+
+        public void ClimbEdge()
+        { 
+            _controller.gameObject.transform.position = edgePosTop;
+            edgeDectected = false;
+            canClimbEdge = false;
+        }
+
+        void setupJumpVariable()
         {
             float timeToApex = maxJumpTime / 2;
             gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
             initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
+        }
+
+        void jump()
+        {
+            setupJumpVariable();
             if (Input.GetButtonDown("Jump") && _isGrounded && !isJumping)
             {
                 isJumping = true;
                 _desiredMovement.y = initialJumpVelocity;
                 _animator.SetTrigger("Jump");
-            }
-            else if (Input.GetButtonDown("Jump") && !_isGrounded)
-            {
-                isJumping = true;
-                if (Mathf.Abs(InputController.HorizontalAxis) > 0)
-                {
-                    _desiredMovement.y = initialJumpVelocity;
-                    _animator.SetTrigger("Jump");
-                    return;
-                }
-                _animator.SetTrigger("Jump");
-                transform.forward = Vector3.left;
-
             }
             else if (isJumping && _isGrounded)
             {
@@ -148,46 +158,46 @@ namespace Player
             }
 
         }
+
         void Climb()
         {
-            if (isClimbing && !InputController.IsAttacking)
+            if (isLadder)
             {
-                if (isJumping)
+                if (!isClimbing && Mathf.Abs(InputController.VerticalAxis) > 0.0f) //first touch with ladder
                 {
-                    isClimbing = false;
+                    isClimbing = true;
+                    transform.LookAt(ladderPosition);
+                    _animator.SetTrigger("Climb");
                     _animator.SetBool("IsClimbing", isClimbing && InputController.VerticalDirection == VerticalDirection.Up);
                     _animator.SetBool("IsClimbingDown", isClimbing && InputController.VerticalDirection == VerticalDirection.Down);
-                    return;
+                    _desiredMovement = GetClimbingMovement(climbingSpeed);
                 }
-                _desiredMovement = GetClimbingMovement(climbingSpeed);
-                transform.localEulerAngles = new Vector3(0, 180, 0);
-                if(_isGrounded)
+                else if (isClimbing) // while Climbing
                 {
-                    transform.forward = Vector3.left;
-                    isClimbing = false;
+                    transform.rotation = Quaternion.LookRotation(Vector3.back);
+                    if (_isGrounded)
+                    {
+                        isClimbing = false;
+                        _animator.SetBool("IsClimbing", isClimbing);
+                        _animator.SetBool("IsClimbingDown", isClimbing);
+                        return;
+                    }
+                    _desiredMovement = GetClimbingMovement(climbingSpeed); 
+                    _animator.SetBool("IsClimbing", isClimbing && InputController.VerticalDirection == VerticalDirection.Up);
+                    _animator.SetBool("IsClimbingDown", isClimbing && InputController.VerticalDirection == VerticalDirection.Down);
+                    
                 }
-                _animator.SetBool("IsClimbing", isClimbing && InputController.VerticalDirection == VerticalDirection.Up);
-                _animator.SetBool("IsClimbingDown", isClimbing && InputController.VerticalDirection == VerticalDirection.Down);
-                if (isClimbing)
-                {
-                    if (InputController.VerticalDirection == VerticalDirection.Iddle)
-                        _animator.speed = 0;
-                    else
-                        _animator.speed = 1;
-                }
-                else
-                    _animator.speed = 1;
 
             }
-            
+
         }
 
-        public Quaternion GetRotation(Quaternion currentRotation)
+        public static Quaternion GetRotation(Quaternion currentRotation)
         {
             if (!Mathf.Approximately(InputController.HorizontalAxis, 0f))
-            { 
-                _desiredMoveDirection = Camera.main.transform.right * InputController.HorizontalAxis;
-                return Quaternion.LookRotation(_desiredMoveDirection);
+            {
+                var desiredMoveDirection = Camera.main.transform.right * InputController.HorizontalAxis;
+                return Quaternion.LookRotation(desiredMoveDirection);
             }
             return currentRotation;
         }
@@ -224,12 +234,13 @@ namespace Player
                 GetHorizontalMovement(),
                 GetVerticalMovement(),
                 0f);
+
             return desiredMovement;
         }
 
         private float GetHorizontalMovement()
         {
-            if (!Mathf.Approximately(InputController.HorizontalAxis, 0.0f) && _isGrounded)
+            if (!Mathf.Approximately(InputController.HorizontalAxis, 0.0f))
             {
                 _animator.SetBool("isRunning", true);
             }
@@ -237,7 +248,7 @@ namespace Player
             {
                 _animator.SetBool("isRunning", false);
             }
-            float speed = InputController.IsSprinting ? currentSpeed * 2f : currentSpeed;
+            float speed = InputController.IsSprinting ? moveSpeed * 2f : moveSpeed;
             return -InputController.HorizontalAxis * speed;
         }
 
@@ -258,25 +269,32 @@ namespace Player
 
         }
 
-        public Vector3 GetClimbingMovement(float climbingSpeed)
+        public static Vector3 GetClimbingMovement(float climbingSpeed)
         {
             var desiredMovement = new Vector3(
-                0,
+                0f,
                 InputController.VerticalAxis * climbingSpeed,
                 0f);
 
             return desiredMovement;
         }
 
-        public void disableMovement()
+        private void OnTriggerEnter(Collider other)
         {
-            currentSpeed = 0;
-        }
-        
-        public void enableMovement()
-        {
-            currentSpeed = moveSpeed;
+            if (other.CompareTag("Ladder"))
+            {
+                isLadder = true;
+                ladderPosition = other.transform;
+            }
         }
 
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Ladder"))
+            {
+                isLadder = false;
+                ladderPosition = null;
+            }
+        }
     }
 }
