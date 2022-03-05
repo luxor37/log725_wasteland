@@ -8,108 +8,78 @@ namespace Player
 {
     public class PlayerAttack : MonoBehaviour
     {
-        public enum AttackType { MELEE = 0, RANGED = 1 };
-
-        public Transform attackPoint;
-        public Vector3 attackRange = new Vector3(1,1,1);
-        public LayerMask enemyLayers;
-        public int attack;
-        public AttackType attackType;
-        private bool attacking = false;
-        private int AttackIndex;
-
+        [Header("Mele Attack Setting")]
+        public Transform meleAttackPoint;
+        public Vector3  meleAttackRange = new Vector3(1, 1, 1);
+        
+        [Header("Range Attack Setting")]
+        public Transform rangeAttackPoint;
+        public int rangeAttackRange;
+        
         private Animator _animator;
-        private PlayerController _playerController;
-        private InputController _inputController;
-
-        public GameObject rangedWeapon;
-        private float rangeTimer = 0f;
-        public float rangeCooldown = 1f;
-
+        private PlayerCharacter _player;
+        public LayerMask enemyLayers;
+        
         // Start is called before the first frame update
         void Start()
         {
+            _player = GetComponent<PlayerCharacter>();
             _animator = GetComponent<Animator>();
-            _playerController = GetComponent<PlayerController>();
-            _inputController = GetComponent<InputController>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            rangeTimer += Time.deltaTime;
-            attackType = (AttackType)(_inputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
-            if (attackType == AttackType.MELEE && rangedWeapon != null)
-                rangedWeapon.SetActive(false);
-            else if (attackType == AttackType.RANGED && rangedWeapon != null)
-                rangedWeapon.SetActive(true);
-            _animator.SetBool("isRanged", attackType == AttackType.RANGED);
-
             if (InputController.IsAttacking)
             {
-                Debug.Log(attackType);
-                //TODO change this
-                if(PlayerMovementController.canJump && attackType == AttackType.MELEE)
-                    Attack();
-
-                if (attackType == AttackType.RANGED)
-                    RangeAttack();
+                Attack();
             }
         }
+
         private void Attack()
         {
             _animator.SetTrigger("Attack");
-            attacking = true;
         }
 
-        private void RangeAttack()
+        private void Hit(Attack atk)
         {
-            if (rangeTimer < rangeCooldown)
-                return;
-            rangeTimer = 0f;
-            _animator.SetTrigger("Attack");
-            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("FireProjectile");
-            newProjectile.GetComponent<ProjectileController>().direction = transform.forward;
-            Instantiate(newProjectile, attackPoint.position, attackPoint.rotation);
-            attacking = true;
-        }
-        
-        
-
-        private void Hit()
-        {
-            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange,Quaternion.identity, enemyLayers);
-            foreach (Collider enemy in hitEnemies)
+            if (atk.AttackType == AttackType.Aoe)
             {
-                // Debug.Log(enemies.name);
-                IDamageble damagebleable = enemy.GetComponent<IDamageble>();
-                if(damagebleable != null)
+                Collider[] hitEnemies =
+                    Physics.OverlapBox(meleAttackPoint.position, meleAttackRange, Quaternion.identity, enemyLayers);
+                foreach (Collider enemies in hitEnemies)
                 {
-                    damagebleable.TakeDamage(attack);
-                    var enemyStatusController = enemy.GetComponent<Status.StatusController>();
-                    // TODO: be able to change this with element attack system
-                    // var newStatus = new Status.FireStatus(enemyStatusController);
-                    var newStatus = StatusManager.Instance.GetNewStatusObject("Fire", enemyStatusController);
-                    enemyStatusController.AddStatus(newStatus);
+                    enemies.GetComponent<EnemyCharacter>().TakeDamage(atk.BasicAttack);
                 }
+            }
+            else if (atk.AttackType == AttackType.Single)
+            {
+                //TODO : use Raycast 
+                
+            }
+
+
+        }
+
+        private void meleeAttack()
+        {
+            if (_player.CharacterIndex == 0) //attack action for character 1
+            {
+                Attack Punch_one = new Attack(_player.basicAttack, AttackType.Aoe, AttackForm.Melee, meleAttackPoint, null, null,CharacterElement.Fire);
+                Hit(Punch_one);
+                
+            }
+            else if (_player.CharacterIndex == 1) //attack action for character 2
+            {
+                
             }
         }
 
-        private void SetAttacking()
-        {
-            this.attacking = false;
-        }
-
-        public bool GetAttacking()
-        {
-            return this.attacking;
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (attackPoint == null)
-                return;
-            Gizmos.DrawWireCube(attackPoint.position, attackRange);
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     if (meleAttackPoint == null)
+        //         return;
+        //     Gizmos.DrawWireCube(meleAttackPoint.position, meleAttackRange);
+        // }
     }
 }

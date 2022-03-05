@@ -61,7 +61,6 @@ namespace Enemy
             timer += Time.deltaTime;
             if (_enemyStatesController.findPlayer())
             {
-                _enemyStatesController.FlipTo(_parameter._target.position);
                 _parameter._NavMeshAgent.SetDestination(this._parameter._target.transform.position);
                 _parameter._NavMeshAgent.stoppingDistance = _parameter.attackRange;
                 float remainingDistance = _parameter._NavMeshAgent.remainingDistance;
@@ -105,7 +104,6 @@ namespace Enemy
 
         public void OnUpdate()
         {
-            _enemyStatesController.FlipTo(_parameter._target.position);
             if (_enemyStatesController.findPlayer())
             {
                 if (_parameter.attackRange > _parameter._NavMeshAgent.remainingDistance)
@@ -150,7 +148,7 @@ namespace Enemy
 
         public void OnUpdate()
         {
-            _enemyStatesController.FlipTo(_parameter.originPosition);
+            
             
             if (_enemyStatesController.findPlayer())
             {

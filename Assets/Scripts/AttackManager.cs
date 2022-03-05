@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 public class AttackManager : MonoBehaviour
@@ -30,4 +31,6 @@ public class AttackManager : MonoBehaviour
 
     }
     
+
+
 }
