@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SwitchCharacter : MonoBehaviour
 {
-    private int characterIndex = 0;
+   private int characterIndex = 0;
 
     private Vector3 currentPosition;
     // Update is called once per frame

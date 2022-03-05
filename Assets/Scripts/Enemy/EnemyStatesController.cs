@@ -55,8 +55,10 @@ namespace Enemy
 
         private void Update()
         {
-            currentState.OnUpdate();
             findPlayer();
+            if(parameter._target != null) LookAtTarget(parameter._target.position);
+            currentState.OnUpdate();
+            
         }
 
         public void TransitionState(StateType type)
@@ -70,18 +72,11 @@ namespace Enemy
             currentState.OnEnter();
         }
 
-        public void FlipTo(Vector3 targetPosition)
+        public void LookAtTarget(Vector3 targetPosition)
         {
-            if (targetPosition != null)
+            if (Vector3.Distance(transform.position, targetPosition) > parameter.attackRange)
             {
-                if (transform.position.x > targetPosition.x)
-                {
-                    transform.localScale = new Vector3(-1,1,1);
-                }
-                else if (transform.position.x < targetPosition.x)
-                {
-                    transform.localScale = new Vector3(1,1,1);
-                }
+                transform.LookAt(targetPosition);
             }
         }
 

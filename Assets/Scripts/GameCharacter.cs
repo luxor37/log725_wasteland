@@ -6,6 +6,8 @@ public class GameCharacter : MonoBehaviour, IDamageble
 {
     public int maxHealth;
     public int currentHealth;
+    public int basicAttack;
+    
     protected bool isDead;
 
     //Action when an entity dead

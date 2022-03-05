@@ -2,8 +2,6 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Enemy
-{
     public class EnemyCharacter : GameCharacter, IknockBack
     {
         private Animator _animator;
@@ -16,11 +14,10 @@ namespace Enemy
             _animator = GetComponent<Animator>();
         }
 
-        public override void TakeDamage(int damage)
+        public void TakeDamage(Attack atk)
         {
-            Instantiate(floatingPoint, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
-            floatingPoint.GetComponentInChildren<TextMesh>().text = "-" + damage;
-            base.TakeDamage(damage);
+            showFloatingDamage(atk.BasicAttack);
+            base.TakeDamage(atk.BasicAttack);
             Knockback();
         }
 
@@ -38,9 +35,17 @@ namespace Enemy
             }
         }
 
+        private void showFloatingDamage(int damage)
+        {
+            if (floatingPoint != null)
+            {
+                Instantiate(floatingPoint, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
+                floatingPoint.GetComponentInChildren<TextMesh>().text = "-" + damage;
+            }
+        }
+
         public void ResetHit()
         {
             isHit = false;
         }
     }
-}
