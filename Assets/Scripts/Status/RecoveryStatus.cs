@@ -13,7 +13,7 @@ namespace Status
         public string particleToSpawn = "FX_BloodSplat_01";
 
 
-        public RecoveryStatus(StatusController controller) : base(controller)
+        public RecoveryStatus()
         {
             name = "Recovery";
         }
@@ -28,13 +28,13 @@ namespace Status
             // damage
             if (timer == 0f)
             {
-                _controller.TakeHeal(initialHeal);
-                _controller.SetParticleSystem(particleToSpawn, duration);
+                Handler.TakeHeal(initialHeal);
+                Handler.SetParticleSystem(particleToSpawn, duration);
             }
             else if (timer - lastTick > 1f && perSecHeal > 0f)
             {
                 Debug.Log("tick dmg");
-                _controller.TakeHeal(perSecHeal);
+                Handler.TakeHeal(perSecHeal);
                 lastTick = timer;
             }
 

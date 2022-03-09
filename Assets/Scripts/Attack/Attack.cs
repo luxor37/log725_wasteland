@@ -11,19 +11,19 @@ public enum AttackType
     Single , Aoe
 }
 
-public class Attack
+public class Attack : MonoBehaviour
 {
     private int _basicAttack;
     private AttackType _attackType;
     private AttackForm _attackForm;
     private Transform _attackPoint;
-
-    private IStatus debuff;
+    private Vector3 _damageRadius;
+    private IStatus _debuff;
     private object _attackVFX;
     private object _attackSound;
     private CharacterElement _attackElement;
 
-    public Attack(int basicAttack, AttackType attackType, AttackForm attackForm, Transform attackPoint, object attackVFX, object attackSound, CharacterElement attackElement)
+    public Attack(int basicAttack, AttackType attackType, AttackForm attackForm, Transform attackPoint, object attackVFX, object attackSound, CharacterElement attackElement, IStatus debuff)
     {
         _basicAttack = basicAttack;
         _attackType = attackType;
@@ -32,6 +32,9 @@ public class Attack
         _attackVFX = attackVFX;
         _attackSound = attackSound;
         _attackElement = attackElement;
+        _debuff = debuff;
+        _damageRadius = new Vector3(1,1,1);
+
     }
 
     public int BasicAttack
@@ -75,4 +78,17 @@ public class Attack
         get => _attackElement;
         set => _attackElement = value;
     }
+
+    public IStatus Debuff
+    {
+        get => _debuff;
+        set => _debuff = value;
+    }
+
+    public Vector3 DamageRadius
+    {
+        get => _damageRadius;
+        set => _damageRadius = value;
+    }
 }
+

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Player;
+using Status;
 using UnityEngine;
 
 public class AttackManager : MonoBehaviour
@@ -14,10 +16,12 @@ public class AttackManager : MonoBehaviour
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
+            
         }
         else
         {
             instance = this;
+            addPlayerAttack();
         }
     }
     
@@ -29,5 +33,23 @@ public class AttackManager : MonoBehaviour
         }
 
     }
-    
+
+    private void addPlayerAttack()
+    {
+        Attack PunchOne = new Attack(10, AttackType.Aoe, AttackForm.Melee, null,null,null,CharacterElement.Fire, new FireStatus());
+        Attack PunchTwo = new Attack(30, AttackType.Aoe, AttackForm.Melee, null,null,null,CharacterElement.Fire, new FireStatus());
+        Attack PunchThree = new Attack(50, AttackType.Aoe, AttackForm.Melee, null,null,null,CharacterElement.Fire, new FireStatus());
+        
+        List_PlayerAttack.Add(PunchOne);
+        List_PlayerAttack.Add(PunchTwo);
+        List_PlayerAttack.Add(PunchThree);
+    }
+
+    public  List<Attack> getPlayerAttacks(int characterIndex)
+    {
+        return List_PlayerAttack;
+    }
+
+
+
 }

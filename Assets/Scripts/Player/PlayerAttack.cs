@@ -1,115 +1,123 @@
 
 using System;
 using System.Collections.Generic;
+using Status;
 using UnityEngine;
+using Object = System.Object;
 
 
 namespace Player
 {
+    public enum AttackName
+    {
+        MeleeAttack01, MeleeAttack02, MeleeAttack03
+    }
     public class PlayerAttack : MonoBehaviour
     {
-        public enum AttackType { MELEE = 0, RANGED = 1 };
+        [Header("Mele Attack Setting")]
+        public Transform meleAttackPoint;
+        public Vector3  meleAttackRange = new Vector3(1, 1, 1);
+        
+        [Header("Range Attack Setting")]
+        public Transform rangeAttackPoint;
+        public int rangeAttackRange;
 
-        public Transform attackPoint;
-        public Vector3 attackRange = new Vector3(1,1,1);
-        public LayerMask enemyLayers;
-        public int attack;
-        public AttackType attackType;
-        private bool attacking = false;
-        private int AttackIndex;
+        private List<Attack> Attacks;
 
         private Animator _animator;
-        private PlayerController _playerController;
-        private InputController _inputController;
-
-        public GameObject rangedWeapon;
-        private float rangeTimer = 0f;
-        public float rangeCooldown = 1f;
-
+        private PlayerCharacter _player;
+        private PlayerMovementController _playerMovement;
+        public LayerMask enemyLayers;
+        
         // Start is called before the first frame update
         void Start()
         {
+            _player = GetComponent<PlayerCharacter>();
             _animator = GetComponent<Animator>();
-            _playerController = GetComponent<PlayerController>();
-            _inputController = GetComponent<InputController>();
+            _playerMovement = GetComponent<PlayerMovementController>();
+            if (_player.CharacterIndex == 0)
+            {
+                Attacks = AttackManager.Instance.getPlayerAttacks(0);
+            }
+            else if (_player.CharacterIndex == 1)
+            {
+                
+            }
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            rangeTimer += Time.deltaTime;
-            attackType = (AttackType)(_inputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
-            if (attackType == AttackType.MELEE && rangedWeapon != null)
-                rangedWeapon.SetActive(false);
-            else if (attackType == AttackType.RANGED && rangedWeapon != null)
-                rangedWeapon.SetActive(true);
-            _animator.SetBool("isRanged", attackType == AttackType.RANGED);
-
             if (InputController.IsAttacking)
             {
-                Debug.Log(attackType);
-                //TODO change this
-                if(PlayerMovementController.canJump && attackType == AttackType.MELEE)
-                    Attack();
-
-                if (attackType == AttackType.RANGED)
-                    RangeAttack();
+                Attack();
             }
         }
+
         private void Attack()
         {
             _animator.SetTrigger("Attack");
-            attacking = true;
         }
 
-        private void RangeAttack()
+        private void Hit(Attack atk)
         {
-            if (rangeTimer < rangeCooldown)
-                return;
-            rangeTimer = 0f;
-            _animator.SetTrigger("Attack");
-            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("FireProjectile");
-            newProjectile.GetComponent<ProjectileController>().direction = transform.forward;
-            Instantiate(newProjectile, attackPoint.position, attackPoint.rotation);
-            attacking = true;
-        }
-        
-        
-
-        private void Hit()
-        {
-            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange,Quaternion.identity, enemyLayers);
-            foreach (Collider enemy in hitEnemies)
+            if (atk.AttackType == AttackType.Aoe)
             {
-                // Debug.Log(enemies.name);
-                IDamageble damagebleable = enemy.GetComponent<IDamageble>();
-                if(damagebleable != null)
+                Collider[] hitEnemies =
+                    Physics.OverlapBox(atk.AttackPoint.position, atk.DamageRadius, Quaternion.identity, enemyLayers);
+                foreach (Collider enemies in hitEnemies)
                 {
-                    damagebleable.TakeDamage(attack);
-                    var enemyStatusController = enemy.GetComponent<Status.StatusController>();
-                    // TODO: be able to change this with element attack system
-                    // var newStatus = new Status.FireStatus(enemyStatusController);
-                    var newStatus = StatusManager.Instance.GetNewStatusObject("Fire", enemyStatusController);
-                    enemyStatusController.AddStatus(newStatus);
+                    if (atk.Debuff != null)
+                    {
+                       atk.Debuff.AddHandler(enemies.GetComponent<StatusHandler>());
+                       enemies.GetComponent<StatusHandler>().AddStatus(atk.Debuff);
+                    }
+                    enemies.GetComponent<EnemyCharacter>().TakeDamage(atk.BasicAttack);
                 }
+            }
+            else if (atk.AttackType == AttackType.Single)
+            {
+                //TODO : use Raycast 
+                
             }
         }
 
-        private void SetAttacking()
+        private void meleeAttack(int Stack)
         {
-            this.attacking = false;
+            if (_player.CharacterIndex == 0) //attack action for character 1
+            {
+                if (Stack == (int)AttackName.MeleeAttack01)
+                {
+                    Attacks[(int) AttackName.MeleeAttack01].AttackPoint = meleAttackPoint;
+                    Attacks[(int) AttackName.MeleeAttack01].DamageRadius = meleAttackRange;
+                    Hit(Attacks[(int)AttackName.MeleeAttack01]);
+                }
+                else if (Stack == (int) AttackName.MeleeAttack02)
+                {
+                    Attacks[(int) AttackName.MeleeAttack02].AttackPoint = meleAttackPoint;
+                    Attacks[(int) AttackName.MeleeAttack02].DamageRadius = meleAttackRange;
+                    Hit(Attacks[(int) AttackName.MeleeAttack02]);
+                }
+                else if (Stack == (int) AttackName.MeleeAttack03)
+                {
+                    Attacks[(int) AttackName.MeleeAttack03].AttackPoint = meleAttackPoint;
+                    Attacks[(int) AttackName.MeleeAttack03].DamageRadius = meleAttackRange;
+                    Hit(Attacks[(int) AttackName.MeleeAttack03]);
+                }
+
+            }
+            else if (_player.CharacterIndex == 1) //attack action for character 2
+            {
+                
+            }
         }
 
-        public bool GetAttacking()
-        {
-            return this.attacking;
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (attackPoint == null)
-                return;
-            Gizmos.DrawWireCube(attackPoint.position, attackRange);
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     if (meleAttackPoint == null)
+        //         return;
+        //     Gizmos.DrawWireCube(meleAttackPoint.position, meleAttackRange);
+        // }
     }
 }

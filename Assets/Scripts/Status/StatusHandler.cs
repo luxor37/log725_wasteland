@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 namespace Status
 {
     // subclass sandbox (I guess component sandbox in this case) pattern. Statuses should only affect the game by using methods available here.
     // every component that might be affected by Status should be referenced here.
-    public class StatusController : MonoBehaviour
+    public class StatusHandler : MonoBehaviour
     {
         private Animator _animator;
         private ParticlesController _particlesController;
@@ -87,15 +88,15 @@ namespace Status
         public void AttackMultiplier(int multiplier, int flat)
         {
           
-            gameObject.GetComponent<Player.PlayerAttack>().attack *= multiplier;
-            gameObject.GetComponent<Player.PlayerAttack>().attack += flat;
+            gameObject.GetComponent<PlayerCharacter>().basicAttack *= multiplier;
+            gameObject.GetComponent<PlayerCharacter>().basicAttack += flat;
             
         }
 
         public void AttackMultiplierRevert(int multiplier, int flat)
         {
-            gameObject.GetComponent<Player.PlayerAttack>().attack -= flat;
-            gameObject.GetComponent<Player.PlayerAttack>().attack /= multiplier;
+            gameObject.GetComponent<PlayerCharacter>().basicAttack -= flat;
+            gameObject.GetComponent<PlayerCharacter>().basicAttack /= multiplier;
         }
         
         public void ResetHit()

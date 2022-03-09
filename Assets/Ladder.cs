@@ -5,7 +5,7 @@ public class Ladder : MonoBehaviour
 {
     private Collider _bounds;
     public bool _areTouching = false;
-    private PlayerController player;
+    private PlayerMovementController player;
 
     public TextMesh instructions;
 
@@ -24,10 +24,9 @@ public class Ladder : MonoBehaviour
             if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up)
             {
                 player.isClimbing = true;
-                player.ladderAngle = 180;
             }
 
-            if (InputController.HorizontalDirection != HorizontalDirection.Iddle || InputController.IsJumping)
+            if (InputController.IsJumping)
             {
                 player.isClimbing = false;
             }
@@ -40,7 +39,8 @@ public class Ladder : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             _areTouching = true;
-            player = other.gameObject.GetComponent<PlayerController>();
+            player = other.gameObject.GetComponent<PlayerMovementController>();
+            player.ClimbTatget = transform;
             if (instructions != null)
             {
                 instructions.characterSize = 1;
@@ -53,7 +53,7 @@ public class Ladder : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             _areTouching = false;
-            player = other.gameObject.GetComponent<PlayerController>();
+            player = other.gameObject.GetComponent<PlayerMovementController>();
             player.isClimbing = false;
             if (instructions != null)
             {
@@ -62,3 +62,4 @@ public class Ladder : MonoBehaviour
         }
     }
 }
+

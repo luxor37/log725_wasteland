@@ -40,12 +40,12 @@ public class StatusManager : MonoBehaviour
     }
 
 
-    public Status.IStatus GetNewStatusObject(string statusName, Status.StatusController controller)
+    public Status.IStatus GetNewStatusObject(string statusName, Status.StatusHandler handler)
     {
         if (statusDictionary.ContainsKey(statusName))
         {
             // var obj = Activator.CreateComInstanceFrom(Assembly.GetEntryAssembly().CodeBase, statusDictionary[statusName], controller);
-            System.Object[] args = { controller };
+            System.Object[] args = { handler };
             var obj = Activator.CreateInstance(Type.GetType(statusDictionary[statusName]), args);
             return (Status.IStatus) obj;
         } else
