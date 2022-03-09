@@ -36,9 +36,6 @@ namespace Enemy
 
         public GameObject attackPoint;
 
-        private Vector3 rightSide = new Vector3(1, 0, 0);
-        private Vector3 leftSide = new Vector3(-1, 0, 0);
-
         private void Start()
         {
             parameter._animator = GetComponent<Animator>();

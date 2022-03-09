@@ -49,7 +49,7 @@ public class EnemyController : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         if (other.name == "Player"){
-            var statusCtrl = other.gameObject.GetComponent<Status.StatusController>();
+            var statusCtrl = other.gameObject.GetComponent<Status.StatusHandler>();
             statusCtrl.TakeDamage(100);
         }
     }

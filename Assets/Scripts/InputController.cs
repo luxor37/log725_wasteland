@@ -28,6 +28,7 @@ public class InputController : MonoBehaviour
         HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
         VerticalDirection = GetVerticalDirection(VerticalAxis);
         IsPausing = Input.GetButtonDown("Menu");
+        IsAttacking = Input.GetButtonDown("Attack");
         characterChange = Input.GetKeyDown(KeyCode.K);
     }
 

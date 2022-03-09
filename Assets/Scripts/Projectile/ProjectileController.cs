@@ -38,7 +38,7 @@ class ProjectileController : MonoBehaviour
        if (targetLayer.value == (targetLayer.value | (1 << other.gameObject.layer)))
         {
             
-            other.GetComponent<Status.StatusController>().AddStatus(new Status.FireStatus(other.GetComponent<Status.StatusController>()));
+            other.GetComponent<Status.StatusHandler>().AddStatus(new Status.FireStatus());
         }
         if (other.gameObject.tag != "Player")
             Destroy(gameObject);
