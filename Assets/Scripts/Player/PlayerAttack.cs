@@ -1,11 +1,17 @@
 
 using System;
 using System.Collections.Generic;
+using Status;
 using UnityEngine;
+using Object = System.Object;
 
 
 namespace Player
 {
+    public enum AttackName
+    {
+        MeleeAttack01, MeleeAttack02, MeleeAttack03
+    }
     public class PlayerAttack : MonoBehaviour
     {
         [Header("Mele Attack Setting")]
@@ -15,9 +21,12 @@ namespace Player
         [Header("Range Attack Setting")]
         public Transform rangeAttackPoint;
         public int rangeAttackRange;
-        
+
+        private List<Attack> Attacks;
+
         private Animator _animator;
         private PlayerCharacter _player;
+        private PlayerMovementController _playerMovement;
         public LayerMask enemyLayers;
         
         // Start is called before the first frame update
@@ -25,6 +34,16 @@ namespace Player
         {
             _player = GetComponent<PlayerCharacter>();
             _animator = GetComponent<Animator>();
+            _playerMovement = GetComponent<PlayerMovementController>();
+            if (_player.CharacterIndex == 0)
+            {
+                Attacks = AttackManager.Instance.getPlayerAttacks(0);
+            }
+            else if (_player.CharacterIndex == 1)
+            {
+                
+            }
+
         }
 
         // Update is called once per frame
@@ -46,9 +65,14 @@ namespace Player
             if (atk.AttackType == AttackType.Aoe)
             {
                 Collider[] hitEnemies =
-                    Physics.OverlapBox(meleAttackPoint.position, meleAttackRange, Quaternion.identity, enemyLayers);
+                    Physics.OverlapBox(atk.AttackPoint.position, atk.DamageRadius, Quaternion.identity, enemyLayers);
                 foreach (Collider enemies in hitEnemies)
                 {
+                    if (atk.Debuff != null)
+                    {
+                       atk.Debuff.AddHandler(enemies.GetComponent<StatusHandler>());
+                       enemies.GetComponent<StatusHandler>().AddStatus(atk.Debuff);
+                    }
                     enemies.GetComponent<EnemyCharacter>().TakeDamage(atk.BasicAttack);
                 }
             }
@@ -57,17 +81,31 @@ namespace Player
                 //TODO : use Raycast 
                 
             }
-
-
         }
 
-        private void meleeAttack()
+        private void meleeAttack(int Stack)
         {
             if (_player.CharacterIndex == 0) //attack action for character 1
             {
-                Attack Punch_one = new Attack(_player.basicAttack, AttackType.Aoe, AttackForm.Melee, meleAttackPoint, null, null,CharacterElement.Fire);
-                Hit(Punch_one);
-                
+                if (Stack == (int)AttackName.MeleeAttack01)
+                {
+                    Attacks[(int) AttackName.MeleeAttack01].AttackPoint = meleAttackPoint;
+                    Attacks[(int) AttackName.MeleeAttack01].DamageRadius = meleAttackRange;
+                    Hit(Attacks[(int)AttackName.MeleeAttack01]);
+                }
+                else if (Stack == (int) AttackName.MeleeAttack02)
+                {
+                    Attacks[(int) AttackName.MeleeAttack02].AttackPoint = meleAttackPoint;
+                    Attacks[(int) AttackName.MeleeAttack02].DamageRadius = meleAttackRange;
+                    Hit(Attacks[(int) AttackName.MeleeAttack02]);
+                }
+                else if (Stack == (int) AttackName.MeleeAttack03)
+                {
+                    Attacks[(int) AttackName.MeleeAttack03].AttackPoint = meleAttackPoint;
+                    Attacks[(int) AttackName.MeleeAttack03].DamageRadius = meleAttackRange;
+                    Hit(Attacks[(int) AttackName.MeleeAttack03]);
+                }
+
             }
             else if (_player.CharacterIndex == 1) //attack action for character 2
             {

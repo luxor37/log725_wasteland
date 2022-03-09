@@ -7,7 +7,7 @@ namespace Status
 {
     // subclass sandbox (I guess component sandbox in this case) pattern. Statuses should only affect the game by using methods available here.
     // every component that might be affected by Status should be referenced here.
-    public class StatusController : MonoBehaviour
+    public class StatusHandler : MonoBehaviour
     {
         private Animator _animator;
         private ParticlesController _particlesController;

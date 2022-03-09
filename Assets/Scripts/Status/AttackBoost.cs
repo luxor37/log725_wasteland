@@ -14,10 +14,12 @@ namespace Status
         public string particleToSpawn = "Fx_Sparks_01";
 
 
-        public AttackBoost(StatusController controller) : base(controller)
+        public AttackBoost()
         {
             name = "AttackBoost";
         }
+        
+        
 
         private void Start()
         {
@@ -29,8 +31,8 @@ namespace Status
             // damage
             if (timer == 0f)
             {
-                _controller.AttackMultiplier(multiBoost, flatBoost);
-                _controller.SetParticleSystem(particleToSpawn, duration);
+                Handler.AttackMultiplier(multiBoost, flatBoost);
+                Handler.SetParticleSystem(particleToSpawn, duration);
             }
             else if (timer - lastTick > 1f)
             {
@@ -42,7 +44,7 @@ namespace Status
             timer += deltaTime;
             if (timer > duration)
             {
-                _controller.AttackMultiplierRevert(multiBoost, flatBoost);
+                Handler.AttackMultiplierRevert(multiBoost, flatBoost);
                 EndStatus();
             }
 

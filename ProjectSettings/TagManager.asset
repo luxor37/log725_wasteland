@@ -7,7 +7,7 @@ TagManager:
   - UI
   - Player1
   - Player2
-  - Ladder
+  - Climbable
   layers:
   - Default
   - TransparentFX
@@ -19,7 +19,7 @@ TagManager:
   - Enemy
   - PlayerAttack
   - Ground
-  - 
+  - Climbable
   - 
   - 
   - 

@@ -15,7 +15,7 @@ namespace Status
         public string particleToSpawn = "FX_Fire_01";
 
 
-        public FireStatus(StatusController controller) : base(controller)
+        public FireStatus()
         {
             name = "Fire";
         }
@@ -30,12 +30,12 @@ namespace Status
             // damage
             if (timer == 0f)
             {
-                _controller.TakeDamage(initialDmg);
-                _controller.SetParticleSystem(particleToSpawn, duration);
+                Handler.TakeDamage(initialDmg);
+                Handler.SetParticleSystem(particleToSpawn, duration);
             } else if (timer - lastTick > 1f && perSecDmg > 0f)
             {
                 Debug.Log("tick dmg");
-                _controller.TakeDamage(perSecDmg);
+                Handler.TakeDamage(perSecDmg);
                 lastTick = timer;
             }
 
