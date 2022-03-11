@@ -16,24 +16,28 @@ public class Attack : MonoBehaviour
     private int _basicAttack;
     private AttackType _attackType;
     private AttackForm _attackForm;
-    private Transform _attackPoint;
-    private Vector3 _damageRadius;
+    private Transform _attackStartPoint;
+    private float _damageRadiusX;
+    private float _damageRadiusY;
     private IStatus _debuff;
-    private object _attackVFX;
+    
+    private ParticleSystem _attackVFX;
+    private ParticleSystem _HitVFX;
     private object _attackSound;
+    
     private CharacterElement _attackElement;
 
-    public Attack(int basicAttack, AttackType attackType, AttackForm attackForm, Transform attackPoint, object attackVFX, object attackSound, CharacterElement attackElement, IStatus debuff)
+    public Attack(int basicAttack,float _damageRadiusX,float _damageRadiusY,  AttackType attackType, AttackForm attackForm, Transform attackStartPoint,CharacterElement attackElement, IStatus debuff)
     {
         _basicAttack = basicAttack;
         _attackType = attackType;
         _attackForm = attackForm;
-        _attackPoint = attackPoint;
-        _attackVFX = attackVFX;
-        _attackSound = attackSound;
+        _attackStartPoint = attackStartPoint;
         _attackElement = attackElement;
         _debuff = debuff;
-        _damageRadius = new Vector3(1,1,1);
+        _damageRadiusX = _damageRadiusX;
+        _damageRadiusY = _damageRadiusY;
+
 
     }
 
@@ -55,16 +59,22 @@ public class Attack : MonoBehaviour
         set => _attackForm = value;
     }
 
-    public Transform AttackPoint
+    public Transform AttackStartPoint
     {
-        get => _attackPoint;
-        set => _attackPoint = value;
+        get => _attackStartPoint;
+        set => _attackStartPoint = value;
     }
 
-    public object AttackVFX
+    public ParticleSystem AttackVFX
     {
         get => _attackVFX;
         set => _attackVFX = value;
+    }
+
+    public ParticleSystem HitVFX
+    {
+        get => _HitVFX;
+        set => _HitVFX = value;
     }
 
     public object AttackSound
@@ -85,10 +95,16 @@ public class Attack : MonoBehaviour
         set => _debuff = value;
     }
 
-    public Vector3 DamageRadius
+    public float DamageRadiusX
     {
-        get => _damageRadius;
-        set => _damageRadius = value;
+        get => _damageRadiusX;
+        set => _damageRadiusX = value;
+    }
+    
+    public float DamageRadiusY
+    {
+        get => _damageRadiusY;
+        set => _damageRadiusY = value;
     }
 }
 

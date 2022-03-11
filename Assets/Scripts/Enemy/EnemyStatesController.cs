@@ -105,26 +105,24 @@ namespace Enemy
             }
         }
 
-        private void OnDrawGizmos()
-        {
-            if (parameter.attackPoints == null)
-                return;
-            Vector3 chaseBox = new Vector3(parameter.chaseRange, 1, 1);
-            if (parameter._target != null)
-            {
-                Gizmos.color = Color.red;
-                
-                Gizmos.DrawWireCube(parameter.attackPoints.position, chaseBox);
-            }
-            else
-            {
-                Gizmos.color = Color.white;
-                Gizmos.DrawWireCube(parameter.attackPoints.position, chaseBox);
-            }
-            
-
-            
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     if (parameter.attackPoints == null)
+        //         return;
+        //     Vector3 chaseBox = new Vector3(parameter.chaseRange, 1, 1);
+        //     if (parameter._target != null)
+        //     {
+        //         Gizmos.color = Color.red;
+        //         
+        //         Gizmos.DrawWireCube(parameter.attackPoints.position, chaseBox);
+        //     }
+        //     else
+        //     {
+        //         Gizmos.color = Color.white;
+        //         Gizmos.DrawWireCube(parameter.attackPoints.position, chaseBox);
+        //     }
+        //     
+        // }
 
        
     }

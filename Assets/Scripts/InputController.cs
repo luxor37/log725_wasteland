@@ -16,7 +16,6 @@ public class InputController : MonoBehaviour
     public static bool IsSprinting = false;
     public static bool IsAttacking = false;
     public static bool IsPausing = false;
-    public static bool IsRange = false;
 
     public static bool characterChange;
 
@@ -30,6 +29,7 @@ public class InputController : MonoBehaviour
         IsPausing = Input.GetButtonDown("Menu");
         IsAttacking = Input.GetButtonDown("Attack");
         characterChange = Input.GetKeyDown(KeyCode.K);
+     
     }
 
     private float GetAxis(string axisName)
