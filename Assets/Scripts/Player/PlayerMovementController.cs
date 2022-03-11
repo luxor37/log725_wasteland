@@ -278,5 +278,9 @@ namespace Player
             currentSpeed = moveSpeed;
         }
 
+        public bool IsGrounded
+        {
+            get => _isGrounded;
+        }
     }
 }

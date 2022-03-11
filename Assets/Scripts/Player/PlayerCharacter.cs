@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Player
@@ -7,6 +8,7 @@ namespace Player
         private Animator _animator;
         private int characterIndex = 0;
         public GameObject floatingPoint;
+       
 
         // Start is called before the first frame update
         void Start()

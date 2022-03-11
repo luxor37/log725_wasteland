@@ -57,7 +57,7 @@ InputManager:
     m_Name: WeaponChange
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 1
+    negativeButton: 
     positiveButton: 2
     altNegativeButton: 
     altPositiveButton: 
