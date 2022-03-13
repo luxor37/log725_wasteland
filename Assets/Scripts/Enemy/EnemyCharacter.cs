@@ -2,8 +2,14 @@
 using UnityEditor;
 using UnityEngine;
 
+
+    public enum EnemyType
+    {
+        Zombie, Ryder
+    }
     public class EnemyCharacter : GameCharacter, IknockBack
     {
+        public int EnemyID;
         private Animator _animator;
         public GameObject floatingPoint;
 

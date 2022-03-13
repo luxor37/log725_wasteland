@@ -39,14 +39,8 @@ namespace Player
             _player = GetComponent<PlayerCharacter>();
             _animator = GetComponent<Animator>();
             _playerMovement = GetComponent<PlayerMovementController>();
-            if (_player.CharacterIndex == 0)
-            {
-                Attacks = AttackManager.Instance.getPlayerAttacks(0);
-            }
-            else if (_player.CharacterIndex == 1)
-            {
-                
-            }
+            Attacks = AttackManager.Instance.addPlayerAttack(_player.CharacterIndex);
+           
 
         }
 

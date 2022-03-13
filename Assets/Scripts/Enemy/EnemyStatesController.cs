@@ -1,31 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using Player;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace Enemy
 {
     public enum StateType
     {
-        Idle, Chase, Attack, Reset
+        Idle,Seek,Chase, Attack, Reset
     }
 
     [Serializable]
     public class Parameter
     {
         public Transform attackPoints;
+        public Transform edgeCheckPoint;
         public float attackRange;
-        
         public int chaseRange = 1;
         public float chaseTime;
 
         public Vector3 originPosition;
-        
         public Animator _animator;
         public LayerMask layer;
         public NavMeshAgent _NavMeshAgent;
         public Transform _target;
+        
     }
 
     public class EnemyStatesController : MonoBehaviour
@@ -33,17 +35,22 @@ namespace Enemy
         public Parameter parameter;
         private IState currentState;
         private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
-
-        public GameObject attackPoint;
+        private EnemyCharacter _enemyCharacter;
+        public Transform leftEdge;
+        public Transform rightEdge;
 
         private void Start()
         {
             parameter._animator = GetComponent<Animator>();
             parameter._NavMeshAgent = GetComponent<NavMeshAgent>();
-            parameter.originPosition = this.gameObject.transform.position;
+            parameter.originPosition = gameObject.transform.position;
             parameter._NavMeshAgent.stoppingDistance = parameter.attackRange;
+            parameter._NavMeshAgent.updatePosition = false;
+            _enemyCharacter = GetComponent<EnemyCharacter>();
+            
 
             states.Add(StateType.Idle, new IdleState(this));
+            states.Add(StateType.Seek, new SeekState(this));
             states.Add(StateType.Chase, new ChaseState(this));
             states.Add(StateType.Attack, new AttackState(this));
             states.Add(StateType.Reset, new ResetState(this));
@@ -53,7 +60,7 @@ namespace Enemy
         private void Update()
         {
             findPlayer();
-            if(parameter._target != null) LookAtTarget(parameter._target.position);
+            if(parameter._target != null) LookAtTarget(parameter._target);
             currentState.OnUpdate();
             
         }
@@ -64,16 +71,20 @@ namespace Enemy
             {
                 currentState.OnExit();
             }
-
             currentState = states[type];
             currentState.OnEnter();
         }
 
-        public void LookAtTarget(Vector3 targetPosition)
+        public void LookAtTarget(Transform targetPosition)
         {
-            if (Vector3.Distance(transform.position, targetPosition) > parameter.attackRange)
+            float direction = targetPosition.position.x - transform.position.x;
+            if (direction > 0)
             {
-                transform.LookAt(targetPosition);
+                transform.forward = Vector3.right;
+            }
+            else if (direction <= 0)
+            {
+                transform.forward = Vector3.left;
             }
         }
 
@@ -84,26 +95,31 @@ namespace Enemy
             if (players.Length != 0)
             {
                 this.parameter._target = players[0].transform;
-                parameter._NavMeshAgent.SetDestination(this.parameter._target.position);
                 return true;
             }
-            else
-            {
-                this.parameter._target = null;
-                return false;
-            }
-
+            this.parameter._target = null;
             return false;
         }
 
-        public void ZombieAttack()
+      
+
+        private void OnAnimatorMove()
         {
-            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.transform.position, new Vector3(parameter.attackRange,1,1),Quaternion.identity, parameter.layer);
-            foreach (Collider player in hitEnemies)
+            Vector3 position =  parameter._animator.rootPosition;
+            parameter._NavMeshAgent.nextPosition = new Vector3(position.x, parameter._NavMeshAgent.nextPosition.y, position.z);
+            position.y = parameter._NavMeshAgent.nextPosition.y;
+            transform.position = position;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Ground"))
             {
-                player.GetComponent<PlayerCharacter>().TakeDamage(100);
+                leftEdge = other.transform.GetChild(0);
+                rightEdge = other.transform.GetChild(1);
             }
         }
+        
 
         // private void OnDrawGizmos()
         // {
