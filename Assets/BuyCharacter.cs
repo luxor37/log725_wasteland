@@ -21,8 +21,9 @@ public class BuyCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
-            // SceneManager.LoadScene(sceneName);
+        if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up){
+            
+        }
 
     }
 
