@@ -5,7 +5,7 @@ using UnityEngine;
 
     public enum EnemyType
     {
-        Zombie, Ryder
+        Zombie, Ryder, BossOne
     }
     public class EnemyCharacter : GameCharacter, IknockBack
     {

@@ -10,6 +10,11 @@ public enum EnemyAttackType
     NormalAttack, SpecialAttack
 }
 
+public enum BossAttackType
+{
+    NormalAttack, SpecialAttackOne
+}
+
 public class EnemyAttack : MonoBehaviour
 {
 
@@ -36,9 +41,20 @@ public class EnemyAttack : MonoBehaviour
     
     private void NormalAttack()
     {
-        allAttacks[(int) EnemyAttackType.NormalAttack].AttackStartPoint = _enemyStates.parameter.attackPoints;
-        allAttacks[(int) EnemyAttackType.NormalAttack].DamageRadiusX = _enemyStates.parameter.attackRange;
-        Hit(allAttacks[(int) EnemyAttackType.NormalAttack]);
+        if (_enemyCharacter.EnemyID == (int) EnemyType.Zombie)
+        {
+            allAttacks[(int) EnemyAttackType.NormalAttack].AttackStartPoint = _enemyStates.parameter.attackPoints;
+            allAttacks[(int) EnemyAttackType.NormalAttack].DamageRadiusX = _enemyStates.parameter.attackRange;
+            Hit(allAttacks[(int) EnemyAttackType.NormalAttack]);
+        }
+        else if (_enemyCharacter.EnemyID == (int) EnemyType.BossOne)
+        {
+            allAttacks[(int)BossAttackType.NormalAttack].AttackStartPoint = _enemyStates.parameter.attackPoints;
+            allAttacks[(int) EnemyAttackType.NormalAttack].DamageRadiusX = _enemyStates.parameter.attackRange;
+            Hit(allAttacks[(int) EnemyAttackType.NormalAttack]);
+        }
+
+
     }
 
     private void Hit(Attack atk)
@@ -84,5 +100,11 @@ public class EnemyAttack : MonoBehaviour
     
             }
         }
+    }
+    
+    //Boss one action
+    private void AttackDash()
+    {
+        
     }
 }

@@ -8,6 +8,8 @@ TagManager:
   - Player1
   - Player2
   - Climbable
+  - Ground
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -17,9 +19,9 @@ TagManager:
   - UI
   - Player
   - Enemy
-  - PlayerAttack
   - Ground
-  - Climbable
+  - 
+  - 
   - 
   - 
   - 

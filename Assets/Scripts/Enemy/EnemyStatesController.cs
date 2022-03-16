@@ -8,7 +8,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace Enemy
 {
-    public enum StateType
+    public enum EnemyStateType
     {
         Idle,Seek,Chase, Attack, Reset
     }
@@ -17,10 +17,10 @@ namespace Enemy
     public class Parameter
     {
         public Transform attackPoints;
-        public Transform edgeCheckPoint;
         public float attackRange;
         public int chaseRange = 1;
         public float chaseTime;
+        public float movementSpeed;
 
         public Vector3 originPosition;
         public Animator _animator;
@@ -34,7 +34,7 @@ namespace Enemy
     {
         public Parameter parameter;
         private IState currentState;
-        private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
+        private Dictionary<EnemyStateType, IState> states = new Dictionary<EnemyStateType, IState>();
         private EnemyCharacter _enemyCharacter;
         public Transform leftEdge;
         public Transform rightEdge;
@@ -44,28 +44,43 @@ namespace Enemy
             parameter._animator = GetComponent<Animator>();
             parameter._NavMeshAgent = GetComponent<NavMeshAgent>();
             parameter.originPosition = gameObject.transform.position;
+            parameter._NavMeshAgent.speed = parameter.movementSpeed;
             parameter._NavMeshAgent.stoppingDistance = parameter.attackRange;
-            parameter._NavMeshAgent.updatePosition = false;
             _enemyCharacter = GetComponent<EnemyCharacter>();
-            
+            findPlayer();
 
-            states.Add(StateType.Idle, new IdleState(this));
-            states.Add(StateType.Seek, new SeekState(this));
-            states.Add(StateType.Chase, new ChaseState(this));
-            states.Add(StateType.Attack, new AttackState(this));
-            states.Add(StateType.Reset, new ResetState(this));
-            TransitionState(StateType.Idle);
+            if (_enemyCharacter.EnemyID == (int) EnemyType.Zombie)
+            {
+                states.Add(EnemyStateType.Idle, new IdleState(this));
+                states.Add(EnemyStateType.Seek, new SeekState(this));
+                states.Add(EnemyStateType.Chase, new ChaseState(this));
+                states.Add(EnemyStateType.Attack, new AttackState(this));
+                states.Add(EnemyStateType.Reset, new ResetState(this));
+                TransitionState(EnemyStateType.Idle);
+            }
+            else if (_enemyCharacter.EnemyID == (int) EnemyType.BossOne)
+            {
+                states.Add(EnemyStateType.Idle, new BossIdleState(this));
+                states.Add(EnemyStateType.Chase, new BossChaseState(this));
+                states.Add(EnemyStateType.Attack, new BossAttackState(this));
+                states.Add(EnemyStateType.Reset, new BossResetState(this));
+                TransitionState(EnemyStateType.Idle);
+            }
+
+
         }
 
         private void Update()
         {
             findPlayer();
             if(parameter._target != null) LookAtTarget(parameter._target);
+            flipHorizontal();
+            parameter._animator.SetBool("isWalking", parameter._NavMeshAgent.velocity.magnitude > 0.1f);
             currentState.OnUpdate();
             
         }
 
-        public void TransitionState(StateType type)
+        public void TransitionState(EnemyStateType type)
         {
             if (currentState != null)
             {
@@ -88,6 +103,18 @@ namespace Enemy
             }
         }
 
+        public void flipHorizontal()
+        {
+            if (parameter._NavMeshAgent.velocity.x < 0)
+            {
+                transform.forward = Vector3.left;
+            }
+            if (parameter._NavMeshAgent.velocity.x > 0)
+            {
+                transform.forward = Vector3.right;
+            }
+        }
+
         public bool findPlayer()
         {
             Vector3 chaseBox = new Vector3(parameter.chaseRange/2, 1, 1);
@@ -100,16 +127,22 @@ namespace Enemy
             this.parameter._target = null;
             return false;
         }
-
-      
-
-        private void OnAnimatorMove()
+        
+        public float distancePlayer()
         {
-            Vector3 position =  parameter._animator.rootPosition;
-            parameter._NavMeshAgent.nextPosition = new Vector3(position.x, parameter._NavMeshAgent.nextPosition.y, position.z);
-            position.y = parameter._NavMeshAgent.nextPosition.y;
-            transform.position = position;
+            return Vector3.Distance(transform.position, parameter._target.position);
         }
+        
+        public void disableMovement()
+        {
+            parameter._NavMeshAgent.speed = 0;
+        }
+
+        public void resetMovement()
+        {
+            parameter._NavMeshAgent.speed = parameter.movementSpeed;
+        }
+
 
         private void OnTriggerEnter(Collider other)
         {
@@ -129,7 +162,6 @@ namespace Enemy
         //     if (parameter._target != null)
         //     {
         //         Gizmos.color = Color.red;
-        //         
         //         Gizmos.DrawWireCube(parameter.attackPoints.position, chaseBox);
         //     }
         //     else
