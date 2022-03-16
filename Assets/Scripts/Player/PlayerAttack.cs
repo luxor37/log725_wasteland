@@ -87,7 +87,7 @@ namespace Player
                     var enemyStatusController = enemy.GetComponent<Status.StatusController>();
                     // TODO: be able to change this with element attack system
                     // var newStatus = new Status.FireStatus(enemyStatusController);
-                    var newStatus = StatusManager.Instance.GetNewStatusObject("Fire", enemyStatusController);
+                    var newStatus = StatusManager.Instance.GetNewStatusObject(ItemController.StatusEnum.Fire, enemyStatusController);
                     enemyStatusController.AddStatus(newStatus);
                     enemyStatusController.Knockback();
                 }

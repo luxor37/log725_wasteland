@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -21,6 +22,8 @@ namespace Player
         [HideInInspector]
         public float ladderAngle = 0;
 
+        public Text CoinCounter;
+
         private PlayerAttack _playerAttack;
 
         // Start is called before the first frame update
@@ -34,6 +37,10 @@ namespace Player
         //So it is always after InputController's Update
         void LateUpdate()
         {
+            if(CoinCounter != null){
+                CoinCounter.text = PersistenceManager.coins.ToString();
+            }
+
             if (!PauseMenu.isGamePaused)
             {
 

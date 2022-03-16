@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -5,26 +6,43 @@ using UnityEngine;
 
 public class SwitchCharacter : MonoBehaviour
 {
-    private int characterIndex = 0;
-
     private Vector3 currentPosition;
     // Update is called once per frame
+
+    void Start(){
+        for (int i = 0; i < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        var characterIndex = (int)PersistenceManager.activeCharacter;
+
+        transform.GetChild(characterIndex).gameObject.SetActive(true);
+    }
+
     void Update()
     {
         
-        if (InputController.characterChange)
+        if (InputController.IsCharacterChanging && PersistenceManager.is2ndCharacterUnlocked)
         {
+            var characterIndex = (int)PersistenceManager.activeCharacter;
+
             currentPosition =  transform.GetChild(characterIndex).gameObject.transform.position;
-            InputController.characterChange = false;
+            InputController.IsCharacterChanging = false;
             transform.GetChild(characterIndex).gameObject.SetActive(false);
-            if (characterIndex == 0)
-            {
+
+            Debug.Log(characterIndex);
+
+            if(characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length-1){
                 characterIndex++;
             }
             else
             {
                 characterIndex = 0;
             }
+
+            PersistenceManager.activeCharacter = (PersistenceManager.ActiveCharacter) characterIndex;
+
             transform.GetChild(characterIndex).gameObject.transform.position = currentPosition;
             transform.GetChild(characterIndex).gameObject.SetActive(true);
         }

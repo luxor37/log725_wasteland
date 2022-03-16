@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
+using static ItemController;
 
 public class StatusManager : MonoBehaviour
 {
-    public Dictionary<string, string> statusDictionary;
+    public Dictionary<StatusEnum, string> statusDictionary;
 
     private static StatusManager instance = null;
 
@@ -33,19 +33,21 @@ public class StatusManager : MonoBehaviour
 
     private StatusManager()
     {
-        statusDictionary = new Dictionary<string, string>();
-        statusDictionary["Fire"] = "Status.FireStatus";
-        statusDictionary["Recovery"] = "Status.RecoveryStatus";
-        statusDictionary["AttackBoost"] = "Status.AttackBoost";
+        statusDictionary = new Dictionary<StatusEnum, string>();
+        statusDictionary[StatusEnum.Fire] = "Status.FireStatus";
+        statusDictionary[StatusEnum.Recovery] = "Status.RecoveryStatus";
+        statusDictionary[StatusEnum.AttackBoost] = "Status.AttackBoost";
+        statusDictionary[StatusEnum.Coin] = "Status.CoinStatus";
     }
 
 
-    public Status.IStatus GetNewStatusObject(string statusName, Status.StatusController controller)
+    public Status.IStatus GetNewStatusObject(StatusEnum statusName, Status.StatusController controller)
     {
         if (statusDictionary.ContainsKey(statusName))
         {
             // var obj = Activator.CreateComInstanceFrom(Assembly.GetEntryAssembly().CodeBase, statusDictionary[statusName], controller);
             System.Object[] args = { controller };
+            Debug.Log(statusDictionary[statusName]);
             var obj = Activator.CreateInstance(Type.GetType(statusDictionary[statusName]), args);
             return (Status.IStatus) obj;
         } else

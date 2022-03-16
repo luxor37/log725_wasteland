@@ -1,17 +1,22 @@
+using Player;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+public class BuyCharacter : MonoBehaviour
 {
+    // Start is called before the first frame update
     private Collider _bounds;
     private bool _areTouching = false;
 
     public TextMesh instructions;
 
-    public string sceneName;
+    public int cost = 5;
 
     void Start()
     {
+        if(PersistenceManager.is2ndCharacterUnlocked){
+            Destroy(gameObject);
+        }
+        
         if (instructions != null)
         {
             instructions.characterSize = 0;
@@ -21,8 +26,13 @@ public class SceneLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
-            SceneManager.LoadScene(sceneName);
+        if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up){
+            if(PersistenceManager.coins >= 5){
+                PersistenceManager.coins -= 5;
+                PersistenceManager.is2ndCharacterUnlocked = true;
+                Destroy(gameObject);
+            }
+        }
 
     }
 

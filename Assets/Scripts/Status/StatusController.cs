@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 namespace Status
@@ -102,6 +103,11 @@ namespace Status
         {
             gameObject.GetComponent<Player.PlayerAttack>().attack -= flat;
             gameObject.GetComponent<Player.PlayerAttack>().attack /= multiplier;
+        }
+
+        public void AddCoin()
+        {
+            PersistenceManager.coins += 1;
         }
 
         public int getCurrentHealth()

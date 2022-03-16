@@ -18,7 +18,7 @@ public class InputController : MonoBehaviour
     public static bool IsPausing = false;
     public int AttackType = 0;
 
-    public static bool characterChange;
+    public static bool IsCharacterChanging;
 
     void Update()
     {
@@ -29,7 +29,7 @@ public class InputController : MonoBehaviour
         HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
         VerticalDirection = GetVerticalDirection(VerticalAxis);
         IsPausing = Input.GetButtonDown("Menu");
-        characterChange = Input.GetKeyDown(KeyCode.K);
+        IsCharacterChanging = Input.GetKeyDown(KeyCode.K);
         AttackType = AttackType + Convert.ToInt32(Input.GetButtonDown("WeaponChange"));
     }
 
