@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 public class BuyCharacter : MonoBehaviour
@@ -12,6 +13,10 @@ public class BuyCharacter : MonoBehaviour
 
     void Start()
     {
+        if(PersistenceManager.is2ndCharacterUnlocked){
+            Destroy(gameObject);
+        }
+        
         if (instructions != null)
         {
             instructions.characterSize = 0;
@@ -22,9 +27,9 @@ public class BuyCharacter : MonoBehaviour
     void Update()
     {
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up){
-            if(GameObject.Find("Character1").GetComponent<Player.PlayerController>().coins >= 5){
-                GameObject.Find("Character1").GetComponent<Player.PlayerController>().coins -= 5;
-                InputController.canCharacterChange = true;
+            if(PersistenceManager.coins >= 5){
+                PersistenceManager.coins -= 5;
+                PersistenceManager.is2ndCharacterUnlocked = true;
                 Destroy(gameObject);
             }
         }

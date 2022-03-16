@@ -22,8 +22,6 @@ namespace Player
         [HideInInspector]
         public float ladderAngle = 0;
 
-        [HideInInspector]
-        public int coins = 0;
         public Text CoinCounter;
 
         private PlayerAttack _playerAttack;
@@ -40,7 +38,7 @@ namespace Player
         void LateUpdate()
         {
             if(CoinCounter != null){
-                CoinCounter.text = coins.ToString();
+                CoinCounter.text = PersistenceManager.coins.ToString();
             }
 
             if (!PauseMenu.isGamePaused)

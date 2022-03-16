@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 namespace Status
@@ -106,7 +107,7 @@ namespace Status
 
         public void AddCoin()
         {
-            gameObject.GetComponent<Player.PlayerController>().coins += 1;
+            PersistenceManager.coins += 1;
         }
 
         public int getCurrentHealth()

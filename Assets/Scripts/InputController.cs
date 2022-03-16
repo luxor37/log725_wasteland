@@ -19,7 +19,6 @@ public class InputController : MonoBehaviour
     public int AttackType = 0;
 
     public static bool IsCharacterChanging;
-    public static bool canCharacterChange = false;
 
     void Update()
     {
