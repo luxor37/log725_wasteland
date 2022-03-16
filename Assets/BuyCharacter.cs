@@ -8,7 +8,7 @@ public class BuyCharacter : MonoBehaviour
 
     public TextMesh instructions;
 
-    public string sceneName;
+    public int cost = 5;
 
     void Start()
     {
@@ -22,7 +22,11 @@ public class BuyCharacter : MonoBehaviour
     void Update()
     {
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up){
-            
+            if(GameObject.Find("Character1").GetComponent<Player.PlayerController>().coins >= 5){
+                GameObject.Find("Character1").GetComponent<Player.PlayerController>().coins -= 5;
+                InputController.canCharacterChange = true;
+                Destroy(gameObject);
+            }
         }
 
     }

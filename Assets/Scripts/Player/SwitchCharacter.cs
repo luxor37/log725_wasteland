@@ -12,10 +12,10 @@ public class SwitchCharacter : MonoBehaviour
     void Update()
     {
         
-        if (InputController.characterChange)
+        if (InputController.IsCharacterChanging && InputController.canCharacterChange)
         {
             currentPosition =  transform.GetChild(characterIndex).gameObject.transform.position;
-            InputController.characterChange = false;
+            InputController.IsCharacterChanging = false;
             transform.GetChild(characterIndex).gameObject.SetActive(false);
             if (characterIndex == 0)
             {

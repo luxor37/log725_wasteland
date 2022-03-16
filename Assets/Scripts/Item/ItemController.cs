@@ -1,12 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
+    public enum StatusEnum
+    {
+        Fire,
+        Recovery,
+        AttackBoost,
+        Coin
+    }
 
     Status.IStatus ItemStatus;
-    public string statusName;
+    public StatusEnum statusName;
+
 
     private void OnTriggerEnter(Collider other)
     {

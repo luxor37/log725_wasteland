@@ -104,6 +104,11 @@ namespace Status
             gameObject.GetComponent<Player.PlayerAttack>().attack /= multiplier;
         }
 
+        public void AddCoin()
+        {
+            gameObject.GetComponent<Player.PlayerController>().coins += 1;
+        }
+
         public int getCurrentHealth()
         {
             return this.currentHealth;
