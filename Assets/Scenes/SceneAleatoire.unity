@@ -290,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5768026317819636665, guid: f0a1df98988d5024a8d699b47dbd071d, type: 3}
       propertyPath: m_Name
-      value: Ground
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0a1df98988d5024a8d699b47dbd071d, type: 3}

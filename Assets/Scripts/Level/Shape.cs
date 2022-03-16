@@ -15,12 +15,19 @@ namespace Level
 
         public enum SymbolEnum
         {
+            AXIOM,
             FLOOR,
             CEILING,
+            CONTENT,
+            PLATFORM,
             LADDER,
+            PREBOSS,
+            BOSS,
+            TERRAIN,
             ENEMY,
             ITEM,
-            COIN
+            COIN,
+            EMPTY
         }
 
         public SymbolEnum Symbol;
@@ -28,11 +35,11 @@ namespace Level
         public GameObject ShapeObject; // not just geometric data. instead of abstract shape put gameobject (shortcut)
 
         [SerializeField]
-        public Dictionary<AttributeEnum, int> Attributes;
+        public List<AttributeEnum> Attributes;
+        public List<int> AttributeValues;
 
         private void Awake()
         {
-            Attributes = new Dictionary<AttributeEnum, int>();
         }
     }
 }
