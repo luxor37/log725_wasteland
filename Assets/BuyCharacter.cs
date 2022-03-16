@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+public class BuyCharacter : MonoBehaviour
 {
+    // Start is called before the first frame update
     private Collider _bounds;
     private bool _areTouching = false;
 
@@ -21,8 +21,8 @@ public class SceneLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
-            SceneManager.LoadScene(sceneName);
+        // if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
+            // SceneManager.LoadScene(sceneName);
 
     }
 
