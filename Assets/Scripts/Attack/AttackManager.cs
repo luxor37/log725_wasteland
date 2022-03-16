@@ -61,6 +61,11 @@ public class AttackManager : MonoBehaviour
             Attack ZombieAttack = new Attack(50, 1,1,AttackType.Aoe, AttackForm.Melee,null,CharacterElement.None, null);
             List_EnemyAttack.Add(ZombieAttack);
         }
+        else if (Type == (int) EnemyType.BossOne)
+        {
+            Attack BossNormalAttack = new Attack(50, 1,1,AttackType.Aoe, AttackForm.Melee,null,CharacterElement.None, null);
+            List_EnemyAttack.Add(BossNormalAttack);
+        }
 
         return List_EnemyAttack;
     }

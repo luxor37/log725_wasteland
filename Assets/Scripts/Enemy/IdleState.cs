@@ -29,11 +29,11 @@ namespace Enemy
             timer += Time.deltaTime;
             if (_parameter._target != null)
             {
-                _enemyStatesController.TransitionState(StateType.Chase);
+                _enemyStatesController.TransitionState(EnemyStateType.Chase);
             }
             if (timer > waitTime)
             {
-                _enemyStatesController.TransitionState(StateType.Seek);
+                _enemyStatesController.TransitionState(EnemyStateType.Seek);
             }
 
         }
@@ -48,7 +48,6 @@ namespace Enemy
     {
         private EnemyStatesController _enemyStatesController;
         private Parameter _parameter;
-
         private Vector3 rightEdge;
         private Vector3 leftEdge;
         private Vector3 currentDestination;
@@ -61,17 +60,15 @@ namespace Enemy
         {
             this._enemyStatesController = controller;
             this._parameter = controller.parameter;
-            
-            
         }
 
         public void OnEnter()
         {
-            _parameter._animator.SetBool("isWalking", true);
             rightEdge = _enemyStatesController.rightEdge.position;
             leftEdge = _enemyStatesController.leftEdge.position;
             currentDestination = leftEdge;
             _parameter._NavMeshAgent.SetDestination(currentDestination);
+            _parameter._NavMeshAgent.stoppingDistance = 0.2f;
 
         }
 
@@ -79,15 +76,17 @@ namespace Enemy
         {
             if (_parameter._target != null)
             {
-                _enemyStatesController.TransitionState(StateType.Chase);
+                _enemyStatesController.TransitionState(EnemyStateType.Chase);
             }
             if (currentDestination == leftEdge && _parameter._NavMeshAgent.remainingDistance < 0.2)
             {
+                _parameter._NavMeshAgent.velocity = Vector3.zero;
                 currentDestination = rightEdge;
                 _parameter._NavMeshAgent.SetDestination(currentDestination);
             }
             else if (currentDestination == rightEdge && _parameter._NavMeshAgent.remainingDistance < 0.2)
             {
+                _parameter._NavMeshAgent.velocity = Vector3.zero;
                 currentDestination = leftEdge;
                 _parameter._NavMeshAgent.SetDestination(currentDestination);
             }
@@ -119,7 +118,11 @@ namespace Enemy
         public void OnEnter()
         {
             _parameter._animator.SetBool("isWalking", true);
+            if(_parameter._target == null)
+                _enemyStatesController.TransitionState(EnemyStateType.Reset);
+                
             _parameter._NavMeshAgent.SetDestination(_parameter._target.position);
+            
         }
 
         public void OnUpdate()
@@ -136,7 +139,7 @@ namespace Enemy
                 if (remainingDistance < _parameter.attackRange)
                 {
                     _parameter._animator.SetBool("isWalking", false);
-                    this._enemyStatesController.TransitionState(StateType.Attack);
+                    this._enemyStatesController.TransitionState(EnemyStateType.Attack);
                 }
             }
             else
@@ -145,7 +148,7 @@ namespace Enemy
                 if (timer > this._parameter.chaseTime)
                 {
                     _CurrentTarget = null;
-                    this._enemyStatesController.TransitionState(StateType.Reset);
+                    this._enemyStatesController.TransitionState(EnemyStateType.Reset);
                 }
                 if(_CurrentTarget != null)
                     _parameter._NavMeshAgent.SetDestination(_CurrentTarget.position);
@@ -163,6 +166,7 @@ namespace Enemy
     {
         private EnemyStatesController _enemyStatesController;
         private Parameter _parameter;
+        private float timer = 0;
 
         public AttackState(EnemyStatesController controller)
         {
@@ -189,15 +193,14 @@ namespace Enemy
                     _parameter._animator.SetTrigger("Attack");
                     _parameter._animator.SetBool("isWalking", false);
                 }
-                else
-                {
-                    _enemyStatesController.TransitionState(StateType.Chase);
-                }
             }
             else
             {
-                _enemyStatesController.TransitionState(StateType.Reset);
+                _enemyStatesController.TransitionState(EnemyStateType.Chase);
             }
+
+           
+            
         }
 
         public void OnExit()
@@ -230,12 +233,12 @@ namespace Enemy
             
             if (_enemyStatesController.findPlayer())
             {
-                _enemyStatesController.TransitionState(StateType.Chase);
+                _enemyStatesController.TransitionState(EnemyStateType.Chase);
             }
             if (_parameter._NavMeshAgent.remainingDistance < 0.5)
             {
                 _parameter._animator.SetBool("isWalking", false);
-                _enemyStatesController.TransitionState(StateType.Idle);
+                _enemyStatesController.TransitionState(EnemyStateType.Idle);
             }
         }
 
