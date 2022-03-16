@@ -49,8 +49,6 @@ namespace Player
                 GetVerticalMovement(y, isGrounded, jumpForce, gravityScale),
                 0f);
 
-            Debug.Log(desiredMovement);
-
             return desiredMovement;
         }
 
