@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     private NavMeshAgent _navMeshAgent;
-    public GameObject _target;
+    private GameObject _target;
     private Animator _animator;
 
     public float stopDistance = 2f;
@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        _target = GameObject.FindGameObjectWithTag("Player");
         move();
     }
 
@@ -38,8 +39,8 @@ public class EnemyController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player"){
-            var statusCtrl = other.gameObject.GetComponent<Status.StatusController>();
+        if (other.tag == "Character"){
+            var statusCtrl = GameObject.FindGameObjectWithTag("Player").GetComponent<Status.StatusController>();
             statusCtrl.TakeDamage(100);
         }
     }

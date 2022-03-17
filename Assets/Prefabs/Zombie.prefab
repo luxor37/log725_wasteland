@@ -3458,12 +3458,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6693942696897615629}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dadfc16a8ed266f4ebc9461cf0a3ad1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
   stopDistance: 2
 --- !u!114 &6693942696897615628
 MonoBehaviour:
@@ -3492,7 +3491,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8966f577b168a7f42aac3485801467c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleManager: {fileID: 0}
 --- !u!114 &952674517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3514,7 +3512,7 @@ MonoBehaviour:
     _animator: {fileID: 0}
     layer:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 512
     _NavMeshAgent: {fileID: 0}
     _target: {fileID: 0}
   attackPoint: {fileID: 795778514}

@@ -38,7 +38,7 @@ public class BuyCharacter : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Character")
         {
             _areTouching = true;
             if (instructions != null)
@@ -50,7 +50,7 @@ public class BuyCharacter : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Character")
         {
             _areTouching = false;
             if (instructions != null)

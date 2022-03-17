@@ -22,7 +22,7 @@ namespace Enemy
 
         public void OnUpdate()
         {
-            
+
             if (_parameter._target != null)
             {
                 _enemyStatesController.TransitionState(StateType.Chase);
@@ -34,14 +34,14 @@ namespace Enemy
             timer = 0;
         }
     }
-    
+
     public class ChaseState : IState
     {
         private EnemyStatesController _enemyStatesController;
         private Parameter _parameter;
 
         private float timer;
-        
+
         public ChaseState(EnemyStatesController controller)
         {
             this._enemyStatesController = controller;
@@ -55,7 +55,7 @@ namespace Enemy
 
         public void OnUpdate()
         {
-           
+
             timer += Time.deltaTime;
             if (_enemyStatesController.findPlayer())
             {
@@ -84,7 +84,7 @@ namespace Enemy
             timer = 0;
         }
     }
-    
+
     public class AttackState : IState
     {
         private EnemyStatesController _enemyStatesController;
@@ -103,7 +103,15 @@ namespace Enemy
 
         public void OnUpdate()
         {
-            _enemyStatesController.FlipTo(_parameter._target.position);
+            if (_parameter._target != null)
+            {
+                _enemyStatesController.FlipTo(_parameter._target.position);
+            }
+            else
+            {
+                Debug.Log("Target is null. Is is dead?");
+            }
+            
             if (_enemyStatesController.findPlayer())
             {
                 if (_parameter.attackRange > _parameter._NavMeshAgent.remainingDistance)
@@ -124,10 +132,10 @@ namespace Enemy
 
         public void OnExit()
         {
-            
+
         }
     }
-    
+
     public class ResetState : IState
     {
         private EnemyStatesController _enemyStatesController;
@@ -149,7 +157,7 @@ namespace Enemy
         public void OnUpdate()
         {
             _enemyStatesController.FlipTo(_parameter.originPosition);
-            
+
             if (_enemyStatesController.findPlayer())
             {
                 _enemyStatesController.TransitionState(StateType.Chase);
@@ -163,7 +171,7 @@ namespace Enemy
 
         public void OnExit()
         {
-            
+
         }
     }
 }
