@@ -12,12 +12,12 @@ public class EnemyUIController : MonoBehaviour
     {
         _enemyStatusController = this.gameObject.GetComponent<Status.StatusController>();
         healthBar.maxValue = _enemyStatusController.maxHealth;
-        healthBar.value = _enemyStatusController.getCurrentHealth();
+        healthBar.value = _enemyStatusController.currentHealth;
     }
 
     void Update()
     {
-        healthBar.value = _enemyStatusController.getCurrentHealth();
+        healthBar.value = _enemyStatusController.currentHealth;
         GradientHP.color = _Gradient.Evaluate(healthBar.normalizedValue);
     }
 }

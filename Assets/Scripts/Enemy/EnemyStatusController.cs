@@ -1,32 +1,22 @@
-﻿using UnityEngine;
+﻿using Status;
+using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyStatusController : GameEntity, IknockBack
+    public class EnemyStatusController : StatusController
     {
-        private Animator _animator;
-
-        private bool isHit;
-
-        protected override void Start()
+        new void Start()
         {
             base.Start();
             _animator = GetComponent<Animator>();
+            _particlesController = GetComponent<ParticlesController>();
         }
 
-        public override void TakeDamage(int damage)
+        public new void TakeDamage(int damage)
         {
             base.TakeDamage(damage);
-            Knockback();
-        }
 
-        public void Knockback()
-        {
-            if (!isHit)
-            {
-                isHit = true;
-                _animator.SetTrigger("isHit");
-            }
+            Knockback();
         }
     }
 }

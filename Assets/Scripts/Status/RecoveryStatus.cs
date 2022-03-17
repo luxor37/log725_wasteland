@@ -4,10 +4,10 @@ namespace Status
 {
     public class RecoveryStatus : IStatus
     {
-        public new float duration = 5f;
+        public float duration = 5f;
         public int initialHeal = 100;
         public int perSecHeal = 50;
-        public new ParticleType particleToSpawn = ParticleType.HealthRegen;
+        public ParticleType particleToSpawn = ParticleType.HealthRegen;
 
 
         public RecoveryStatus(StatusController controller) : base(controller)

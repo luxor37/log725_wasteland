@@ -1,3 +1,5 @@
+using Player;
+using Status;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
@@ -10,7 +12,6 @@ public class ItemController : MonoBehaviour
         Coin
     }
 
-    Status.IStatus ItemStatus;
     public StatusEnum statusName;
 
 
@@ -18,11 +19,11 @@ public class ItemController : MonoBehaviour
     {
         if (other.gameObject.tag == "Character")
         {
-            var controller = GameObject.FindGameObjectWithTag("Player").GetComponent<Status.StatusController>();
-            ItemStatus = StatusManager.Instance.GetNewStatusObject(statusName, controller);
+            var controller = other.GetComponent<PlayerStatusController>();
             if (controller != null)
             {
-                controller.AddStatus(ItemStatus);
+                var status = StatusManager.Instance.GetNewStatusObject(statusName, controller);
+                controller.AddStatus(status);
             }
             Destroy(gameObject);
         }

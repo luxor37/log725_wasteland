@@ -1275,6 +1275,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
+  floatingPoint: {fileID: 0}
+  damageIndicatorColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &267977203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4516,6 +4518,18 @@ PrefabInstance:
     - target: {fileID: 872323081400956385, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 872323082303584854, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 8.336
+      objectReference: {fileID: 0}
+    - target: {fileID: 872323082303584854, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 88.524
+      objectReference: {fileID: 0}
+    - target: {fileID: 872323082303584854, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90.313
       objectReference: {fileID: 0}
     - target: {fileID: 872323082333933072, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
       propertyPath: m_Name

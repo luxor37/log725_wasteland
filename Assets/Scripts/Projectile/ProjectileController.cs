@@ -1,23 +1,24 @@
+using Enemy;
+using Status;
 using UnityEngine;
+using static ItemController;
 
 class ProjectileController : MonoBehaviour
 {
     public float duration = 1f;
     public float speed;
     public float acceleration = 0f;
+
+    public int damage = 50;
+
     public Vector3 direction;
     public LayerMask targetLayer;
     public ParticleSystem exploseEffect;
 
+    public StatusEnum appliedStatus = StatusEnum.Fire;
+
     float timer = 0f;
 
-    // Start is called before the first frame updated
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
@@ -29,13 +30,15 @@ class ProjectileController : MonoBehaviour
         transform.position += direction.normalized * speed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private async void OnTriggerEnter(Collider other)
     {
        
        if (targetLayer.value == (targetLayer.value | (1 << other.gameObject.layer)))
         {
-            
-            other.GetComponent<Status.StatusController>().AddStatus(new Status.FireStatus(other.GetComponent<Status.StatusController>()));
+            var statusController = other.GetComponent<EnemyStatusController>();
+            statusController.TakeDamage(damage);
+            IStatus newStatus = StatusManager.Instance.GetNewStatusObject(appliedStatus, statusController);
+            other.GetComponent<StatusController>().AddStatus(newStatus);
             exploseEffect = Instantiate(exploseEffect, other.transform.GetChild(2).position, Quaternion.identity);
             exploseEffect.Play();
         }
