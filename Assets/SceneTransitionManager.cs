@@ -27,15 +27,17 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     IEnumerator LoadSceneRoutine(){
+        InputController.disableControls = true;
         sceneTransitionAnim.SetTrigger("end");
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(scene);
     }
 
     IEnumerator GameOverRoutine(){
+        InputController.disableControls = true;
         gameOverAnim.SetTrigger("end");
         sceneTransitionAnim.SetTrigger("end");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(scene);
     }
 }

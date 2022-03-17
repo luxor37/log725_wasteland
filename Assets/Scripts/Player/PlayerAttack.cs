@@ -20,7 +20,6 @@ namespace Player
 
         private Animator _animator;
         private PlayerController _playerController;
-        private InputController _inputController;
 
         public GameObject rangedWeapon;
         private float rangeTimer = 0f;
@@ -31,14 +30,13 @@ namespace Player
         {
             _animator = GetComponent<Animator>();
             _playerController = GetComponent<PlayerController>();
-            _inputController = GetComponent<InputController>();
         }
 
         // Update is called once per frame
         void Update()
         {
             rangeTimer += Time.deltaTime;
-            attackType = (AttackType)(_inputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
+            attackType = (AttackType)(InputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
             if (attackType == AttackType.MELEE && rangedWeapon != null)
                 rangedWeapon.SetActive(false);
             else if (attackType == AttackType.RANGED && rangedWeapon != null)

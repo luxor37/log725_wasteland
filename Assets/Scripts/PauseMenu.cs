@@ -56,6 +56,6 @@ public class PauseMenu : MonoBehaviour
     public void ReturnToLobby()
     {
         Pause(false);
-        SceneManager.LoadScene("Lobby");
+        SceneTransitionManager.sceneTransitionManager.LoadScene("Lobby");
     }
 }
