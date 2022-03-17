@@ -35,7 +35,7 @@ class ProjectileController : MonoBehaviour
 
         if (targetLayer.value == (targetLayer.value | (1 << other.gameObject.layer)))
         {
-            var statusController = other.GetComponent<EnemyStatusController>();
+            var statusController = other.GetComponent<StatusController>();
             statusController.TakeDamage(damage);
             IStatus newStatus = StatusManager.Instance.GetNewStatusObject(appliedStatus, statusController);
             other.GetComponent<StatusController>().AddStatus(newStatus);

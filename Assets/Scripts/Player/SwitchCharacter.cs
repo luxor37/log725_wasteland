@@ -5,11 +5,12 @@ public class SwitchCharacter : MonoBehaviour
 {
     private Vector3 currentPosition;
 
-    private int characterIndex = 0;
+    private static int characterIndex = 0;
 
     public static GameObject currentCharacter;
 
-    void Start(){
+    void Start()
+    {
 
         for (int i = 0; i < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length; i++)
         {
@@ -29,22 +30,29 @@ public class SwitchCharacter : MonoBehaviour
         {
             characterIndex = (int)PersistenceManager.activeCharacter;
 
-            currentPosition =  transform.GetChild(characterIndex).gameObject.transform.position;
+            currentPosition = transform.GetChild(characterIndex).gameObject.transform.position;
             InputController.IsCharacterChanging = false;
             transform.GetChild(characterIndex).gameObject.SetActive(false);
 
-            if(characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length-1)
+            if (characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length - 1)
                 characterIndex++;
             else
                 characterIndex = 0;
 
-            PersistenceManager.activeCharacter = (PersistenceManager.ActiveCharacter) characterIndex;
+            PersistenceManager.activeCharacter = (PersistenceManager.ActiveCharacter)characterIndex;
 
             transform.GetChild(characterIndex).gameObject.transform.position = currentPosition;
             transform.GetChild(characterIndex).gameObject.SetActive(true);
         }
 
-        currentCharacter = transform.GetChild(characterIndex).gameObject;
-        gameObject.transform.position = transform.GetChild(characterIndex).gameObject.transform.position;
+        try
+        {
+            currentCharacter = transform.GetChild(characterIndex).gameObject;
+            gameObject.transform.position = transform.GetChild(characterIndex).gameObject.transform.position;
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("Cannot find character at index "+characterIndex+". Is it dead?");
+        }
     }
 }
