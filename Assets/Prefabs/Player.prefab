@@ -1289,12 +1289,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1567814810048039160}
-  gunTipAttackPoint: {fileID: 0}
+  rangedAttackStartPosition: {fileID: 0}
   attackRange: {x: 1, y: 1, z: 1}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  meleeDamage: 0
+  meleeDamage: 200
   rangedDamage: 0
   attackType: 0
   rangedWeapon: {fileID: 1567814810177552095}
@@ -4338,7 +4338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1567814809801818000}
-  gunTipAttackPoint: {fileID: 1567814810438930149}
+  rangedAttackStartPosition: {fileID: 1567814810438930149}
   attackRange: {x: 0.5, y: 2, z: 1}
   enemyLayers:
     serializedVersion: 2

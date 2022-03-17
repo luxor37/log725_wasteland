@@ -12,8 +12,8 @@ namespace Player
         public enum AttackType { MELEE = 0, RANGED = 1 };
 
         public Transform attackPoint;
-        public Transform gunTipAttackPoint;
-        public Vector3 attackRange = new Vector3(1,1,1);
+        public Transform rangedAttackStartPosition;
+        public Vector3 attackRange = new Vector3(1, 1, 1);
         public LayerMask enemyLayers;
         public int meleeDamage;
         public int rangedDamage;
@@ -37,7 +37,7 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            
+
             rangeTimer += Time.deltaTime;
             attackType = (AttackType)(InputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
             if (attackType == AttackType.MELEE && rangedWeapon != null)
@@ -48,13 +48,14 @@ namespace Player
 
             if (InputController.IsAttacking)
             {
-                if(PlayerMovementController.canJump && attackType == AttackType.MELEE)
+                if (PlayerMovementController.canJump && attackType == AttackType.MELEE)
                     Attack();
 
                 if (attackType == AttackType.RANGED)
                     RangeAttack();
             }
-            else{
+            else
+            {
                 _animator.SetBool("RangedAttack", false);
             }
         }
@@ -69,21 +70,24 @@ namespace Player
             if (rangeTimer < rangeCooldown)
                 return;
             rangeTimer = 0f;
-            _animator.SetBool("RangedAttack", true);
-            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("Bullet");
-            newProjectile.GetComponent<ProjectileController>().direction = transform.forward;
-            newProjectile.GetComponent<ProjectileController>().damage = rangedDamage;
-            Instantiate(newProjectile, gunTipAttackPoint.position, attackPoint.rotation);
-            attacking = true;
+            if (rangedAttackStartPosition != null)
+            {
+                _animator.SetBool("RangedAttack", true);
+                var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("Bullet");
+                newProjectile.GetComponent<ProjectileController>().direction = transform.forward;
+                newProjectile.GetComponent<ProjectileController>().damage = rangedDamage;
+                Instantiate(newProjectile, rangedAttackStartPosition.position, attackPoint.rotation);
+                attacking = true;
+            }
         }
 
         private void Hit()
         {
-            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange,Quaternion.identity, enemyLayers);
+            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
             foreach (Collider enemy in hitEnemies)
             {
                 IDamageble damagebleable = enemy.GetComponent<IDamageble>();
-                if(damagebleable != null)
+                if (damagebleable != null)
                 {
                     damagebleable.TakeDamage(meleeDamage);
                     var enemyStatusController = enemy.GetComponent<EnemyStatusController>();
