@@ -11,10 +11,11 @@ class ProjectileController : MonoBehaviour
     public float acceleration = 0f;
     public Vector3 direction;
     public LayerMask targetLayer;
+    public ParticleSystem exploseEffect;
 
     float timer = 0f;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame updated
     void Start()
     {
         
@@ -39,6 +40,8 @@ class ProjectileController : MonoBehaviour
         {
             
             other.GetComponent<Status.StatusController>().AddStatus(new Status.FireStatus(other.GetComponent<Status.StatusController>()));
+            exploseEffect = Instantiate(exploseEffect, other.transform.GetChild(2).position, Quaternion.identity);
+            exploseEffect.Play();
         }
         if (other.gameObject.tag != "Player")
             Destroy(gameObject);

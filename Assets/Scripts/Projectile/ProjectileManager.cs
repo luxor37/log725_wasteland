@@ -45,10 +45,15 @@ namespace Projectile
         {
             foreach (GameObject projectile in projectiles)
             {
-                if (projectile.name == name)
+                if (projectile.name.Equals(name))
                     return projectile;
             }
             return null;
+        }
+
+        public GameObject getIndex(int i)
+        {
+            return projectiles[i];
         }
     }
 }
