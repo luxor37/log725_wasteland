@@ -12,6 +12,8 @@ namespace Player
         {
             base.Start();
             _animator = this.gameObject.GetComponent<Animator>();
+            
+            base.onDeath += PlayerDeath;
         }
 
         public void TakeDamage(int damage)
@@ -33,6 +35,10 @@ namespace Player
         public int CalculateDamage()
         {
             return 0;
+        }
+        
+        void PlayerDeath(){
+            SceneTransitionManager.sceneTransitionManager.GameOver();
         }
     }
 }
