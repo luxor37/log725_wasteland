@@ -1,6 +1,4 @@
-﻿using Player;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Enemy
 {
@@ -9,6 +7,7 @@ namespace Enemy
         private Animator _animator;
 
         private bool isHit;
+
         protected override void Start()
         {
             base.Start();
@@ -21,11 +20,6 @@ namespace Enemy
             Knockback();
         }
 
-        public int getCurrentHealth()
-        {
-            return this.currentHealth;
-        }
-
         public void Knockback()
         {
             if (!isHit)
@@ -33,11 +27,6 @@ namespace Enemy
                 isHit = true;
                 _animator.SetTrigger("isHit");
             }
-        }
-
-        public void ResetHit()
-        {
-            isHit = false;
         }
     }
 }

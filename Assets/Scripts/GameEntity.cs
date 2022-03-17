@@ -29,7 +29,6 @@ public class GameEntity : MonoBehaviour, IDamageble
     public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        // Debug.Log(currentHealth);
         if (currentHealth <= 0 && isDead == false)
         {
             Die();
@@ -39,7 +38,6 @@ public class GameEntity : MonoBehaviour, IDamageble
     public virtual void TakeHeal(int heal)
     {
         currentHealth += heal;
-        Debug.Log(currentHealth);
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
     }

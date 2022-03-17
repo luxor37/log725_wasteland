@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1347811129351170630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1337520980535486662}
+  m_Layer: 7
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1337520980535486662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347811129351170630}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.798, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6697307304488992979}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2254394276145503762
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 322d6962b7949b0409331628f1720244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!1 &6692805337466596812
 GameObject:
   m_ObjectHideFlags: 0
@@ -3282,6 +3311,9 @@ GameObject:
   - component: {fileID: 2254394275616833010}
   - component: {fileID: 2254394275616833013}
   - component: {fileID: 6693942696897615628}
+  - component: {fileID: 3583479528470594948}
+  - component: {fileID: 8713284424677192876}
+  - component: {fileID: 8577968164501323199}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Untagged
@@ -3302,6 +3334,7 @@ Transform:
   m_Children:
   - {fileID: 2254394276145503765}
   - {fileID: 6692805337412539701}
+  - {fileID: 1337520980535486662}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -3446,6 +3479,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1000
   currentHealth: 1000
+  floatingPoint: {fileID: 0}
+--- !u!114 &3583479528470594948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693942696897615629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7354c288e23846c7aebe79cb39367f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameter:
+    attackPoints: {fileID: 1337520980535486662}
+    attackRange: 1.25
+    chaseRange: 5
+    chaseTime: 5
+    originPosition: {x: 0, y: 0, z: 0}
+    _animator: {fileID: 0}
+    layer:
+      serializedVersion: 2
+      m_Bits: 64
+    _NavMeshAgent: {fileID: 0}
+    _target: {fileID: 0}
+  attackPoint: {fileID: 1347811129351170630}
+--- !u!114 &8713284424677192876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693942696897615629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8966f577b168a7f42aac3485801467c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8577968164501323199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693942696897615629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d453f52eef6b8e4ba5c337b53bf792d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: RecoverItem1
+  getRandomItem: 1
 --- !u!1 &6693945161968740639
 GameObject:
   m_ObjectHideFlags: 0

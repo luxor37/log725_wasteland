@@ -10,9 +10,6 @@ namespace Player
         private CharacterController _controller;
         private Vector3 _desiredMovement;
         private bool _isGrounded = false;
-
-
-        public float rotationSpeed = 10f;
         public float moveSpeed = 5f;
         public float climbingSpeed = 1f;
         public float jumpForce = 10f;

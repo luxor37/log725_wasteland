@@ -9,8 +9,6 @@ namespace Enemy
 
         private float timer;
 
-        private bool foundPlayer;
-
         public IdleState(EnemyStatesController controller)
         {
             this._enemyStatesController = controller;

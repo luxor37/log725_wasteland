@@ -1,37 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using UnityEngine;
-
+using static FXManager;
 
 public class ParticlesController : MonoBehaviour
 {
 
-    public ParticleManager particleManager;
-    /**
-    float timer = 0f;
-    ParticleSystem curParticleSystem;
-    float duration;
-    string curParticleName;
-    */
-    Dictionary<string, ParticleSystem> particlesMap;
-    Dictionary<string, float> durationsMap;
-    Dictionary<string, float> maxDurationMap;
+    private FXManager fxManager;
+    Dictionary<ParticleType, ParticleSystem> particlesMap;
+    Dictionary<ParticleType, float> durationsMap;
+    Dictionary<ParticleType, float> maxDurationMap;
     private void Start()
     {
-        particleManager = ParticleManager.Instance;    
-        particlesMap = new Dictionary<string, ParticleSystem>();
-        durationsMap = new Dictionary<string, float>();
-        maxDurationMap = new Dictionary<string, float>();
+        fxManager = FXManager.Instance;    
+        particlesMap = new Dictionary<ParticleType, ParticleSystem>();
+        durationsMap = new Dictionary<ParticleType, float>();
+        maxDurationMap = new Dictionary<ParticleType, float>();
     }
 
-    public void ChangeParticles(string name, float duration)
+    public void ChangeParticles(ParticleType name, float duration)
     {
 
         if (particlesMap.ContainsKey(name))
             return;
-        var newParticles = particleManager.GetParticle(name);
+        var newParticles = fxManager.GetParticle(name);
         if (newParticles != null)
         {
             durationsMap[name] = 0f;
@@ -44,15 +37,15 @@ public class ParticlesController : MonoBehaviour
 
     private void Update()
     {
-        foreach(var particleName in particlesMap.Keys.ToList())
+        foreach(ParticleType particleName in particlesMap.Keys.ToList())
         {
             durationsMap[particleName] += Time.deltaTime;
             if (durationsMap[particleName] > maxDurationMap[particleName])
             {
                 Destroy(particlesMap[particleName]);
                 particlesMap.Remove(particleName);
-                durationsMap.Remove(name);
-                maxDurationMap.Remove(name);
+                durationsMap.Remove(particleName);
+                maxDurationMap.Remove(particleName);
             }
         }
             

@@ -55,10 +55,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7050467302670789520}
-  - component: {fileID: 1985283767237884833}
+  - component: {fileID: 7528690499567715443}
   m_Layer: 0
-  m_Name: ParticleManager
-  m_TagString: Untagged
+  m_Name: FXManager
+  m_TagString: FXManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ Transform:
   m_Father: {fileID: 2331803293681912321}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1985283767237884833
+--- !u!114 &7528690499567715443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,14 +86,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 693515684152350149}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff330711b4e3718419257b24091fc20d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bbd31b84945d3b4b99389291b445d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   particles:
-  - {fileID: 198373134025340838, guid: a543ff400bf87bf4596d647a5a30095b, type: 3}
-  - {fileID: 198107820186352126, guid: b369efb4abe69e044890b664115fab9e, type: 3}
-  - {fileID: 198261741210295434, guid: c0e78f58b62fa42439f781de4f53f10a, type: 3}
-  - {fileID: 198862153969099638, guid: 415a745d154d60545b9ff3810609eba7, type: 3}
+  - name: 0
+    particle: {fileID: 198373134025340838, guid: a543ff400bf87bf4596d647a5a30095b, type: 3}
+  - name: 1
+    particle: {fileID: 198567290778272910, guid: 3a16b32bf79fd14489d750c7e43eba9d, type: 3}
+  - name: 2
+    particle: {fileID: 198567290778272910, guid: 0511e172606ed0844bc010ad56bb18cd, type: 3}
 --- !u!1 &1985283766239455092
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Item
 {
@@ -15,7 +14,6 @@ namespace Item
             var itemToSpawn = getRandomItem? ItemManager.Instance.GetRandomItem() : ItemManager.Instance.GetItem(itemName);
             if (itemToSpawn != null)
             {
-                Debug.Log(itemName + " Dropped");
                 Instantiate(itemToSpawn, transform.position, transform.rotation);
             }
                

@@ -1,6 +1,5 @@
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -16,7 +15,6 @@ namespace Player
         public int attack;
         public AttackType attackType;
         private bool attacking = false;
-        private int AttackIndex;
 
         private Animator _animator;
         private PlayerController _playerController;
@@ -45,8 +43,6 @@ namespace Player
 
             if (InputController.IsAttacking)
             {
-                Debug.Log(attackType);
-                //TODO change this
                 if(PlayerMovementController.canJump && attackType == AttackType.MELEE)
                     Attack();
 

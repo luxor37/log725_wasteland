@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SwitchCharacter : MonoBehaviour
@@ -31,15 +28,10 @@ public class SwitchCharacter : MonoBehaviour
             InputController.IsCharacterChanging = false;
             transform.GetChild(characterIndex).gameObject.SetActive(false);
 
-            Debug.Log(characterIndex);
-
-            if(characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length-1){
+            if(characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length-1)
                 characterIndex++;
-            }
             else
-            {
                 characterIndex = 0;
-            }
 
             PersistenceManager.activeCharacter = (PersistenceManager.ActiveCharacter) characterIndex;
 

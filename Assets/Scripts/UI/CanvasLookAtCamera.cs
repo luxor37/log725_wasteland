@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CanvasLookAtCamera : MonoBehaviour
 {
-    public Transform cam;
-    
+    void Awake(){
+        gameObject.GetComponent<Canvas>().worldCamera = Camera.main;
+    }
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.LookAt(cam.position); 
+        transform.LookAt(Camera.main.transform); 
     }
 }
