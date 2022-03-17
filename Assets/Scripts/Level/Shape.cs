@@ -11,6 +11,8 @@ namespace Level
         {
             MAX_SIZE,
             MIN_SIZE,
+            OFFSET_X,
+            OFFSET_Y,
         }
 
         public enum SymbolEnum

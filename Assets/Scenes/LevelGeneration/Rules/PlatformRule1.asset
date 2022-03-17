@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9db153a0d1955ce46b9dcc14d9181e24, type: 3}
-  m_Name: AxiomRule
+  m_Name: PlatformRule1
   m_EditorClassIdentifier: 
-  PredecessorShape: {fileID: 0}
-  TargetShape: []
-  Conditions: 00000000
+  PredecessorShape: {fileID: 11400000, guid: b6b981f81a51b2247b58860e3bb43a79, type: 2}
+  TargetShape:
+  - {fileID: 11400000, guid: 922ab7acb6db8734eb599b2230c469c0, type: 2}
+  - {fileID: 11400000, guid: cece8705af8bc8b4dab2b4ac8762e15f, type: 2}
+  Conditions: 
   ConditionValues: 
   Operator: 0
