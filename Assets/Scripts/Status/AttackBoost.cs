@@ -1,17 +1,17 @@
-﻿using static FXManager;
+﻿using Player;
+using static FXManager;
 
 namespace Status
 {
     public class AttackBoost : IStatus
     {
 
-        public new float duration = 5f;
+        public float duration = 5f;
         public int flatBoost = 50;
         public int multiBoost = 2;
-        public new ParticleType particleToSpawn = ParticleType.AttackBoost;
+        public ParticleType particleToSpawn = ParticleType.AttackBoost;
 
-
-        public AttackBoost(StatusController controller) : base(controller)
+        public AttackBoost(PlayerStatusController controller) : base(controller)
         {
             name = "AttackBoost";
         }
@@ -21,7 +21,7 @@ namespace Status
             // damage
             if (timer == 0f)
             {
-                _controller.AttackMultiplier(multiBoost, flatBoost);
+                ((PlayerStatusController)_controller).AttackMultiplier(multiBoost, flatBoost);
                 _controller.SetParticleSystem(particleToSpawn, duration);
             }
             else if (timer - lastTick > 1f)
@@ -34,7 +34,7 @@ namespace Status
             timer += deltaTime;
             if (timer > duration)
             {
-                _controller.AttackMultiplierRevert(multiBoost, flatBoost);
+                ((PlayerStatusController)_controller).AttackMultiplierRevert(multiBoost, flatBoost);
                 EndStatus();
             }
 

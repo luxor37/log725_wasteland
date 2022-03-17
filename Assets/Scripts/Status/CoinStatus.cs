@@ -1,11 +1,13 @@
 using System.Collections;
+using Player;
 using UnityEngine;
 
 namespace Status
 {
     public class CoinStatus : IStatus
     {
-        public CoinStatus(StatusController controller) : base(controller)
+
+        public CoinStatus(PlayerStatusController controller) : base(controller)
         {
             name = "CoinStatus";
         }
@@ -16,7 +18,7 @@ namespace Status
             if (timer == 0f)
             {
                 
-                _controller.AddCoin();
+                ((PlayerStatusController)_controller).AddCoin();
                 EndStatus();
             }
             

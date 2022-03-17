@@ -1,5 +1,7 @@
 
 using System;
+using Enemy;
+using Status;
 using UnityEngine;
 
 
@@ -73,14 +75,12 @@ namespace Player
             Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange,Quaternion.identity, enemyLayers);
             foreach (Collider enemy in hitEnemies)
             {
-                // Debug.Log(enemies.name);
                 IDamageble damagebleable = enemy.GetComponent<IDamageble>();
                 if(damagebleable != null)
                 {
                     damagebleable.TakeDamage(attack);
-                    var enemyStatusController = enemy.GetComponent<Status.StatusController>();
+                    var enemyStatusController = enemy.GetComponent<EnemyStatusController>();
                     // TODO: be able to change this with element attack system
-                    // var newStatus = new Status.FireStatus(enemyStatusController);
                     var newStatus = StatusManager.Instance.GetNewStatusObject(ItemController.StatusEnum.Fire, enemyStatusController);
                     enemyStatusController.AddStatus(newStatus);
                     enemyStatusController.Knockback();

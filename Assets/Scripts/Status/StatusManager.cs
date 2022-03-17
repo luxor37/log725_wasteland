@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Status;
 using UnityEngine;
 using static ItemController;
 
@@ -40,13 +41,13 @@ public class StatusManager : MonoBehaviour
     }
 
 
-    public Status.IStatus GetNewStatusObject(StatusEnum statusName, Status.StatusController controller)
+    public IStatus GetNewStatusObject(StatusEnum statusName, StatusController controller)
     {
         if (statusDictionary.ContainsKey(statusName))
         {
-            System.Object[] args = { controller };
+            object[] args = { controller };
             var obj = Activator.CreateInstance(Type.GetType(statusDictionary[statusName]), args);
-            return (Status.IStatus) obj;
+            return (IStatus) obj;
         } else
         {
             return null;

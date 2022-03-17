@@ -6,10 +6,10 @@ namespace Status
     public class FireStatus : IStatus
     {
 
-        public new float duration = 5f;
-        public new int initialDmg = 0;
-        public new int perSecDmg = 50;
-        public new ParticleType particleToSpawn = ParticleType.Fire;
+        public float duration = 5f;
+        public int initialDmg = 0;
+        public int perSecDmg = 50;
+        public ParticleType particleToSpawn = ParticleType.Fire;
 
 
         public FireStatus(StatusController controller) : base(controller)

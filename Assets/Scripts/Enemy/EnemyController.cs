@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,7 +41,7 @@ public class EnemyController : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Character"){
-            var statusCtrl = GameObject.FindGameObjectWithTag("Player").GetComponent<Status.StatusController>();
+            var statusCtrl = other.GetComponent<PlayerStatusController>();
             statusCtrl.TakeDamage(100);
         }
     }

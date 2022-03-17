@@ -12,7 +12,7 @@ namespace Player
         private bool _isGrounded = false;
         public float moveSpeed = 5f;
         public float climbingSpeed = 1f;
-        public float jumpForce = 10f;
+        public float jumpForce = 5f;
         public float gravityScale = 1f;
 
         public bool isClimbing = false;
