@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,8 @@ public class SceneLoader : MonoBehaviour
     private bool _areTouching = false;
 
     public TextMesh instructions;
+
+
 
     public string sceneName;
 
@@ -22,13 +25,14 @@ public class SceneLoader : MonoBehaviour
     void Update()
     {
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
-            SceneManager.LoadScene(sceneName);
-
+            SceneTransitionManager.sceneTransitionManager.LoadScene(sceneName);
+        if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up)
+            SceneTransitionManager.sceneTransitionManager.LoadScene("SceneAleatoire");
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Character")
         {
             _areTouching = true;
             if (instructions != null)
@@ -40,7 +44,7 @@ public class SceneLoader : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Character")
         {
             _areTouching = false;
             if (instructions != null)

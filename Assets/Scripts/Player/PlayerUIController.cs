@@ -22,10 +22,5 @@ namespace Player
         {
             HPStrip.value = entity.currentHealth;;
         }
-
-        void getHP()
-        {
-
-        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
-
+﻿using static FXManager;
 
 namespace Status
 {
@@ -16,7 +14,7 @@ namespace Status
         public int perSecDmg;
         public string animationState;
         public string soundToPlay;
-        public string particleToSpawn;
+        public ParticleType particleToSpawn;
         public string name;
         
         protected StatusController _controller;
@@ -30,14 +28,10 @@ namespace Status
         }
 
         abstract public void StatusTick(float time);
+
         public void EndStatus()
         {
             _controller.EndStatus(name);
-        }
-
-        public string GetName()
-        {
-            return name;
         }
 
         public void AddStack(int stacks)

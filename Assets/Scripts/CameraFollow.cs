@@ -24,7 +24,13 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = target.position + offset;
+        if (target != null)
+        {
+            transform.position = target.position + offset;
+        }
+        else{
+            Debug.Log("CameraFollow target is null!");
+        }
 
         if (enableYMinMax)
         {

@@ -22,9 +22,15 @@ namespace Enemy
 
         public Vector3 originPosition;
         
+        [HideInInspector]
         public Animator _animator;
+
         public LayerMask layer;
+
+        [HideInInspector]
         public NavMeshAgent _NavMeshAgent;
+
+        [HideInInspector]
         public Transform _target;
     }
 
@@ -35,9 +41,6 @@ namespace Enemy
         private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
 
         public GameObject attackPoint;
-
-        private Vector3 rightSide = new Vector3(1, 0, 0);
-        private Vector3 leftSide = new Vector3(-1, 0, 0);
 
         private void Start()
         {
@@ -100,8 +103,6 @@ namespace Enemy
                 this.parameter._target = null;
                 return false;
             }
-
-            return false;
         }
 
         public void ZombieAttack()
@@ -129,11 +130,6 @@ namespace Enemy
                 Gizmos.color = Color.white;
                 Gizmos.DrawWireCube(parameter.attackPoints.position, chaseBox);
             }
-            
-
-            
         }
-
-       
     }
 }

@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - UI
-  - Player1
-  - Player2
+  - FXManager
+  - Character
   layers:
   - Default
   - TransparentFX
@@ -17,7 +17,7 @@ TagManager:
   - Player
   - Enemy
   - PlayerAttack
-  - 
+  - Character
   - 
   - 
   - 
