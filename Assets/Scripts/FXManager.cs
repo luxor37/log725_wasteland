@@ -7,7 +7,8 @@ public class FXManager : MonoBehaviour
     {
         Fire,
         HealthRegen,
-        AttackBoost
+        AttackBoost,
+        Shield
     }
 
     public List<Particle> particles;

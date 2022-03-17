@@ -4,8 +4,7 @@ using static FXManager;
 
 namespace Status
 {
-    // subclass sandbox (I guess component sandbox in this case) pattern. Statuses should only affect the game by using methods available here.
-    // every component that might be affected by Status should be referenced here.
+    // Status to be replaced with ScriptableObject
     public abstract class StatusController : GameEntity
     {
         protected Animator _animator;

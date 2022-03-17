@@ -16,7 +16,7 @@ namespace Level
         Shape AxiomShape;
 
         [SerializeField]
-        int maxXLen = 30;
+        int maxXLen = 100;
 
         int minXLen = 0;
 
@@ -79,9 +79,6 @@ namespace Level
                         int xMin = xRange.Item1 + (xRange.Item2 - xRange.Item1) / results.Count * index;
                         int xMax = xRange.Item1 + (xRange.Item2 - xRange.Item1) / results.Count * (index + 1);
                         xRangeStack.Push(Tuple.Create(xMin, xMax));
-                        Debug.Log(resultShape.Symbol);
-                        Debug.Log(xMin);
-                        Debug.Log(xMax);
                     }
 
 

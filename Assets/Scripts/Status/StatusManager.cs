@@ -38,6 +38,7 @@ public class StatusManager : MonoBehaviour
         statusDictionary[StatusEnum.Recovery] = "Status.RecoveryStatus";
         statusDictionary[StatusEnum.AttackBoost] = "Status.AttackBoost";
         statusDictionary[StatusEnum.Coin] = "Status.CoinStatus";
+        statusDictionary[StatusEnum.Shield] = "Status.ShieldStatus";
     }
 
 
