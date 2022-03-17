@@ -15,7 +15,8 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        
+        if (_target == null)
+            _target = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Awake()

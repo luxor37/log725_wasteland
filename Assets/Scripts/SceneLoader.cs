@@ -26,6 +26,8 @@ public class SceneLoader : MonoBehaviour
     {
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
             SceneTransitionManager.sceneTransitionManager.LoadScene(sceneName);
+        if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up)
+            SceneTransitionManager.sceneTransitionManager.LoadScene("SceneAleatoire");
     }
 
     public void OnTriggerEnter(Collider other)
