@@ -18,18 +18,22 @@ namespace Player
         public void AttackMultiplier(int multiplier, int flat)
         {
 
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().attack *= multiplier;
+            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().meleeDamage *= multiplier;
+            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().rangedDamage *= multiplier;
             ShowStat("x" + multiplier, new Color(0, 1, 1, 1));
 
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().attack += flat;
+            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().meleeDamage += flat;
+            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().rangedDamage += flat;
             ShowStat("+" + flat, new Color(0, 1, 1, 1), 0.5f);
 
         }
 
         public void AttackMultiplierRevert(int multiplier, int flat)
         {
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().attack -= flat;
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().attack /= multiplier;
+            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().meleeDamage -= flat;
+            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().rangedDamage -= flat;
+            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().meleeDamage /= multiplier;
+            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().rangedDamage /= multiplier;
         }
 
         public void AddCoin()

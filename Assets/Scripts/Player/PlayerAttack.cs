@@ -15,7 +15,8 @@ namespace Player
         public Transform gunTipAttackPoint;
         public Vector3 attackRange = new Vector3(1,1,1);
         public LayerMask enemyLayers;
-        public int attack;
+        public int meleeDamage;
+        public int rangedDamage;
         public AttackType attackType;
         private bool attacking = false;
 
@@ -71,6 +72,7 @@ namespace Player
             _animator.SetBool("RangedAttack", true);
             var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("Bullet");
             newProjectile.GetComponent<ProjectileController>().direction = transform.forward;
+            newProjectile.GetComponent<ProjectileController>().damage = rangedDamage;
             Instantiate(newProjectile, gunTipAttackPoint.position, attackPoint.rotation);
             attacking = true;
         }
@@ -83,7 +85,7 @@ namespace Player
                 IDamageble damagebleable = enemy.GetComponent<IDamageble>();
                 if(damagebleable != null)
                 {
-                    damagebleable.TakeDamage(attack);
+                    damagebleable.TakeDamage(meleeDamage);
                     var enemyStatusController = enemy.GetComponent<EnemyStatusController>();
                     // TODO: be able to change this with element attack system
                     var newStatus = StatusManager.Instance.GetNewStatusObject(ItemController.StatusEnum.Fire, enemyStatusController);
