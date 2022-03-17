@@ -12,6 +12,7 @@ namespace Player
         public enum AttackType { MELEE = 0, RANGED = 1 };
 
         public Transform attackPoint;
+        public Transform gunTipAttackPoint;
         public Vector3 attackRange = new Vector3(1,1,1);
         public LayerMask enemyLayers;
         public int attack;
@@ -35,6 +36,7 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
+            
             rangeTimer += Time.deltaTime;
             attackType = (AttackType)(InputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
             if (attackType == AttackType.MELEE && rangedWeapon != null)
@@ -51,6 +53,9 @@ namespace Player
                 if (attackType == AttackType.RANGED)
                     RangeAttack();
             }
+            else{
+                _animator.SetBool("RangedAttack", false);
+            }
         }
         private void Attack()
         {
@@ -63,10 +68,10 @@ namespace Player
             if (rangeTimer < rangeCooldown)
                 return;
             rangeTimer = 0f;
-            _animator.SetTrigger("Attack");
-            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("FireProjectile");
+            _animator.SetBool("RangedAttack", true);
+            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("Bullet");
             newProjectile.GetComponent<ProjectileController>().direction = transform.forward;
-            Instantiate(newProjectile, attackPoint.position, attackPoint.rotation);
+            Instantiate(newProjectile, gunTipAttackPoint.position, attackPoint.rotation);
             attacking = true;
         }
 
