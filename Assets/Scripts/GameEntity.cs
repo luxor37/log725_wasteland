@@ -7,6 +7,7 @@ public class GameEntity : MonoBehaviour, IDamageble
     public int currentHealth;
     protected bool isDead;
     public event Action onDeath;
+    public bool isInvincible = false;
 
     public GameObject floatingPoint;
 
@@ -29,6 +30,8 @@ public class GameEntity : MonoBehaviour, IDamageble
 
     public virtual void TakeDamage(int damage)
     {
+        if (isInvincible)
+            damage = 0;
         ShowStat("-" + damage, damageIndicatorColor);
         currentHealth -= damage;
         if (currentHealth <= 0 && isDead == false)

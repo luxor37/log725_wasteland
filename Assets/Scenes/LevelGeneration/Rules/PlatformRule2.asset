@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PredecessorShape: {fileID: 11400000, guid: b6b981f81a51b2247b58860e3bb43a79, type: 2}
   TargetShape:
-  - {fileID: 11400000, guid: 922ab7acb6db8734eb599b2230c469c0, type: 2}
   - {fileID: 11400000, guid: d7546b0551af3c449b9d19e096f7f27a, type: 2}
   Conditions: 
   ConditionValues: 
