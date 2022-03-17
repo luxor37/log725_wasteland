@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
@@ -15,12 +14,11 @@ public class ItemController : MonoBehaviour
     public StatusEnum statusName;
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Character")
         {
-            Debug.Log("player collided with item");
-            var controller = other.GetComponent<Status.StatusController>();
+            var controller = GameObject.FindGameObjectWithTag("Player").GetComponent<Status.StatusController>();
             ItemStatus = StatusManager.Instance.GetNewStatusObject(statusName, controller);
             if (controller != null)
             {

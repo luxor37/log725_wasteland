@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 class ProjectileController : MonoBehaviour
 {
-    public List<string> statuses;
-    public string name;
     public float duration = 1f;
     public float speed;
     public float acceleration = 0f;
@@ -14,13 +10,6 @@ class ProjectileController : MonoBehaviour
 
     float timer = 0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;

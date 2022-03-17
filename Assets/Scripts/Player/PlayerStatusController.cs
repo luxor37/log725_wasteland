@@ -31,11 +31,6 @@ namespace Player
 
             base.TakeHeal(heal);
         }
-
-        public int CalculateDamage()
-        {
-            return 0;
-        }
         
         void PlayerDeath(){
             SceneTransitionManager.sceneTransitionManager.GameOver();

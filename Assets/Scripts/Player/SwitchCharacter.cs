@@ -1,15 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SwitchCharacter : MonoBehaviour
 {
     private Vector3 currentPosition;
-    // Update is called once per frame
+
+    private int characterIndex = 0;
+
+    public static GameObject currentCharacter;
 
     void Start(){
+
         for (int i = 0; i < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length; i++)
         {
             transform.GetChild(i).gameObject.SetActive(false);
@@ -17,34 +18,33 @@ public class SwitchCharacter : MonoBehaviour
 
         var characterIndex = (int)PersistenceManager.activeCharacter;
 
+        currentCharacter = transform.GetChild(characterIndex).gameObject;
+
         transform.GetChild(characterIndex).gameObject.SetActive(true);
     }
 
     void Update()
     {
-        
         if (InputController.IsCharacterChanging && PersistenceManager.is2ndCharacterUnlocked)
         {
-            var characterIndex = (int)PersistenceManager.activeCharacter;
+            characterIndex = (int)PersistenceManager.activeCharacter;
 
             currentPosition =  transform.GetChild(characterIndex).gameObject.transform.position;
             InputController.IsCharacterChanging = false;
             transform.GetChild(characterIndex).gameObject.SetActive(false);
 
-            Debug.Log(characterIndex);
-
-            if(characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length-1){
+            if(characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length-1)
                 characterIndex++;
-            }
             else
-            {
                 characterIndex = 0;
-            }
 
             PersistenceManager.activeCharacter = (PersistenceManager.ActiveCharacter) characterIndex;
 
             transform.GetChild(characterIndex).gameObject.transform.position = currentPosition;
             transform.GetChild(characterIndex).gameObject.SetActive(true);
         }
+
+        currentCharacter = transform.GetChild(characterIndex).gameObject;
+        gameObject.transform.position = transform.GetChild(characterIndex).gameObject.transform.position;
     }
 }

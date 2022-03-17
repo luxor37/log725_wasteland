@@ -37,7 +37,7 @@ public class Ladder : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Character")
         {
             _areTouching = true;
             player = other.gameObject.GetComponent<PlayerController>();
@@ -50,7 +50,7 @@ public class Ladder : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Character")
         {
             _areTouching = false;
             player = other.gameObject.GetComponent<PlayerController>();

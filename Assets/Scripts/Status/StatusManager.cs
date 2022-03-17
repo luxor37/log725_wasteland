@@ -18,7 +18,6 @@ public class StatusManager : MonoBehaviour
      
     }
 
-
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -45,9 +44,7 @@ public class StatusManager : MonoBehaviour
     {
         if (statusDictionary.ContainsKey(statusName))
         {
-            // var obj = Activator.CreateComInstanceFrom(Assembly.GetEntryAssembly().CodeBase, statusDictionary[statusName], controller);
             System.Object[] args = { controller };
-            Debug.Log(statusDictionary[statusName]);
             var obj = Activator.CreateInstance(Type.GetType(statusDictionary[statusName]), args);
             return (Status.IStatus) obj;
         } else
