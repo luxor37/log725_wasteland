@@ -30,16 +30,17 @@ class ProjectileController : MonoBehaviour
         transform.position += direction.normalized * speed * Time.deltaTime;
     }
 
-    private async void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-       
-       if (targetLayer.value == (targetLayer.value | (1 << other.gameObject.layer)))
+
+        if (targetLayer.value == (targetLayer.value | (1 << other.gameObject.layer)))
         {
             var statusController = other.GetComponent<EnemyStatusController>();
             statusController.TakeDamage(damage);
             IStatus newStatus = StatusManager.Instance.GetNewStatusObject(appliedStatus, statusController);
             other.GetComponent<StatusController>().AddStatus(newStatus);
-            exploseEffect = Instantiate(exploseEffect, other.transform.GetChild(2).position, Quaternion.identity);
+            var explosionPos = new Vector3(other.transform.position.x, other.transform.position.y+1, other.transform.position.z);
+            exploseEffect = Instantiate(exploseEffect, explosionPos, Quaternion.identity);
             exploseEffect.Play();
         }
         if (other.gameObject.tag != "Player")
