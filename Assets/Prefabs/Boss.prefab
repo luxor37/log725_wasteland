@@ -1354,7 +1354,7 @@ Animator:
   m_GameObject: {fileID: 3325638624332627129}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: dad1c478c33fce44ca1de0448d19d98d, type: 3}
-  m_Controller: {fileID: 9100000, guid: 924462a4b5e1e6c4b9ac03c21b26ddf2, type: 2}
+  m_Controller: {fileID: 9100000, guid: e54bd540aa6c6a44684f185b69b2caad, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1374,8 +1374,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 0.5}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 1, y: 2.7435882, z: 0.5}
+  m_Center: {x: -0, y: 1.3717941, z: 0}
 --- !u!54 &3325638624332627121
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1402,7 +1402,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   parameter:
     attackPoints: {fileID: 3325638623833910478}
     attackRange: 1.25
-    chaseRange: 15
+    chaseRange: 20
     chaseTime: 5
     originPosition: {x: 0, y: 0, z: 0}
     _animator: {fileID: 0}
