@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 class ProjectileController : MonoBehaviour
 {
-    public List<string> statuses;
-    public string name;
     public float duration = 1f;
     public float speed;
     public float acceleration = 0f;
