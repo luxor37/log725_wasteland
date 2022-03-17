@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class CanvasLookAtCamera : MonoBehaviour
 {
-    public Transform cam;
-    
+    public Camera cam;
+
+    private void Start()
+    {
+        GetComponent<Canvas>().worldCamera = cam;
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.LookAt(cam.position); 
+       transform.LookAt(cam.transform.position); 
     }
 }
