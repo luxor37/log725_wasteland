@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,8 @@ public class SceneLoader : MonoBehaviour
     private bool _areTouching = false;
 
     public TextMesh instructions;
+
+
 
     public string sceneName;
 
@@ -22,8 +25,7 @@ public class SceneLoader : MonoBehaviour
     void Update()
     {
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
-            SceneManager.LoadScene(sceneName);
-
+            SceneTransitionManager.sceneTransitionManager.LoadScene(sceneName);
     }
 
     public void OnTriggerEnter(Collider other)
