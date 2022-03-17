@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BossShape
   m_EditorClassIdentifier: 
   Symbol: 7
-  ShapeObject: {fileID: 0}
+  ShapeObject: {fileID: 6793157938167494734, guid: 6de32336db9113247b4b98fd205d0791, type: 3}
   Attributes: 02000000
   AttributeValues: 50000000

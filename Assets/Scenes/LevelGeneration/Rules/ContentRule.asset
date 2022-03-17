@@ -16,6 +16,7 @@ MonoBehaviour:
   TargetShape:
   - {fileID: 11400000, guid: 64d68e2902f13ee428d977d317af71ad, type: 2}
   - {fileID: 11400000, guid: 5a552a404988302498fc84d4be20885c, type: 2}
+  - {fileID: 11400000, guid: 9bfb4f6424e690e4480d4a739a6ec16d, type: 2}
   Conditions: 
   ConditionValues: 
   Operator: 0
