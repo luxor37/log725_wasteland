@@ -8,6 +8,8 @@ public class CanvasLookAtCamera : MonoBehaviour
 
     private void Start()
     {
+        if (cam == null)
+            cam = Camera.main;
         GetComponent<Canvas>().worldCamera = cam;
     }
 

@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace Level
@@ -13,6 +14,13 @@ namespace Level
 
         [SerializeField]
         Shape AxiomShape;
+
+        [SerializeField]
+        int maxXLen = 20;
+
+        int minXLen = 0;
+
+        GameObject player;
 
         public static LevelGenerationManager Instance
         {
@@ -33,21 +41,21 @@ namespace Level
 
         private void Start()
         {
+            player = GameObject.FindGameObjectWithTag("Player");
             GenerateLevel();
         }
 
         public void GenerateLevel()
         {
             Stack<Shape> shapeStack = new Stack<Shape>();
+            Stack < Tuple<int, int> > xRangeStack = new Stack<Tuple<int, int>>();
             Shape axiom = AxiomShape;
             shapeStack.Push(axiom);
-            int offsetYCur = 0;
-            int offsetXCur = 0;
+            xRangeStack.Push(Tuple.Create(0, maxXLen));
             while (shapeStack.Count > 0)
             {
                 Shape shape = shapeStack.Pop();
-                // TODO: better randomness than this
-                // Rules.Reverse();
+                Tuple<int, int> xRange = xRangeStack.Pop();
                 foreach (var rule in Rules)
                 {
                     if (rule.PredecessorShape.Symbol == shape.Symbol)
@@ -55,28 +63,27 @@ namespace Level
                         List<Shape> results = rule.CalculateRule();
                         if (results.Count == 0)
                             continue;
-
+                        int index = 0;
                         foreach (var resultShape in results)
                         {
                             if (!resultShape.ShapeObject)
+                            {
                                 shapeStack.Push(resultShape);
-                           
-                            Debug.Log(resultShape.name);
-                            int offsetXIndex = (int)resultShape.Attributes.FindIndex(a => a == Shape.AttributeEnum.OFFSET_X);
-                            Debug.Log(offsetXCur);
-                            int offsetYIndex = (int)resultShape.Attributes.FindIndex(a => a == Shape.AttributeEnum.OFFSET_Y);
-                            int offsetX = 2;
-                            int offsetY = 0;
-                           // if (offsetXIndex != -1)
-                           //     offsetXIndex += resultShape.AttributeValues[offsetXIndex];
-                           // if (offsetYIndex != -1)
-                           //     offsetYIndex += resultShape.AttributeValues[offsetYIndex];
-                            offsetXCur -= offsetX;
+                                int xMin = xRange.Item1 + (xRange.Item2 - xRange.Item1) / results.Count * index;
+                                int xMax = xRange.Item1 + (xRange.Item2 - xRange.Item1) / results.Count * (index+1);
+                                xRangeStack.Push(Tuple.Create(xMin, xMax));
+                            }
+                               
+
+                            var offsetX = UnityEngine.Random.Range(xRange.Item1, xRange.Item2);
+                            var offsetY = 0;
                             if (resultShape.Symbol == Shape.SymbolEnum.COIN)
                                 offsetY = 4;
+
+
                             if (resultShape.ShapeObject != null)
-                                Instantiate(resultShape.ShapeObject, new Vector3(offsetXCur, offsetY, 0), transform.rotation);
-                            
+                                Instantiate(resultShape.ShapeObject, new Vector3(-offsetX, offsetY, 0), transform.rotation);
+                            index += 1;
                         }
                         
                     }
