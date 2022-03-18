@@ -23,10 +23,13 @@ namespace Level
         }
 
         public Shape PredecessorShape;
+        public List<Operation> operations;
         public List<Shape> TargetShape;
         public List<Shape.AttributeEnum> Conditions;
         public List<int> ConditionValues;
         public ConditionOperatorEnum Operator;
+
+        Stack<Shape> stack;
 
         bool CheckPreConditions()
         {
