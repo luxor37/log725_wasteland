@@ -24,7 +24,7 @@ namespace Level
 
         public Shape PredecessorShape;
         public List<Operation> operations;
-        public List<Shape> TargetShape;
+      //  public List<Shape> TargetShape;
         public List<Shape.AttributeEnum> Conditions;
         public List<int> ConditionValues;
         public ConditionOperatorEnum Operator;
@@ -63,8 +63,12 @@ namespace Level
             
             if (CheckPreConditions() == false)
                 return result;
-
-            result = TargetShape;
+            foreach(var operation in operations)
+            {
+                operation.predecessor = PredecessorShape;
+                operation.Apply(stack, result);
+                Debug.Log(result[0].Symbol);
+            }
            
             return result;
         }

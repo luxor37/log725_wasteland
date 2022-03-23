@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: ContentRule
   m_EditorClassIdentifier: 
   PredecessorShape: {fileID: 11400000, guid: 1fe62754c5a63c64584c4bb1b0583ca6, type: 2}
-  TargetShape:
-  - {fileID: 11400000, guid: 64d68e2902f13ee428d977d317af71ad, type: 2}
-  - {fileID: 11400000, guid: 5a552a404988302498fc84d4be20885c, type: 2}
-  - {fileID: 11400000, guid: 6dc3e68703154e046bce45fbbe795135, type: 2}
+  operations:
+  - {fileID: 11400000, guid: c0a6a9b52c059774db3c550c5039139b, type: 2}
+  - {fileID: 11400000, guid: 8a35da51e2a8c934f802ef9f25123ae7, type: 2}
   Conditions: 
   ConditionValues: 
   Operator: 0

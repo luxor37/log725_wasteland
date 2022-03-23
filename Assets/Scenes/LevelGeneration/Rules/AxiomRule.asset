@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AxiomRule
   m_EditorClassIdentifier: 
   PredecessorShape: {fileID: 11400000, guid: 121eaeea87b4a7340832ab0ba9e0b1b4, type: 2}
-  TargetShape:
-  - {fileID: 11400000, guid: 1fe62754c5a63c64584c4bb1b0583ca6, type: 2}
+  operations:
+  - {fileID: 11400000, guid: ffdf2638f6c1981428656689033d7531, type: 2}
   Conditions: 00000000
   ConditionValues: 
   Operator: 0

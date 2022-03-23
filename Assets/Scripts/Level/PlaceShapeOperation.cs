@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace Level
 {
-    [CreateAssetMenu(fileName = "Place Shape Operation", menuName = "ScriptableObjects/LevelGenerator/Operation", order = 1)]
-    public abstract class PlaceShapeOperation : Operation
+    [CreateAssetMenu(fileName = "Place Shape Operation", menuName = "ScriptableObjects/LevelGenerator/PlaceShapeOperation", order = 1)]
+    public class PlaceShapeOperation : Operation
     {
         public Shape ShapeToPlace;
 
@@ -14,5 +14,6 @@ namespace Level
         {
             results.Add(ShapeToPlace);
         }
+
     }
 }

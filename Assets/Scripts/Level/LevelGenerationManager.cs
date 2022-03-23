@@ -45,17 +45,36 @@ namespace Level
             GenerateLevel();
         }
 
+        bool ResultsAreValid(Stack<Shape> shapeStack, Shape predecessor, List<Shape> results)
+        {
+            foreach(var newShape in results)
+            {
+                // TODO check size
+                foreach(var oldShape in shapeStack)
+                {
+                    if (oldShape == predecessor)
+                    {
+                        continue;
+                    }
+                    // TODO check collision
+                    //if (oldShape.collides(newShape))
+                    //    return false;
+                }
+            }
+            return true;
+        }
+
         public void GenerateLevel()
         {
             Stack<Shape> shapeStack = new Stack<Shape>();
-            Stack < Tuple<int, int> > xRangeStack = new Stack<Tuple<int, int>>();
+         //   Stack < Tuple<int, int> > xRangeStack = new Stack<Tuple<int, int>>();
             Shape axiom = AxiomShape;
             shapeStack.Push(axiom);
-            xRangeStack.Push(Tuple.Create(0, maxXLen));
+           // xRangeStack.Push(Tuple.Create(0, maxXLen));
             while (shapeStack.Count > 0)
             {
                 Shape shape = shapeStack.Pop();
-                Tuple<int, int> xRange = xRangeStack.Pop();
+          //      Tuple<int, int> xRange = xRangeStack.Pop();
                 List<Rule> rulesMatch = new List<Rule>();
                 foreach (var rule in Rules)
                 {
@@ -64,13 +83,30 @@ namespace Level
                         rulesMatch.Add(rule);  
                     }
                 }
+                Debug.Log(rulesMatch.Count);
                 if (rulesMatch.Count == 0)
-                    continue;
+                    break;
                 var ruleChosen = rulesMatch[UnityEngine.Random.Range(0, rulesMatch.Count)];
                 List<Shape> results = ruleChosen.CalculateRule();
+                Debug.Log(results.Count);
                 if (results.Count == 0)
                     continue;
-                int index = 0;
+          //      int index = 0;
+
+                if (ResultsAreValid(shapeStack, shape, results))
+                {
+                    foreach( var resShape in results)
+                    {
+                        if (resShape.ShapeObject)
+                            Instantiate(resShape.ShapeObject);
+                        else
+                            shapeStack.Push(resShape);
+                    }
+                        
+                //     continue;
+                }
+                // shapeStack.Push(shape);
+                /**
                 foreach (var resultShape in results)
                 {
                     if (!resultShape.ShapeObject)
@@ -93,6 +129,7 @@ namespace Level
                         Instantiate(resultShape.ShapeObject, new Vector3(-offsetX, offsetY, 0), transform.rotation);
                     index += 1;
                 }
+                */
             }
         }
     }

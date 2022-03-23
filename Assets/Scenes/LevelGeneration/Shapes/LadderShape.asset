@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff8b9a5c07751346a93413ac2b019e1, type: 3}
   m_Name: LadderShape
   m_EditorClassIdentifier: 
-  Symbol: 2
+  Symbol: 5
   ShapeObject: {fileID: 9050307752631890960, guid: 443dccc6c267462419702a4cb31f5e64, type: 3}
+  Attributes: 
+  AttributeValues: 

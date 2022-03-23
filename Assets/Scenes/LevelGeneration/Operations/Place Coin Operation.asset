@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ff8b9a5c07751346a93413ac2b019e1, type: 3}
-  m_Name: ZombieEnemyShape
+  m_Script: {fileID: 11500000, guid: 49b189c82522f1348acaa8b2100f25f6, type: 3}
+  m_Name: Place Coin Operation
   m_EditorClassIdentifier: 
-  Symbol: 9
-  ShapeObject: {fileID: 6693942696897615629, guid: 4cc4ef1a88da30f45b20eb76a58d9f89, type: 3}
-  Attributes: 
-  AttributeValues: 
+  predecessor: {fileID: 0}
+  ShapeToPlace: {fileID: 11400000, guid: cece8705af8bc8b4dab2b4ac8762e15f, type: 2}
