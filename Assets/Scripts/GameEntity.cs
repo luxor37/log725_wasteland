@@ -25,9 +25,7 @@ public class GameEntity : MonoBehaviour, IDamageble
 
         if (onDeath != null)
             onDeath();
-        var itemdropcont = GetComponent<Item.ItemDropController>();
-        if (itemdropcont != null)
-            itemdropcont.DropObject();
+
         Destroy(this.gameObject);
     }
 
