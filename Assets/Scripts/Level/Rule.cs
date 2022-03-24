@@ -24,12 +24,11 @@ namespace Level
 
         public Shape PredecessorShape;
         public List<Operation> operations;
-      //  public List<Shape> TargetShape;
         public List<Shape.AttributeEnum> Conditions;
         public List<int> ConditionValues;
         public ConditionOperatorEnum Operator;
 
-        Stack<Shape> stack;
+        Stack<Shape> stack = new Stack<Shape>();
 
         bool CheckPreConditions()
         {
@@ -67,7 +66,6 @@ namespace Level
             {
                 operation.predecessor = PredecessorShape;
                 operation.Apply(stack, result);
-                Debug.Log(result[0].Symbol);
             }
            
             return result;

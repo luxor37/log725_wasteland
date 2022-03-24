@@ -12,6 +12,14 @@ namespace Level
 
         public override void Apply(Stack<Shape> stack, List<Shape> results)
         {
+            ShapeToPlace.Position = predecessor.Position;
+            if (stack.Count > 0)
+            {
+                Shape stateShape = stack.Pop();
+                ShapeToPlace.Position = stateShape.Position;
+            }
+            if (ShapeToPlace.ShapeObject)
+                Instantiate(ShapeToPlace.ShapeObject, ShapeToPlace.Position, ShapeToPlace.ShapeObject.transform.rotation);
             results.Add(ShapeToPlace);
         }
 

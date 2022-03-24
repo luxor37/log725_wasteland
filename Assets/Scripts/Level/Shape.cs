@@ -29,8 +29,11 @@ namespace Level
             ENEMY,
             ITEM,
             COIN,
+            EXIT,
             EMPTY
         }
+
+        public Vector3 Position;
 
         public SymbolEnum Symbol;
 
