@@ -18,6 +18,7 @@ namespace Level
         public enum SymbolEnum
         {
             AXIOM,
+            WALL,
             FLOOR,
             CEILING,
             CONTENT,

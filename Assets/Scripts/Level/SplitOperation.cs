@@ -20,11 +20,11 @@ namespace Level
             {
                 Shape rightShape = CreateInstance<Shape>();
                 rightShape.Position = predecessor.Position;
-                if (split.x > 0)
+                if (!Mathf.Approximately(split.x, 0))
                     rightShape.Position.x = -UnityEngine.Random.Range(split.x - randomRange.x, split.x + randomRange.x + 0.1f);
-                if (split.y > 0)
+                if (!Mathf.Approximately(split.y, 0))
                     rightShape.Position.y = UnityEngine.Random.Range(split.y - randomRange.y, split.y + randomRange.y);
-                if (split.z > 0)
+                if (!Mathf.Approximately(split.z, 0))
                 rightShape.Position.z = UnityEngine.Random.Range(split.z - randomRange.z, split.z + randomRange.z);
                 shapeList.Add(rightShape);
             }
