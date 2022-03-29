@@ -56,15 +56,15 @@ namespace Level
             return true;
         }
 
-        public List<Shape> CalculateRule()
+        public List<Shape> CalculateRule(Shape inputShape)
         {
             var result = new List<Shape>();
-            
+            //Shape shapeCopy = new Shape(inputShape);
             if (CheckPreConditions() == false)
                 return result;
             foreach(var operation in operations)
             {
-                operation.predecessor = PredecessorShape;
+                operation.predecessor = inputShape;
                 operation.Apply(stack, result);
             }
            

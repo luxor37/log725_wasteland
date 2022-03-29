@@ -44,6 +44,15 @@ namespace Level
         public List<AttributeEnum> Attributes;
         public List<int> AttributeValues;
 
+        public Shape(Shape other)
+        {
+            Position = other.Position;
+            Symbol = other.Symbol;
+            ShapeObject = other.ShapeObject;
+            Attributes = other.Attributes;
+            AttributeValues = other.AttributeValues;
+        }
+
         private void Awake()
         {
         }

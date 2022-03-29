@@ -16,8 +16,11 @@ MonoBehaviour:
   operations:
   - {fileID: 11400000, guid: fbb208cd24cc4e945a2ad4e79d0a82e0, type: 2}
   - {fileID: 11400000, guid: 1b2b5a55d92207a43b5bd99e666118a9, type: 2}
+  - {fileID: 11400000, guid: aa4c578da8074a645a5b2845a060d076, type: 2}
   - {fileID: 11400000, guid: 1b2b5a55d92207a43b5bd99e666118a9, type: 2}
   - {fileID: 11400000, guid: aa4c578da8074a645a5b2845a060d076, type: 2}
+  - {fileID: 11400000, guid: ffbf0da5bdf5ceb42b745bb5effc7029, type: 2}
+  - {fileID: 11400000, guid: 1b2b5a55d92207a43b5bd99e666118a9, type: 2}
   Conditions: 
   ConditionValues: 
   Operator: 0

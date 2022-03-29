@@ -76,7 +76,7 @@ namespace Level
                 if (rulesMatch.Count == 0)
                     break;
                 var ruleChosen = rulesMatch[UnityEngine.Random.Range(0, rulesMatch.Count)];
-                List<Shape> results = ruleChosen.CalculateRule();
+                List<Shape> results = ruleChosen.CalculateRule(shape);
                 if (results.Count == 0)
                     continue;
 

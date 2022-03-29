@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   predecessor: {fileID: 11400000, guid: 1fe62754c5a63c64584c4bb1b0583ca6, type: 2}
   splitLoc:
-  - {x: 0, y: 0, z: -2}
+  - {x: 0, y: -2.7, z: -2}
   - {x: 0, y: 0, z: -2}
   - {x: 10, y: 0, z: 0}
-  - {x: 40, y: 0, z: 0}
-  - {x: 50, y: 0, z: 0}
+  - {x: 40, y: 6, z: 0}
   randomRange: {x: 1, y: 0, z: 0}

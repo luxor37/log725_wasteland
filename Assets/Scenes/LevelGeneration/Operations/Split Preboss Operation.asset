@@ -16,4 +16,7 @@ MonoBehaviour:
   splitLoc:
   - {x: 10, y: 0, z: 0}
   - {x: 20, y: 0, z: 0}
+  - {x: 25, y: 0, z: 0}
+  - {x: 30, y: 0, z: 0}
+  - {x: 35, y: 0, z: 0}
   randomRange: {x: 2, y: 0, z: 0}

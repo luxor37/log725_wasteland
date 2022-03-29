@@ -56,7 +56,7 @@ namespace Player
             }
             else
             {
-                _animator.SetBool("RangedAttack", false);
+               // _animator.SetBool("RangedAttack", false);
             }
         }
         private void Attack()

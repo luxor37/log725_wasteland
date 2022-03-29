@@ -5,7 +5,7 @@ public class GameEntity : MonoBehaviour, IDamageble
 {
     public int maxHealth;
     public int currentHealth;
-    public bool isDead;
+    protected bool isDead;
     public event Action onDeath;
     public bool isInvincible = false;
 
@@ -25,7 +25,6 @@ public class GameEntity : MonoBehaviour, IDamageble
 
         if (onDeath != null)
             onDeath();
-
         Destroy(this.gameObject);
     }
 
