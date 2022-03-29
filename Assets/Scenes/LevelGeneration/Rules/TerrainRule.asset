@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TerrainRule
   m_EditorClassIdentifier: 
   PredecessorShape: {fileID: 11400000, guid: c58ea39809500c04b96d6d9e49a6d2e5, type: 2}
-  TargetShape:
-  - {fileID: 11400000, guid: b6b981f81a51b2247b58860e3bb43a79, type: 2}
+  operations:
+  - {fileID: 11400000, guid: cbba91f350f60774fbcd5d678fd057ff, type: 2}
   Conditions: 
   ConditionValues: 
   Operator: 0

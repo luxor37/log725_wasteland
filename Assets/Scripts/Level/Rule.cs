@@ -23,10 +23,12 @@ namespace Level
         }
 
         public Shape PredecessorShape;
-        public List<Shape> TargetShape;
+        public List<Operation> operations;
         public List<Shape.AttributeEnum> Conditions;
         public List<int> ConditionValues;
         public ConditionOperatorEnum Operator;
+
+        Stack<Shape> stack = new Stack<Shape>();
 
         bool CheckPreConditions()
         {
@@ -54,14 +56,17 @@ namespace Level
             return true;
         }
 
-        public List<Shape> CalculateRule()
+        public List<Shape> CalculateRule(Shape inputShape)
         {
             var result = new List<Shape>();
-            
+            //Shape shapeCopy = new Shape(inputShape);
             if (CheckPreConditions() == false)
                 return result;
-
-            result = TargetShape;
+            foreach(var operation in operations)
+            {
+                operation.predecessor = inputShape;
+                operation.Apply(stack, result);
+            }
            
             return result;
         }

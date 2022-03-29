@@ -53,7 +53,8 @@ namespace Status
             if (!isHit)
             {
                 isHit = true;
-                _animator.SetTrigger("isHit");
+                if (_animator)
+                    _animator.SetTrigger("isHit");
             }
         }
 

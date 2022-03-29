@@ -18,6 +18,7 @@ namespace Level
         public enum SymbolEnum
         {
             AXIOM,
+            WALL,
             FLOOR,
             CEILING,
             CONTENT,
@@ -29,8 +30,11 @@ namespace Level
             ENEMY,
             ITEM,
             COIN,
+            EXIT,
             EMPTY
         }
+
+        public Vector3 Position;
 
         public SymbolEnum Symbol;
 
@@ -39,6 +43,15 @@ namespace Level
         [SerializeField]
         public List<AttributeEnum> Attributes;
         public List<int> AttributeValues;
+
+        public Shape(Shape other)
+        {
+            Position = other.Position;
+            Symbol = other.Symbol;
+            ShapeObject = other.ShapeObject;
+            Attributes = other.Attributes;
+            AttributeValues = other.AttributeValues;
+        }
 
         private void Awake()
         {

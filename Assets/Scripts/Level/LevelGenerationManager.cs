@@ -15,11 +15,6 @@ namespace Level
         [SerializeField]
         Shape AxiomShape;
 
-        [SerializeField]
-        int maxXLen = 100;
-
-        int minXLen = 0;
-
         GameObject player;
 
         public static LevelGenerationManager Instance
@@ -45,17 +40,31 @@ namespace Level
             GenerateLevel();
         }
 
+        bool ResultsAreValid(Stack<Shape> shapeStack, Shape predecessor, List<Shape> results)
+        {
+            foreach(var newShape in results)
+            {
+                // TODO check size
+                foreach(var oldShape in shapeStack)
+                {
+                    if (oldShape == predecessor)
+                    {
+                        continue;
+                    }
+
+                }
+            }
+            return true;
+        }
+
         public void GenerateLevel()
         {
             Stack<Shape> shapeStack = new Stack<Shape>();
-            Stack < Tuple<int, int> > xRangeStack = new Stack<Tuple<int, int>>();
             Shape axiom = AxiomShape;
             shapeStack.Push(axiom);
-            xRangeStack.Push(Tuple.Create(0, maxXLen));
             while (shapeStack.Count > 0)
             {
                 Shape shape = shapeStack.Pop();
-                Tuple<int, int> xRange = xRangeStack.Pop();
                 List<Rule> rulesMatch = new List<Rule>();
                 foreach (var rule in Rules)
                 {
@@ -65,34 +74,23 @@ namespace Level
                     }
                 }
                 if (rulesMatch.Count == 0)
-                    continue;
+                    break;
                 var ruleChosen = rulesMatch[UnityEngine.Random.Range(0, rulesMatch.Count)];
-                List<Shape> results = ruleChosen.CalculateRule();
+                List<Shape> results = ruleChosen.CalculateRule(shape);
                 if (results.Count == 0)
                     continue;
-                int index = 0;
-                foreach (var resultShape in results)
+
+                if (ResultsAreValid(shapeStack, shape, results))
                 {
-                    if (!resultShape.ShapeObject)
+                    foreach( var resShape in results)
                     {
-                        shapeStack.Push(resultShape);
-                        int xMin = xRange.Item1 + (xRange.Item2 - xRange.Item1) / results.Count * index;
-                        int xMax = xRange.Item1 + (xRange.Item2 - xRange.Item1) / results.Count * (index + 1);
-                        xRangeStack.Push(Tuple.Create(xMin, xMax));
+                        if (resShape.ShapeObject)
+                            continue;
+                        else
+                            shapeStack.Push(resShape);
                     }
-
-
-                    var offsetX = UnityEngine.Random.Range(xRange.Item1, xRange.Item2);
-                   
-                    var offsetY = 0;
-                    if (resultShape.Symbol == Shape.SymbolEnum.COIN)
-                        offsetY = 4;
-
-
-                    if (resultShape.ShapeObject != null)
-                        Instantiate(resultShape.ShapeObject, new Vector3(-offsetX, offsetY, 0), transform.rotation);
-                    index += 1;
                 }
+               
             }
         }
     }

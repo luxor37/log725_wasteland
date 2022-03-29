@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public static int LevelCompletedCount = 0;
     private Collider _bounds;
     private bool _areTouching = false;
 
@@ -27,7 +28,7 @@ public class SceneLoader : MonoBehaviour
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
             SceneTransitionManager.sceneTransitionManager.LoadScene(sceneName);
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up)
-            SceneTransitionManager.sceneTransitionManager.LoadScene("SceneAleatoire");
+            SceneTransitionManager.sceneTransitionManager.LoadScene(SceneManager.GetActiveScene().name.Equals("SceneAleatoire") ? "LevelBoss" : "SceneAleatoire");
     }
 
     public void OnTriggerEnter(Collider other)

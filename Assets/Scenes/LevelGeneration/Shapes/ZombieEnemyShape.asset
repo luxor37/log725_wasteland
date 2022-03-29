@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff8b9a5c07751346a93413ac2b019e1, type: 3}
   m_Name: ZombieEnemyShape
   m_EditorClassIdentifier: 
-  Symbol: 3
+  Symbol: 9
   ShapeObject: {fileID: 6693942696897615629, guid: 4cc4ef1a88da30f45b20eb76a58d9f89, type: 3}
+  Attributes: 
+  AttributeValues: 

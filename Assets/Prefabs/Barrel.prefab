@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4062272003052293582}
   - component: {fileID: 4062272003052293580}
   - component: {fileID: 4062272003052293581}
+  - component: {fileID: -2005021732190637235}
   m_Layer: 7
   m_Name: Barrel
   m_TagString: Untagged
@@ -61,6 +62,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
+  isDead: 0
+  isInvincible: 0
+  floatingPoint: {fileID: 0}
+  damageIndicatorColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &4062272003052293581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +80,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   getRandomItem: 1
+--- !u!114 &-2005021732190637235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4062272003052293584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6387542a8b9b23f4ba37cf52d119ffb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
+  isDead: 0
+  isInvincible: 0
+  floatingPoint: {fileID: 0}
+  damageIndicatorColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &4062272003262529869
 PrefabInstance:
   m_ObjectHideFlags: 0
