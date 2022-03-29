@@ -312,6 +312,8 @@ MonoBehaviour:
     particle: {fileID: 198567290778272910, guid: 0511e172606ed0844bc010ad56bb18cd, type: 3}
   - name: 3
     particle: {fileID: 4715784044279818086, guid: 82209d9d71d3e6343bed8e50b2e3d67a, type: 3}
+  - name: 4
+    particle: {fileID: 198322761928737398, guid: efe021d4c307b5449b8121d46791cf95, type: 3}
 --- !u!1 &6625853547554800176
 GameObject:
   m_ObjectHideFlags: 0

@@ -1288,6 +1288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16713de3b39761468457af89a79bf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statusEffectMelee: 5
+  statusEffectRanged: 5
   attackPoint: {fileID: 1567814810048039160}
   rangedAttackStartPosition: {fileID: 0}
   attackRange: {x: 1, y: 1, z: 1}
@@ -1313,6 +1315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1000
   currentHealth: 1000
+  isInvincible: 0
   floatingPoint: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
   damageIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1567814808900436032
@@ -4337,6 +4340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16713de3b39761468457af89a79bf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statusEffectMelee: 0
+  statusEffectRanged: 0
   attackPoint: {fileID: 1567814809801818000}
   rangedAttackStartPosition: {fileID: 1567814810438930149}
   attackRange: {x: 0.5, y: 2, z: 1}
@@ -4362,6 +4367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1000
   currentHealth: 1000
+  isInvincible: 0
   floatingPoint: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
   damageIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1567814809701013334

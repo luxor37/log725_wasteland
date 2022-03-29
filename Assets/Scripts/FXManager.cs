@@ -8,7 +8,8 @@ public class FXManager : MonoBehaviour
         Fire,
         HealthRegen,
         AttackBoost,
-        Shield
+        Shield,
+        Wind
     }
 
     public List<Particle> particles;

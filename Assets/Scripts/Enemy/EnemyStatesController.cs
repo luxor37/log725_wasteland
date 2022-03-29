@@ -92,7 +92,7 @@ namespace Enemy
         {
             Vector3 chaseBox = new Vector3(parameter.chaseRange/2, 1, 1);
             Collider[] players =  Physics.OverlapBox(parameter.attackPoints.position, chaseBox,Quaternion.identity,parameter.layer);
-            if (players.Length != 0)
+            if (players.Length != 0 && parameter._NavMeshAgent.enabled == true)
             {
                 this.parameter._target = players[0].transform;
                 parameter._NavMeshAgent.SetDestination(this.parameter._target.position);
