@@ -16,6 +16,8 @@ namespace Status
 
         public List<IStatus> statuses = new List<IStatus>();
 
+        
+
         private void Start()
         {
             _body = GetComponent<Rigidbody>();    
@@ -27,6 +29,9 @@ namespace Status
             {
                 status.StatusTick(Time.deltaTime);
             }
+            List<IStatus> ReactionStatuses = ReactionManager.Instance.GetReactions(statuses, this);
+            foreach (IStatus stat in ReactionStatuses)
+                AddStatus(stat);
         }
 
         public List<IStatus> GetStatuses()
@@ -55,7 +60,10 @@ namespace Status
         {
             if (_agent != null)
                 _agent.enabled = true;
-            statuses.Remove(statuses.Find(s => s.name == name));
+            var status = statuses.Find(s => s.name == name);
+            statuses.Remove(status);
+            if (_particlesController != null)
+                _particlesController.RemoveParticle(status.particleToSpawn);
         }
 
         public void Knockback()
@@ -79,12 +87,17 @@ namespace Status
                 _particlesController.ChangeParticles(name, duration);
         }
 
+        void DisableAI()
+        {
+            if (_agent != null)
+                _agent.enabled = false;
+        }
+
         public void KnockUp(float force)
         {
             if (_body)
             {
-                if (_agent != null)
-                    _agent.enabled = false;
+                DisableAI();
                 _body.AddForce(new Vector3(0, force, 0), ForceMode.Impulse);
             }
         }
@@ -93,10 +106,19 @@ namespace Status
         {
             if (_body)
             {
-                if (_agent != null)
-                    _agent.enabled = false;
+                DisableAI();
                 _body.AddForce(new Vector3(0, -force, 0), ForceMode.Impulse);
             }
+        }
+
+        public void Spin(float force)
+        {
+            if (_body)
+            {
+                DisableAI();
+                _body.AddTorque(new Vector3(force, force, -force));
+            }
+            
         }
 
     }

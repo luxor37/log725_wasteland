@@ -40,6 +40,7 @@ public class StatusManager : MonoBehaviour
         statusDictionary[StatusEnum.Coin] = "Status.CoinStatus";
         statusDictionary[StatusEnum.Shield] = "Status.ShieldStatus";
         statusDictionary[StatusEnum.Wind] = "Status.WindStatus";
+        statusDictionary[StatusEnum.FireTornado] = "Status.FireTornado";
     }
 
 

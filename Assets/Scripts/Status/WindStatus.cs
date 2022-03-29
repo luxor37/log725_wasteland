@@ -9,12 +9,12 @@ namespace Status
         public float duration = 2f;
         public int initialDmg = 0;
         public int perSecDmg = 10;
-        public ParticleType particleToSpawn = ParticleType.Wind;
 
 
         public WindStatus(StatusController controller) : base(controller)
         {
             name = "Wind";
+            particleToSpawn = ParticleType.Wind;
         }
 
         public override void StatusTick(float deltaTime)
