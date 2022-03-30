@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ff8b9a5c07751346a93413ac2b019e1, type: 3}
-  m_Name: StartLevelBlock
+  m_Name: StartLevel
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0, z: 0}
-  Symbol: 9
-  ShapeObject: {fileID: 6155903821603808869, guid: f67cb7b66a680834e9eca6bb97aecd96, type: 3}
+  Symbol: 4
+  ShapeObject: {fileID: 0}
   Attributes: 
   AttributeValues: 
