@@ -1,10 +1,15 @@
+using System;
 using Status;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Player
 {
     public class PlayerStatusController : StatusController
     {
+        public float timeInvicible;
+        private float Timer;
+        
         // Start is called before the first frame update
         new void Start()
         {
@@ -13,6 +18,26 @@ namespace Player
             _particlesController = GameObject.FindGameObjectWithTag("Player").GetComponent<ParticlesController>();
 
             base.onDeath += PlayerDeath;
+        }
+
+        private void FixedUpdate()
+        {
+            if (isInvincible)
+            {
+                Timer += Time.deltaTime;
+                if (Timer < timeInvicible)
+                {
+                    float remainder = Timer % 0.3f; 
+                    transform.GetChild(0).gameObject.SetActive(remainder > 0.15f);
+                }
+                else
+                {
+                    transform.GetChild(0).gameObject.SetActive(true);
+                    isInvincible = false;
+                    Timer = 0;
+                }
+
+            }
         }
 
         public void AttackMultiplier(int multiplier, int flat)
@@ -39,6 +64,12 @@ namespace Player
         public void AddCoin()
         {
             PersistenceManager.coins += 1;
+        }
+        
+        public new void TakeDamage(int damage)
+        {
+            base.TakeDamage(damage);
+            Knockback();
         }
 
         void PlayerDeath()
