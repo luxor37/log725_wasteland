@@ -17,7 +17,7 @@ namespace Enemy
         public Transform attackPoints;
         public float attackRange;
         
-        public int chaseRange = 1;
+        public int chaseRange;
         public float chaseTime;
 
         public Vector3 originPosition;
@@ -36,10 +36,11 @@ namespace Enemy
 
     public class EnemyStatesController : MonoBehaviour
     {
+        private float currentChaseRange;
         public Parameter parameter;
         private IState currentState;
         private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
-
+        public EnemyStatusController _EnemyStatus;
         public GameObject attackPoint;
 
         private void Start()
@@ -48,7 +49,8 @@ namespace Enemy
             parameter._NavMeshAgent = GetComponent<NavMeshAgent>();
             parameter.originPosition = this.gameObject.transform.position;
             parameter._NavMeshAgent.stoppingDistance = parameter.attackRange;
-
+            currentChaseRange = parameter.chaseRange;
+            _EnemyStatus = GetComponent<EnemyStatusController>();
             states.Add(StateType.Idle, new IdleState(this));
             states.Add(StateType.Chase, new ChaseState(this));
             states.Add(StateType.Attack, new AttackState(this));
@@ -90,7 +92,12 @@ namespace Enemy
 
         public bool findPlayer()
         {
-            Vector3 chaseBox = new Vector3(parameter.chaseRange/2, 1, 1);
+            currentChaseRange = parameter.chaseRange;
+            if (_EnemyStatus.getHit())
+            {
+                currentChaseRange = 20;
+            }
+            Vector3 chaseBox = new Vector3(currentChaseRange/2, 1, 1);
             Collider[] players =  Physics.OverlapBox(parameter.attackPoints.position, chaseBox,Quaternion.identity,parameter.layer);
             if (players.Length != 0)
             {
@@ -118,7 +125,7 @@ namespace Enemy
         {
             if (parameter.attackPoints == null)
                 return;
-            Vector3 chaseBox = new Vector3(parameter.chaseRange, 1, 1);
+            Vector3 chaseBox = new Vector3(currentChaseRange, 1, 1);
             if (parameter._target != null)
             {
                 Gizmos.color = Color.red;
