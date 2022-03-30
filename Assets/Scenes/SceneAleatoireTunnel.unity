@@ -250,10 +250,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b0516f917ed40f44787a980c2804fa47, type: 2}
+    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
+      propertyPath: Rules.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: c90eb2cfa4582974a8519b488381586e, type: 2}
     - target: {fileID: 2756983957792431950, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
