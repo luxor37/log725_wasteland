@@ -15,8 +15,12 @@ namespace Enemy
         public new void TakeDamage(int damage)
         {
             base.TakeDamage(damage);
-
             Knockback();
+        }
+
+        public bool getHit()
+        {
+            return this.isHit;
         }
     }
 }
