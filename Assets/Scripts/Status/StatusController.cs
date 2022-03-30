@@ -58,6 +58,11 @@ namespace Status
             }
         }
 
+        public void Hit()
+        {
+            this.isInvincible = true;
+        }
+        
         public void ResetHit()
         {
             isHit = false;
