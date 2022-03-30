@@ -1,5 +1,8 @@
+using System.Linq;
+using Status;
 using UnityEngine;
 using UnityEngine.UI;
+using static ItemController;
 
 namespace Player
 {
@@ -15,6 +18,7 @@ namespace Player
         public float jumpForce = 5f;
         public float gravityScale = 1f;
 
+
         public bool isClimbing = false;
         [HideInInspector]
         public float ladderAngle = 0;
@@ -22,6 +26,12 @@ namespace Player
         public Text CoinCounter;
 
         private PlayerAttack _playerAttack;
+
+        public float shieldCooldown = 3f;
+        [HideInInspector]
+        public float shieldTimer = -1f;
+        [HideInInspector]
+        public bool isShielded = false;
 
         // Start is called before the first frame update
         void Start()
@@ -34,7 +44,8 @@ namespace Player
         //So it is always after InputController's Update
         void LateUpdate()
         {
-            if(CoinCounter != null){
+            if (CoinCounter != null)
+            {
                 CoinCounter.text = PersistenceManager.coins.ToString();
             }
 
@@ -45,11 +56,14 @@ namespace Player
 
                 _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, moveSpeed, _controller.isGrounded || isClimbing, jumpForce, gravityScale);
 
+                HandleShield();
+
                 if (isClimbing)
                 {
                     _desiredMovement = PlayerMovementController.GetClimbingMovement(climbingSpeed);
                     transform.localEulerAngles = new Vector3(0, ladderAngle, 0);
-                    if(_controller.isGrounded){
+                    if (_controller.isGrounded)
+                    {
                         isClimbing = false;
                     }
                 }
@@ -61,6 +75,40 @@ namespace Player
                 PlayerAnimationController.Animate(_animator, _controller.isGrounded, isClimbing);
             }
 
+        }
+
+        private void HandleShield()
+        {
+            if(shieldTimer == -1f){
+                if (InputController.IsShielding)
+                {
+                    var controller = gameObject.GetComponent<PlayerStatusController>();
+                    if (controller != null)
+                    {
+                        var status = StatusManager.Instance.GetNewStatusObject(StatusEnum.Shield, controller);
+                        controller.AddStatus(status);
+                    }
+                    isShielded = true;
+                }
+                if(isShielded){
+                    var statuses = gameObject.GetComponent<PlayerStatusController>().statuses;
+
+                    if(statuses.OfType<ShieldStatus>().Count() == 0){
+                        isShielded = false;
+                        shieldTimer = 0f;
+                    }
+                    
+                }
+            }
+            else
+            {
+                shieldTimer += Time.deltaTime;
+            }
+
+            if (shieldTimer > shieldCooldown)
+            {
+                shieldTimer = -1f;
+            }
         }
 
         public bool getIsGrounded()

@@ -4,7 +4,7 @@ namespace Status
 {
     public class ShieldStatus : IStatus
     {
-        public float duration = 5f;
+        public float duration = 2f;
         public int initialHeal = 0;
         public int perSecHeal = 50;
         public ParticleType particleToSpawn = ParticleType.Shield;

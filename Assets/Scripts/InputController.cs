@@ -17,6 +17,7 @@ public class InputController : MonoBehaviour
     public static bool IsJumping = false;
     public static bool IsSprinting = false;
     public static bool IsAttacking = false;
+    public static bool IsShielding = false;
     public static bool IsPausing = false;
     public static int AttackType = 0;
 
@@ -39,6 +40,7 @@ public class InputController : MonoBehaviour
             IsPausing = Input.GetButtonDown("Menu");
             IsCharacterChanging = Input.GetKeyDown(KeyCode.K);
             AttackType = AttackType + Convert.ToInt32(Input.GetButtonDown("WeaponChange"));
+            IsShielding = Input.GetButtonDown("Shield");
         }
     }
 

@@ -7,20 +7,33 @@ namespace Player
     public class PlayerUIController : MonoBehaviour
     {
         public Slider HPStrip;
+        public Slider ShieldCooldown;
         private GameEntity entity;
+        private PlayerController controller;
 
         // Start is called before the first frame update
         void Start()
         {
             entity = gameObject.GetComponent<GameEntity>();
+            controller = gameObject.GetComponent<PlayerController>();
 
             HPStrip.maxValue = entity.maxHealth;
+
+            ShieldCooldown.value = 1f;
         }
 
         // Update is called once per frame
         void Update()
         {
-            HPStrip.value = entity.currentHealth;;
+            if (controller.isShielded)
+                ShieldCooldown.value = 0;
+            else if(controller.shieldTimer == -1f){
+                ShieldCooldown.value = 1;
+            }
+            else{
+                ShieldCooldown.value = controller.shieldTimer/controller.shieldCooldown;
+            }
+            HPStrip.value = entity.currentHealth; ;
         }
     }
 }
