@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ff8b9a5c07751346a93413ac2b019e1, type: 3}
-  m_Name: StartLevel
+  m_Script: {fileID: 11500000, guid: 8afd3040515b2d348ae8955d0f7e28b1, type: 3}
+  m_Name: Split Right
   m_EditorClassIdentifier: 
-  isTwoLayer: 0
-  Position: {x: 0, y: 0, z: 0}
-  Symbol: 0
-  ShapeObject: {fileID: 0}
-  Attributes: 
-  AttributeValues: 
+  predecessor: {fileID: 0}
+  SplitLoc:
+  - {x: -20, y: 0, z: 0}
+  randomRange: {x: 0, y: 0, z: 0}

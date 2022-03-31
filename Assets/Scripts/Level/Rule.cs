@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 namespace Level
@@ -59,7 +58,6 @@ namespace Level
         public List<Shape> CalculateRule(Shape inputShape)
         {
             var result = new List<Shape>();
-            //Shape shapeCopy = new Shape(inputShape);
             if (CheckPreConditions() == false)
                 return result;
             foreach(var operation in operations)

@@ -6,7 +6,7 @@ public class Ladder : MonoBehaviour
     private Collider _bounds;
     public bool _areTouching = false;
     private PlayerController player;
-
+    public bool hideInstructions = false;
     public TextMesh instructions;
 
     void Start()
@@ -55,7 +55,7 @@ public class Ladder : MonoBehaviour
             _areTouching = false;
             player = other.gameObject.GetComponent<PlayerController>();
             player.isClimbing = false;
-            if (instructions != null)
+            if (instructions != null && !hideInstructions)
             {
                 instructions.characterSize = 0;
             }

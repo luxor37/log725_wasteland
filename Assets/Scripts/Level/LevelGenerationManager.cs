@@ -6,50 +6,38 @@ namespace Level
 {
     public class LevelGenerationManager : MonoBehaviour
     {
-        static LevelGenerationManager instance;
-        
         [SerializeField]
         List<Rule> Rules;
 
         [SerializeField]
+        List<Rule> ContentRules;
+
+        [SerializeField]
+        List<Rule> EnnemyRules;
+
+        [SerializeField]
         Shape AxiomShape;
 
-        GameObject player;
+        public int MaxNumberBlockLevel = 10;
 
-        public static LevelGenerationManager Instance => instance;
-
-        private void Awake()
-        {
-            if (instance != null && instance != this)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                instance = this;
-            }
-        }
-
-        private void Start()
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            GenerateLevel();
-        }
+        private readonly System.Random rnd = new System.Random();
 
         public void GenerateLevel()
         {
-            var shapeStack = new List<Shape>();
             var axiom = AxiomShape;
-            shapeStack.Add(axiom);
+            var terrainNodes = new List<Shape> { axiom };
+            var contentNodes = new List<Shape>();
+            var ennemyNodes = new List<Shape>();
+
             var counter = 0;
-            while (shapeStack.Count > 0)
+            while (terrainNodes.Count > 0)
             {
                 counter ++;
-                if(counter > 10)
+                if(counter > MaxNumberBlockLevel)
                     break;
-                var rnd = new System.Random();
-                var index = rnd.Next(shapeStack.Count);
-                var shape = shapeStack[index];
+
+                var index = rnd.Next(terrainNodes.Count);
+                var shape = terrainNodes[index];
 
                 //get the rules that can append to the chosen empty node (shape)
                 var rulesMatch = Rules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
@@ -57,15 +45,63 @@ namespace Level
                 if (rulesMatch.Count == 0)
                     break;
                 //Pick a random rule to apply
-                var ruleChosen = rulesMatch[UnityEngine.Random.Range(0, rulesMatch.Count)];
+                var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
                 var results = ruleChosen.CalculateRule(shape);
-                shapeStack.RemoveAt(index);
+                terrainNodes.RemoveAt(index);
                 if (results.Count == 0)
                     continue;
                 
-                shapeStack.AddRange(results);
-               
+                terrainNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.EMPTY || x.Symbol == Shape.SymbolEnum.AXIOM));
+                contentNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.CONTENT));
+                ennemyNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.ENEMY));
             }
+
+            counter = 0;
+            while (contentNodes.Count > 0)
+            {
+                counter++;
+                if (counter > 1000)
+                    break;
+
+                var index = rnd.Next(contentNodes.Count);
+                var shape = contentNodes[index];
+
+                //get the rules that can append to the chosen empty node (shape)
+                var rulesMatch = ContentRules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
+
+                if (rulesMatch.Count == 0) break;
+
+                //Pick a random rule to apply
+                var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
+                ruleChosen.CalculateRule(shape);
+                contentNodes.RemoveAt(index);
+            }
+
+            counter = 0;
+            while (ennemyNodes.Count > 0)
+            {
+                counter++;
+                if (counter > 1000)
+                    break;
+
+                var index = rnd.Next(ennemyNodes.Count);
+                var shape = ennemyNodes[index];
+
+                //get the rules that can append to the chosen empty node (shape)
+                var rulesMatch = ContentRules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
+
+                if (rulesMatch.Count == 0) break;
+
+                //Pick a random rule to apply
+                var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
+                ruleChosen.CalculateRule(shape);
+                ennemyNodes.RemoveAt(index);
+            }
+        }
+
+        void Start()
+        {
+            GenerateLevel();
         }
     }
 }

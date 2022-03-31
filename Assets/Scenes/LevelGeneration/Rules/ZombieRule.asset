@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9db153a0d1955ce46b9dcc14d9181e24, type: 3}
-  m_Name: ContentRule
+  m_Name: ZombieRule
   m_EditorClassIdentifier: 
-  PredecessorShape: {fileID: 11400000, guid: 1fe62754c5a63c64584c4bb1b0583ca6, type: 2}
+  PredecessorShape: {fileID: 11400000, guid: a414e5c227f60a44bbfd3eb8a39fb6f9, type: 2}
   operations:
-  - {fileID: 11400000, guid: 91f5b18e6fc14c042ae4a0f4dce8bb51, type: 2}
-  - {fileID: 11400000, guid: ffbf0da5bdf5ceb42b745bb5effc7029, type: 2}
+  - {fileID: 11400000, guid: 1b2b5a55d92207a43b5bd99e666118a9, type: 2}
   Conditions: 
   ConditionValues: 
   Operator: 0

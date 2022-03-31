@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff8b9a5c07751346a93413ac2b019e1, type: 3}
   m_Name: EmptyShape
   m_EditorClassIdentifier: 
-  Symbol: 12
+  isTwoLayer: 0
+  Position: {x: 0, y: 0, z: 0}
+  Symbol: 14
   ShapeObject: {fileID: 0}
   Attributes: 
   AttributeValues: 
