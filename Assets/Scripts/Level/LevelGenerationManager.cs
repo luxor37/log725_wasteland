@@ -99,7 +99,7 @@ namespace Level
                 var shape = enemyNodes[index];
 
                 //get the rules that can append to the chosen empty node (shape)
-                var rulesMatch = ContentRules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
+                var rulesMatch = EnnemyRules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
 
                 if (rulesMatch.Count == 0) break;
 
