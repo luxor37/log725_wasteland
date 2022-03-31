@@ -13,7 +13,7 @@ namespace Status
         protected NavMeshAgent _agent;
         protected Rigidbody _body;
         public bool isHit = false;
-
+        public bool isShielded = false;
         public List<IStatus> statuses = new List<IStatus>();
 
         

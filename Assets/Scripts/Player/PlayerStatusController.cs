@@ -22,7 +22,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if (isInvincible)
+            if (isInvincible && !isShielded)
             {
                 Timer += Time.deltaTime;
                 if (Timer < timeInvicible)
@@ -97,7 +97,8 @@ namespace Player
         public new void TakeDamage(int damage)
         {
             base.TakeDamage(damage);
-            Knockback();
+            if (!isInvincible)
+                Knockback();
         }
 
         void PlayerDeath()

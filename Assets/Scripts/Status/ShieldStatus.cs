@@ -20,6 +20,7 @@ namespace Status
             if (timer == 0f)
             {
                 _controller.isInvincible = true;
+                _controller.isShielded = true;
                 _controller.SetParticleSystem(particleToSpawn, duration);
             }
             else if (timer - lastTick > 1f)
@@ -33,6 +34,7 @@ namespace Status
             {
                 EndStatus();
                 _controller.isInvincible = false;
+                _controller.isShielded = false;
             }
 
         }
