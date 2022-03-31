@@ -1,7 +1,7 @@
 using Player;
 using UnityEngine;
 
-public class BuyCharacter : MonoBehaviour
+public class BuyCharacter : MonoBehaviour, Item.IBuyable
 {
     // Start is called before the first frame update
     private Collider _bounds;
