@@ -12,12 +12,14 @@ public class Shop : MonoBehaviour
     public int AtkCost = 8;
 
     public CanvasGroup shopUi;
+    private CanvasGroup menu;
 
     void Start()
     {
         if (instructions != null)
         {
             instructions.characterSize = 0;
+            menu = gameObject.GetComponentInChildren<CanvasGroup>();
         }
     }
     
@@ -28,6 +30,8 @@ public class Shop : MonoBehaviour
         if (shopUi != null)
         {
             shopUi.alpha = 1;
+            menu.interactable = true;
+            menu.blocksRaycasts = true;
         }
 
     }
@@ -56,6 +60,8 @@ public class Shop : MonoBehaviour
         if (shopUi != null)
         {
             shopUi.alpha = 0;
+            menu.interactable = false;
+            menu.blocksRaycasts = false;
         }
     }
 
