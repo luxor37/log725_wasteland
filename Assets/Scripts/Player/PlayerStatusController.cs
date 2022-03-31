@@ -22,7 +22,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if (isInvincible)
+            if (isInvincible && !isShielded)
             {
                 Timer += Time.deltaTime;
                 if (Timer < timeInvicible)
