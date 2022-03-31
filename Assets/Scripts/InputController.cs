@@ -20,8 +20,10 @@ public class InputController : MonoBehaviour
     public static bool IsShielding = false;
     public static bool IsPausing = false;
     public static int AttackType = 0;
+    public static bool IsUsingItem1 = false;
+    public static bool IsUsingItem2 = false;
 
-    public static bool IsCharacterChanging;
+    public static bool IsCharacterChanging = false;
 
     void Start(){
         disableControls = false;
@@ -38,9 +40,11 @@ public class InputController : MonoBehaviour
             HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
             VerticalDirection = GetVerticalDirection(VerticalAxis);
             IsPausing = Input.GetButtonDown("Menu");
-            IsCharacterChanging = Input.GetKeyDown(KeyCode.K);
+            IsCharacterChanging = Input.GetButtonDown("Switch");
             AttackType = AttackType + Convert.ToInt32(Input.GetButtonDown("WeaponChange"));
             IsShielding = Input.GetButtonDown("Shield");
+            IsUsingItem1 = Input.GetButtonDown("UseItem1");
+            IsUsingItem2 = Input.GetButtonDown("UseItem2");
         }
     }
 
