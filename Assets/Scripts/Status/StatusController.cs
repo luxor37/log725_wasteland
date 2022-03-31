@@ -78,7 +78,7 @@ namespace Status
 
         public void Hit()
         {
-            this.isInvincible = true;
+            //this.isInvincible = true;
         }
         
         public void ResetHit()

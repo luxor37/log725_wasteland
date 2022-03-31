@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.057225052, g: 0.050616227, b: 0.053980365, a: 1}
+  m_IndirectSpecularColor: {r: 0.057225052, g: 0.050616227, b: 0.053980358, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2993,6 +2993,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 5241175239232323086, guid: 23d631ddb62832a4aaf5817187fadfce, type: 3}
+      propertyPath: items.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241175239232323086, guid: 23d631ddb62832a4aaf5817187fadfce, type: 3}
+      propertyPath: items.Array.data[2]
+      value: 
+      objectReference: {fileID: 4656488479160663002, guid: d371976b87b76354eb9015c437dcaa80, type: 3}
     - target: {fileID: 6927342301401624568, guid: 23d631ddb62832a4aaf5817187fadfce, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -3752,6 +3760,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1645349434320395630, guid: 816c96de5b33a1747b1eb6291fed4123, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645349434548395083, guid: 816c96de5b33a1747b1eb6291fed4123, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -50.000008
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645349434548395083, guid: 816c96de5b33a1747b1eb6291fed4123, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 1645349434648365995, guid: 816c96de5b33a1747b1eb6291fed4123, type: 3}
       propertyPath: m_Camera
       value: 
