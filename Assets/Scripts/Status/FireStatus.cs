@@ -9,11 +9,10 @@ namespace Status
         public float duration = 5f;
         public int initialDmg = 0;
         public int perSecDmg = 50;
-        public ParticleType particleToSpawn = ParticleType.Fire;
-
 
         public FireStatus(StatusController controller) : base(controller)
         {
+            particleToSpawn = ParticleType.Fire;
             name = "Fire";
         }
 
@@ -29,8 +28,6 @@ namespace Status
                 _controller.TakeDamage(perSecDmg);
                 lastTick = timer;
             }
-
-           
 
             timer += deltaTime;
             if (timer > duration)

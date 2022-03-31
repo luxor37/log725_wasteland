@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using static FXManager;
 
 namespace Status
@@ -9,9 +10,18 @@ namespace Status
     {
         protected Animator _animator;
         protected ParticlesController _particlesController;
+        protected NavMeshAgent _agent;
+        protected Rigidbody _body;
         protected bool isHit = false;
 
         public List<IStatus> statuses = new List<IStatus>();
+
+        
+
+        private void Start()
+        {
+            _body = GetComponent<Rigidbody>();    
+        }
 
         protected void Update()
         {
@@ -19,6 +29,9 @@ namespace Status
             {
                 status.StatusTick(Time.deltaTime);
             }
+            List<IStatus> ReactionStatuses = ReactionManager.Instance.GetReactions(statuses, this);
+            foreach (IStatus stat in ReactionStatuses)
+                AddStatus(stat);
         }
 
         public List<IStatus> GetStatuses()
@@ -45,7 +58,12 @@ namespace Status
 
         public void EndStatus(string name)
         {
-            statuses.Remove(statuses.Find(s => s.name == name));
+            if (_agent != null)
+                _agent.enabled = true;
+            var status = statuses.Find(s => s.name == name);
+            statuses.Remove(status);
+            if (_particlesController != null)
+                _particlesController.RemoveParticle(status.particleToSpawn);
         }
 
         public void Knockback()
@@ -58,6 +76,11 @@ namespace Status
             }
         }
 
+        public void Hit()
+        {
+            this.isInvincible = true;
+        }
+        
         public void ResetHit()
         {
             isHit = false;
@@ -67,6 +90,40 @@ namespace Status
         {
             if (_particlesController)
                 _particlesController.ChangeParticles(name, duration);
+        }
+
+        void DisableAI()
+        {
+            if (_agent != null)
+                _agent.enabled = false;
+        }
+
+        public void KnockUp(float force)
+        {
+            if (_body)
+            {
+                DisableAI();
+                _body.AddForce(new Vector3(0, force, 0), ForceMode.Impulse);
+            }
+        }
+
+        public void FloatDown(float force)
+        {
+            if (_body)
+            {
+                DisableAI();
+                _body.AddForce(new Vector3(0, -force, 0), ForceMode.Impulse);
+            }
+        }
+
+        public void Spin(float force)
+        {
+            if (_body)
+            {
+                DisableAI();
+                _body.AddTorque(new Vector3(force, force, -force));
+            }
+            
         }
 
     }

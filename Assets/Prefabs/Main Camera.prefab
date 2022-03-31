@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3120466430056161979}
   - component: {fileID: 131670675145825737}
   - component: {fileID: 5805078815227996797}
+  - component: {fileID: 91042825}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -132,9 +133,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0.125
   offset: {x: 0, y: 2, z: 10}
-  enableYMinMax: 1
+  enableYMinMax: 0
   yMin: 5
   yMax: 100
-  enableXMinMax: 1
+  enableXMinMax: 0
   xMin: -5
   xMax: 3
+--- !u!114 &91042825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7665562177911325454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b999a1c1e21de4593a4c0b030b4edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yMin: -100
+  yMax: 100
+  xMin: -100
+  xMax: 100
