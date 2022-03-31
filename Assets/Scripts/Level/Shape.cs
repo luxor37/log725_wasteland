@@ -7,6 +7,7 @@ namespace Level
     [CreateAssetMenu(fileName = "Shape", menuName = "ScriptableObjects/LevelGenerator/Shape", order = 1)]
     public class Shape : ScriptableObject
     {
+        public bool isTwoLayer = false;
         public enum AttributeEnum
         {
             MAX_SIZE,

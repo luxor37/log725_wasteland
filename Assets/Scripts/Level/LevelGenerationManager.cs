@@ -1,6 +1,5 @@
-﻿using UnityEditor;
-using System.Collections.Generic;
-using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Level
@@ -17,16 +16,13 @@ namespace Level
 
         GameObject player;
 
-        public static LevelGenerationManager Instance
-        {
-            get { return instance; }
-        }
+        public static LevelGenerationManager Instance => instance;
 
         private void Awake()
         {
             if (instance != null && instance != this)
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
             else
             {
@@ -40,56 +36,34 @@ namespace Level
             GenerateLevel();
         }
 
-        bool ResultsAreValid(Stack<Shape> shapeStack, Shape predecessor, List<Shape> results)
-        {
-            foreach(var newShape in results)
-            {
-                // TODO check size
-                foreach(var oldShape in shapeStack)
-                {
-                    if (oldShape == predecessor)
-                    {
-                        continue;
-                    }
-
-                }
-            }
-            return true;
-        }
-
         public void GenerateLevel()
         {
-            Stack<Shape> shapeStack = new Stack<Shape>();
-            Shape axiom = AxiomShape;
-            shapeStack.Push(axiom);
+            var shapeStack = new List<Shape>();
+            var axiom = AxiomShape;
+            shapeStack.Add(axiom);
+            var counter = 0;
             while (shapeStack.Count > 0)
             {
-                Shape shape = shapeStack.Pop();
-                List<Rule> rulesMatch = new List<Rule>();
-                foreach (var rule in Rules)
-                {
-                    if (rule.PredecessorShape.Symbol == shape.Symbol)
-                    {
-                        rulesMatch.Add(rule);  
-                    }
-                }
+                counter ++;
+                if(counter > 10)
+                    break;
+                var rnd = new System.Random();
+                var index = rnd.Next(shapeStack.Count);
+                var shape = shapeStack[index];
+
+                //get the rules that can append to the chosen empty node (shape)
+                var rulesMatch = Rules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
+
                 if (rulesMatch.Count == 0)
                     break;
+                //Pick a random rule to apply
                 var ruleChosen = rulesMatch[UnityEngine.Random.Range(0, rulesMatch.Count)];
-                List<Shape> results = ruleChosen.CalculateRule(shape);
+                var results = ruleChosen.CalculateRule(shape);
+                shapeStack.RemoveAt(index);
                 if (results.Count == 0)
                     continue;
-
-                if (ResultsAreValid(shapeStack, shape, results))
-                {
-                    foreach( var resShape in results)
-                    {
-                        if (resShape.ShapeObject)
-                            continue;
-                        else
-                            shapeStack.Push(resShape);
-                    }
-                }
+                
+                shapeStack.AddRange(results);
                
             }
         }

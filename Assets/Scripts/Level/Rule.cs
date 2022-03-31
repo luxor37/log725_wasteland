@@ -28,7 +28,7 @@ namespace Level
         public List<int> ConditionValues;
         public ConditionOperatorEnum Operator;
 
-        Stack<Shape> stack = new Stack<Shape>();
+        static Stack<Shape> stack = new Stack<Shape>();
 
         bool CheckPreConditions()
         {
@@ -65,7 +65,7 @@ namespace Level
             foreach(var operation in operations)
             {
                 operation.predecessor = inputShape;
-                operation.Apply(stack, result);
+                stack = operation.Apply(stack, result);
             }
            
             return result;

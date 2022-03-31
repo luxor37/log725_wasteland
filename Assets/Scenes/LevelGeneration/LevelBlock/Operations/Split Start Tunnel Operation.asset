@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8afd3040515b2d348ae8955d0f7e28b1, type: 3}
-  m_Name: Split Tunnel Operation
+  m_Name: Split Start Tunnel Operation
   m_EditorClassIdentifier: 
   predecessor: {fileID: 0}
   SplitLoc:
   - {x: -20, y: 0, z: 0}
-  - {x: 20, y: 0, z: 0}
+  - {x: -40, y: 0, z: 0}
   randomRange: {x: 0, y: 0, z: 0}

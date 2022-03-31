@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9db153a0d1955ce46b9dcc14d9181e24, type: 3}
-  m_Name: TerrainRule
+  m_Name: EmptyTo2LayerTopRightTerrainRule
   m_EditorClassIdentifier: 
-  PredecessorShape: {fileID: 11400000, guid: 41fab41c9afd7b2439e658c251531b25, type: 2}
+  PredecessorShape: {fileID: 11400000, guid: 04b0db23a83e598418e1ff255943e8fa, type: 2}
   operations:
   - {fileID: 11400000, guid: cb486e57f4ec7114db51244ad6f289be, type: 2}
-  - {fileID: 11400000, guid: eada4951df3812942a400f1b06d5b694, type: 2}
-  - {fileID: 11400000, guid: 7fa50e45477c8994983f2be236c52d38, type: 2}
   - {fileID: 11400000, guid: c4a4e97ee2e16ae4b87045cff15f2412, type: 2}
+  - {fileID: 11400000, guid: 5f1b596da508f1d4f87a79dd329b1059, type: 2}
   Conditions: 
   ConditionValues: 
   Operator: 0

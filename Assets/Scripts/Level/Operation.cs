@@ -1,6 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 namespace Level
@@ -9,6 +7,6 @@ namespace Level
     {
         public Shape predecessor;
 
-        abstract public void Apply(Stack<Shape> stack, List<Shape> results);
+        public abstract Stack<Shape> Apply(Stack<Shape> stack, List<Shape> results);
     }
 }
