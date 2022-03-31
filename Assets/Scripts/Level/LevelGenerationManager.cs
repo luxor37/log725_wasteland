@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Level
 {
@@ -35,18 +37,25 @@ namespace Level
             var contentNodes = new List<Shape>();
             var enemyNodes = new List<Shape>();
 
-            terrainNodes.AddRange(StartRule.CalculateRule(axiom));
+            terrainNodes.AddRange(StartRule.CalculateRule(axiom).Item1);
 
             var counter = 0;
             while (terrainNodes.Count > 0)
             {
                 var index = rnd.Next(terrainNodes.Count);
                 var shape = terrainNodes[index];
+
+                while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) || shape.Symbol != Shape.SymbolEnum.EMPTY)
+                {
+                    if(PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
+                        terrainNodes.RemoveAt(index);
+                    index = rnd.Next(terrainNodes.Count);
+                    shape = terrainNodes[index];
+                }
                 
                 counter ++;
                 if (counter > MaxNumberBlockLevel)
                 {
-                    shape = terrainNodes.First(s => s.Symbol == Shape.SymbolEnum.EMPTY);
                     EndRule.CalculateRule(shape);
                     break;
                 }
@@ -61,22 +70,38 @@ namespace Level
 
                 //Pick a random rule to apply
                 var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
-                var results = ruleChosen.CalculateRule(shape);
-                terrainNodes.RemoveAt(index);
+                var (results, succeeded) = ruleChosen.CalculateRule(shape);
+
+                if (succeeded)
+                    terrainNodes.RemoveAt(index);
+
                 if (results.Count == 0)
                     continue;
+
+                var test = results.Where(x => x.Symbol == Shape.SymbolEnum.EMPTY).ToList();
+
+                test = test.Where(x => x.Position.x % 20 == 0).ToList();
+
+                terrainNodes.AddRange(test);
+                contentNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.CONTENT).ToList());
+                enemyNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.ENEMY).ToList());
                 
-                terrainNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.EMPTY));
-                contentNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.CONTENT));
-                enemyNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.ENEMY));
             }
 
             while (terrainNodes.Count > 0)
             {
                 var index = rnd.Next(terrainNodes.Count);
                 var shape = terrainNodes[index];
-                
-                var results = BlockTunnelRule.CalculateRule(shape);
+
+                while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) || shape.Symbol != Shape.SymbolEnum.EMPTY || shape.Position.x % 20 != 0)
+                {
+                    if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) || shape.Position.x % 20 != 0)
+                        terrainNodes.RemoveAt(index);
+                    index = rnd.Next(terrainNodes.Count);
+                    shape = terrainNodes[index];
+                }
+
+                BlockTunnelRule.CalculateRule(shape);
                 terrainNodes.RemoveAt(index);
             }
 

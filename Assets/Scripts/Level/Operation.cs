@@ -7,6 +7,6 @@ namespace Level
     {
         public Shape predecessor;
 
-        public abstract Stack<Shape> Apply(Stack<Shape> stack, List<Shape> results);
+        public abstract bool Apply(Stack<Shape> stack, List<Shape> results);
     }
 }

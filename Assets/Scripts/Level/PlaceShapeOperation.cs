@@ -14,18 +14,13 @@ namespace Level
 
         public Shape ShapeToPlace;
 
-        public override Stack<Shape> Apply(Stack<Shape> stack, List<Shape> results)
+        public override bool Apply(Stack<Shape> stack, List<Shape> results)
         {
             var toPlace = CreateInstance<Shape>();
             toPlace.Symbol = ShapeToPlace.Symbol;
             toPlace.ShapeObject = ShapeToPlace.ShapeObject;
             toPlace.isTwoLayer = ShapeToPlace.isTwoLayer;
             toPlace.Position = predecessor.Position;
-
-            if (ShapeToPlace.Symbol == Shape.SymbolEnum.TERRAIN)
-            {
-
-            }
 
             if (stack.Count > 0)
             {
@@ -34,28 +29,37 @@ namespace Level
             }
             if (toPlace.ShapeObject)
             {
-                if (occupiedObject.Any(x => x == toPlace.Position)) return stack;
+                //if (occupiedObject.Any(x => x == toPlace.Position)) return false;
 
-                occupiedObject.Add(toPlace.Position);
-                occupiedEmpty.Add(toPlace.Position);
-                    
+                //if(toPlace.isTwoLayer){
+                //    if (occupiedObject.Any(x => x == new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z))) return false;
 
-                if(toPlace.isTwoLayer){
+                //    occupiedObject.Add(new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z));
+                //    occupiedEmpty.Add(new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z));
+                //}
+
+                if (toPlace.isTwoLayer)
+                {
+                    //if (occupiedObject.Any(x => x == new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z))) return false;
+
                     occupiedObject.Add(new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z));
                     occupiedEmpty.Add(new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z));
                 }
+
+                occupiedObject.Add(toPlace.Position);
+                occupiedEmpty.Add(toPlace.Position);
 
                 Instantiate(toPlace.ShapeObject, toPlace.Position, toPlace.ShapeObject.transform.rotation);
             } 
             else
             {
-                if (occupiedEmpty.Any(x => x == toPlace.Position)) return stack;
+                if (occupiedEmpty.Any(x => x == toPlace.Position)) return true;
 
                 occupiedEmpty.Add(toPlace.Position);
                 results.Add(toPlace);
             }
 
-            return stack;
+            return true;
         }
 
     }

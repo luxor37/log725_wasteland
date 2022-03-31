@@ -8,7 +8,7 @@ namespace Level
     {
         public List<Vector3> SplitLoc = new List<Vector3>();
         public Vector3 RandomRange = new Vector3();
-        public override Stack<Shape> Apply(Stack<Shape> stack, List<Shape> results)
+        public override bool Apply(Stack<Shape> stack, List<Shape> results)
         {
             var leftShape = CreateInstance<Shape>();
             leftShape.Position = predecessor.Position;
@@ -30,7 +30,7 @@ namespace Level
             foreach (var s in shapeList)
                 stack.Push(s);
 
-            return stack;
+            return true;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace Level
@@ -27,7 +28,7 @@ namespace Level
         public List<int> ConditionValues;
         public ConditionOperatorEnum Operator;
 
-        static Stack<Shape> stack = new Stack<Shape>();
+        Stack<Shape> stack = new Stack<Shape>();
 
         bool CheckPreConditions()
         {
@@ -55,18 +56,18 @@ namespace Level
             return true;
         }
 
-        public List<Shape> CalculateRule(Shape inputShape)
+        public Tuple<List<Shape>, bool> CalculateRule(Shape inputShape)
         {
             var result = new List<Shape>();
             if (CheckPreConditions() == false)
-                return result;
+                return new Tuple<List<Shape>, bool>(result, false);
             foreach(var operation in operations)
             {
                 operation.predecessor = inputShape;
-                stack = operation.Apply(stack, result);
+                operation.Apply(stack, result);
             }
            
-            return result;
+            return new Tuple<List<Shape>, bool>(result, false);
         }
     }
 }
