@@ -50,6 +50,10 @@ namespace Level
                 {
                     if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
                         terrainNodes.RemoveAt(index);
+
+                    if (terrainNodes.Count == 0)
+                        break;
+
                     index = rnd.Next(terrainNodes.Count);
                     shape = terrainNodes[index];
                 }
@@ -68,6 +72,9 @@ namespace Level
                     {
                         if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
                             possibleExitNodes.RemoveAt(index);
+
+                        if (possibleExitNodes.Count == 0)
+                            break;
 
                         foreach (var node in possibleExitNodes)
                         {
@@ -123,12 +130,23 @@ namespace Level
                 {
                     if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) || shape.Position.x % 20 != 0)
                         terrainNodes.RemoveAt(index);
+
+                    if(terrainNodes.Count == 0)
+                        break;
+
                     index = rnd.Next(terrainNodes.Count);
                     shape = terrainNodes[index];
                 }
 
                 BlockTunnelRule.CalculateRule(shape);
-                terrainNodes.RemoveAt(index);
+                try
+                {
+                    terrainNodes.RemoveAt(index);
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    Debug.Log("Out of range");
+                }
             }
 
             counter = 0;
