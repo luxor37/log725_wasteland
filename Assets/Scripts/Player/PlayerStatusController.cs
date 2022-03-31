@@ -38,6 +38,34 @@ namespace Player
                 }
 
             }
+
+           
+        }
+
+        private void Update()
+        {
+            base.Update();
+            GameObject item = null;
+            if (InputController.IsUsingItem1 && PersistenceManager.HealthPotionAmount > 0)
+            {
+                PersistenceManager.HealthPotionAmount -= 1;
+                item = Item.ItemManager.Instance.GetItem("RecoverItem1");
+            }
+
+            if (InputController.IsUsingItem2 && PersistenceManager.AtkBoostAmount > 0)
+            {
+                PersistenceManager.AtkBoostAmount -= 1;
+                item = Item.ItemManager.Instance.GetItem("AttackBoostItem1");
+            }
+            if (!item)
+                return;
+
+            var itemcontroller = item.GetComponent<ItemController>();
+            if (itemcontroller)
+            {
+                var status = StatusManager.Instance.GetNewStatusObject(itemcontroller.statusName, this);
+                AddStatus(status);
+            }
         }
 
         public void AttackMultiplier(int multiplier, int flat)
@@ -76,5 +104,7 @@ namespace Player
         {
             SceneTransitionManager.sceneTransitionManager.GameOver();
         }
+
+
     }
 }
