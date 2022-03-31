@@ -22,6 +22,11 @@ namespace Level
             toPlace.isTwoLayer = ShapeToPlace.isTwoLayer;
             toPlace.Position = predecessor.Position;
 
+            if (ShapeToPlace.Symbol == Shape.SymbolEnum.TERRAIN)
+            {
+
+            }
+
             if (stack.Count > 0)
             {
                 var stateShape = stack.Pop();

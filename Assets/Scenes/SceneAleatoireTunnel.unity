@@ -257,12 +257,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 45747d342cdf9ee4aab9cb0e9c48d438, type: 2}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
+      propertyPath: StartRule
+      value: 
+      objectReference: {fileID: 11400000, guid: c90eb2cfa4582974a8519b488381586e, type: 2}
+    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: BlockTunnelRule
       value: 
       objectReference: {fileID: 11400000, guid: 7d27fbb754418c1488287c3aeac6c722, type: 2}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: MaxNumberBlockLevel
@@ -271,15 +275,15 @@ PrefabInstance:
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: b0516f917ed40f44787a980c2804fa47, type: 2}
+      objectReference: {fileID: 11400000, guid: 73855807e2729e845bc8aa6895c0697d, type: 2}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: c90eb2cfa4582974a8519b488381586e, type: 2}
+      objectReference: {fileID: 11400000, guid: c103133a67ebc8845b1d80c1c6629f27, type: 2}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 73855807e2729e845bc8aa6895c0697d, type: 2}
+      objectReference: {fileID: 11400000, guid: c103133a67ebc8845b1d80c1c6629f27, type: 2}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.data[3]
       value: 

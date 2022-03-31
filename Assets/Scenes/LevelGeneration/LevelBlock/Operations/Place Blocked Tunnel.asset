@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Place Blocked Tunnel
   m_EditorClassIdentifier: 
   predecessor: {fileID: 0}
-  ShapeToPlace: {fileID: 0}
+  ShapeToPlace: {fileID: 11400000, guid: 46a61f0f9e3dfd4488215164ecc470c7, type: 2}

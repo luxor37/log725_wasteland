@@ -17,4 +17,5 @@ MonoBehaviour:
   - {x: -20, y: -14.75, z: 0}
   - {x: 20, y: -14.75, z: 0}
   - {x: 20, y: 0, z: 0}
-  randomRange: {x: 0, y: 0, z: 0}
+  - {x: -20, y: 0, z: 0}
+  RandomRange: {x: 0, y: 0, z: 0}

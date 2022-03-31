@@ -14,7 +14,9 @@ namespace Level
 
         [SerializeField]
         List<Rule> EnnemyRules;
-        
+
+        public Rule StartRule;
+
         public Rule EndRule;
 
         public Rule BlockTunnelRule;
@@ -29,9 +31,11 @@ namespace Level
         public void GenerateLevel()
         {
             var axiom = AxiomShape;
-            var terrainNodes = new List<Shape> { axiom };
+            var terrainNodes = new List<Shape>();
             var contentNodes = new List<Shape>();
             var enemyNodes = new List<Shape>();
+
+            terrainNodes.AddRange(StartRule.CalculateRule(axiom));
 
             var counter = 0;
             while (terrainNodes.Count > 0)
@@ -42,6 +46,7 @@ namespace Level
                 counter ++;
                 if (counter > MaxNumberBlockLevel)
                 {
+                    shape = terrainNodes.First(s => s.Symbol == Shape.SymbolEnum.EMPTY);
                     EndRule.CalculateRule(shape);
                     break;
                 }
@@ -61,9 +66,18 @@ namespace Level
                 if (results.Count == 0)
                     continue;
                 
-                terrainNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.EMPTY || x.Symbol == Shape.SymbolEnum.AXIOM));
+                terrainNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.EMPTY));
                 contentNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.CONTENT));
                 enemyNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.ENEMY));
+            }
+
+            while (terrainNodes.Count > 0)
+            {
+                var index = rnd.Next(terrainNodes.Count);
+                var shape = terrainNodes[index];
+                
+                var results = BlockTunnelRule.CalculateRule(shape);
+                terrainNodes.RemoveAt(index);
             }
 
             counter = 0;
@@ -77,7 +91,7 @@ namespace Level
                 var shape = contentNodes[index];
 
                 //get the rules that can append to the chosen empty node (shape)
-                var rulesMatch = ContentRules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
+                var rulesMatch = ContentRules.Where(rule => Shape.SymbolEnum.CONTENT == shape.Symbol).ToList();
 
                 if (rulesMatch.Count == 0) break;
 
@@ -98,7 +112,7 @@ namespace Level
                 var shape = enemyNodes[index];
 
                 //get the rules that can append to the chosen empty node (shape)
-                var rulesMatch = EnnemyRules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
+                var rulesMatch = EnnemyRules.Where(rule => Shape.SymbolEnum.ENEMY == shape.Symbol).ToList();
 
                 if (rulesMatch.Count == 0) break;
 
