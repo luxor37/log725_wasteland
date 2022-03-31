@@ -97,7 +97,8 @@ namespace Player
         public new void TakeDamage(int damage)
         {
             base.TakeDamage(damage);
-            Knockback();
+            if (!isInvincible)
+                Knockback();
         }
 
         void PlayerDeath()
