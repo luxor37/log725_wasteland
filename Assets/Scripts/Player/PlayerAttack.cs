@@ -93,7 +93,7 @@ namespace Player
                 if (damagebleable != null)
                 {
                     damagebleable.TakeDamage(meleeDamage);
-                    var enemyStatusController = enemy.GetComponent<EnemyStatusController>();
+                    var enemyStatusController = enemy.GetComponent<StatusController>();
                     // TODO: be able to change this with element attack system
                     var newStatus = StatusManager.Instance.GetNewStatusObject(statusEffectMelee, enemyStatusController);
                     enemyStatusController.AddStatus(newStatus);
