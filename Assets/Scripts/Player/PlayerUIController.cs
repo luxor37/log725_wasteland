@@ -10,6 +10,8 @@ namespace Player
         public Slider ShieldCooldown;
         private GameEntity entity;
         private PlayerController controller;
+        public Text HealthPotionQuantity;
+        public Text AtkBoostQuantity;
 
         // Start is called before the first frame update
         void Start()
@@ -33,7 +35,10 @@ namespace Player
             else{
                 ShieldCooldown.value = controller.shieldTimer/controller.shieldCooldown;
             }
-            HPStrip.value = entity.currentHealth; ;
+            HPStrip.value = entity.currentHealth;
+
+            HealthPotionQuantity.text = PersistenceManager.HealthPotionAmount + "";
+            AtkBoostQuantity.text = PersistenceManager.AtkBoostAmount + "";
         }
     }
 }

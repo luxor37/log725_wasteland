@@ -16,9 +16,10 @@ public class PersistenceManager : MonoBehaviour
     public static bool is2ndCharacterUnlocked = false;
 #endif
 
-
+    public static int HealthPotionAmount = 0;
+    public static int AtkBoostAmount = 0;
 
     public static ActiveCharacter activeCharacter = ActiveCharacter.character1;
 
-    public static int coins = 0;
+    public static int coins = 10;
 }

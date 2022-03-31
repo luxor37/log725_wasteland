@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelBoss.unity
     guid: 54d5e27344207b84baad9ece08047c6e
+  - enabled: 1
+    path: Assets/Scenes/SceneAleatoireTunnel.unity
+    guid: a8a3dd8dda0cb3a4fa5adcc50751bc5f
   m_configObjects: {}
