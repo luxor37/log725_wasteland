@@ -26,15 +26,6 @@ public class PauseMenu : MonoBehaviour
             menu.interactable = isGamePaused;
             menu.blocksRaycasts = isGamePaused;
         }
-
-        if (isGamePaused)
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
     }
 
     void Pause(bool isPaused)
@@ -46,11 +37,11 @@ public class PauseMenu : MonoBehaviour
 
     public void Quit()
     {
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #else
-        Application.Quit();
-        #endif
+
+
+        Pause(false);
+        Cursor.lockState = CursorLockMode.Confined;
+        SceneTransitionManager.sceneTransitionManager.LoadScene("MainMenu");
     }
 
     public void ReturnToLobby()

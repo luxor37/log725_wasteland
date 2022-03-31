@@ -15,8 +15,11 @@ public class MenuSystem : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("quit game");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 
     public void StartGame(int index)
