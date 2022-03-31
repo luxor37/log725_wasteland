@@ -16,7 +16,9 @@ namespace Status
         // public string soundToPlay;
         // public ParticleType particleToSpawn;
         public string name;
-        
+        public ParticleType particleToSpawn;
+
+
         protected StatusController _controller;
 
         protected float timer = 0f;

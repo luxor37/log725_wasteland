@@ -42,12 +42,22 @@ public class ParticlesController : MonoBehaviour
             durationsMap[particleName] += Time.deltaTime;
             if (durationsMap[particleName] > maxDurationMap[particleName])
             {
-                Destroy(particlesMap[particleName]);
+                Destroy(particlesMap[particleName].gameObject);
                 particlesMap.Remove(particleName);
                 durationsMap.Remove(particleName);
                 maxDurationMap.Remove(particleName);
             }
         }
             
+    }
+
+    public void RemoveParticle(ParticleType particleName)
+    {
+        if (!particlesMap.ContainsKey(particleName))
+            return;
+        Destroy(particlesMap[particleName].gameObject);
+        particlesMap.Remove(particleName);
+        durationsMap.Remove(particleName);
+        maxDurationMap.Remove(particleName);
     }
 }

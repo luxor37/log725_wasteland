@@ -151,7 +151,8 @@ namespace Enemy
         {
             _parameter._animator.SetBool("isWalking", true);
             _parameter._NavMeshAgent.stoppingDistance = 0.5f;
-            _parameter._NavMeshAgent.SetDestination(_parameter.originPosition);
+            if (_parameter._NavMeshAgent.enabled)
+                _parameter._NavMeshAgent.SetDestination(_parameter.originPosition);
         }
 
         public void OnUpdate()
@@ -162,7 +163,7 @@ namespace Enemy
             {
                 _enemyStatesController.TransitionState(StateType.Chase);
             }
-            if (_parameter._NavMeshAgent.remainingDistance < 0.5)
+            if (_parameter._NavMeshAgent.enabled && _parameter._NavMeshAgent.remainingDistance < 0.5)
             {
                 _parameter._animator.SetBool("isWalking", false);
                 _enemyStatesController.TransitionState(StateType.Idle);
