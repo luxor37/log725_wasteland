@@ -3515,6 +3515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: RecoverItem1
   getRandomItem: 1
+  dropNum: 1
 --- !u!114 &6689540257158244850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3529,6 +3530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1000
   currentHealth: 1000
+  isInvincible: 0
   floatingPoint: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
   damageIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &6693945161968740639
