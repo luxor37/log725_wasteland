@@ -7,6 +7,8 @@ TagManager:
   - UI
   - FXManager
   - Character
+  - Ground
+  - GroundCollider
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Enemy
   - PlayerAttack
   - Character
-  - 
+  - Ground
   - 
   - 
   - 

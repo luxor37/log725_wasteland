@@ -17,6 +17,8 @@ namespace Level
         
         public Rule EndRule;
 
+        public Rule BlockTunnelRule;
+
         [SerializeField]
         Shape AxiomShape;
 
@@ -36,7 +38,7 @@ namespace Level
             {
                 var index = rnd.Next(terrainNodes.Count);
                 var shape = terrainNodes[index];
-
+                
                 counter ++;
                 if (counter > MaxNumberBlockLevel)
                 {
@@ -44,14 +46,11 @@ namespace Level
                     break;
                 }
 
-                
-
                 //get the rules that can append to the chosen empty node (shape)
                 var rulesMatch = Rules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
 
                 if (rulesMatch.Count == 0)
                 {
-                    
                     break;
                 }
 

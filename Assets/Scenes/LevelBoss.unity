@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.3
+    agentRadius: 0.09
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.1
+    cellSize: 0.030000001
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 5c92e1038e8dd3047a7c6a71d5995b2b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 0450662dff2d2384db468b7db93b18d0, type: 2}
 --- !u!4 &14503469 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4107936044954218, guid: 5b0c0477fc1a4064da31fe4d20dea356, type: 3}
@@ -619,7 +619,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: -2.4653408e-32, z: 9.313229e-10, w: 9.403956e-38}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -758,6 +758,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4107936044954218, guid: 5b0c0477fc1a4064da31fe4d20dea356, type: 3}
   m_PrefabInstance: {fileID: 643223676}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &357217051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 7297036590476558028, guid: 9a965236168170847980ea814573912b, type: 3}
+  m_PrefabInstance: {fileID: 1421077073}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 357217052}
+  m_Layer: 0
+  m_Name: 'SM_Bld_Bunker_Stairs_Double_01 Variant (Missing Prefab with guid: 9a965236168170847980ea814573912b)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &357217052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
+  m_PrefabInstance: {fileID: 1421077073}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357217051}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &395483698
 GameObject:
   m_ObjectHideFlags: 0
@@ -3098,7 +3128,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 3.787784e-29, y: 3.9652803e-29, z: 3.9446106e-29, w: 3.9840536e-29}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -3473,11 +3503,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d79e0ee6c7f78f44eb4a96b0b080052c, type: 3}
---- !u!4 &1382983626 stripped
+--- !u!4 &1382983626
 Transform:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 4656198321588829680, guid: d79e0ee6c7f78f44eb4a96b0b080052c, type: 3}
   m_PrefabInstance: {fileID: 1382983625}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631163951}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 421911409}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1404686113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4246,6 +4285,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4613649733699380, guid: 78c3f73ed790607479ab45a5f5f0d4e9, type: 3}
   m_PrefabInstance: {fileID: 1660624673}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1631163951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 6936411749194735682, guid: d79e0ee6c7f78f44eb4a96b0b080052c, type: 3}
+  m_PrefabInstance: {fileID: 1382983625}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1382983626}
+  m_Layer: 0
+  m_Name: 'PauseMenu (Missing Prefab with guid: d79e0ee6c7f78f44eb4a96b0b080052c)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &1631910257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4734,7 +4789,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 3e-45, z: 3e-45, w: 6e-45}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -5395,7 +5450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4515653340573004481, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5805078815227996797, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
       propertyPath: xMax
@@ -5480,7 +5535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3325638624332627122, guid: 6de32336db9113247b4b98fd205d0791, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3325638624332627122, guid: 6de32336db9113247b4b98fd205d0791, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5582,7 +5637,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5561421385798519444, guid: 8c3844c77b65dc543a9bd8c6ff5e3460, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5561421385798519444, guid: 8c3844c77b65dc543a9bd8c6ff5e3460, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5639,7 +5694,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6990476816696053073, guid: fddb5624bea45e34f942fac25477a99a, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6990476816696053073, guid: fddb5624bea45e34f942fac25477a99a, type: 3}
       propertyPath: m_LocalPosition.x

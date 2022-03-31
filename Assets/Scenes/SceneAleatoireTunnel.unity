@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414754, b: 0.12107867, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 7525922701949998202, guid: f293346cf7810464d8e09e9cc71587da, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f293346cf7810464d8e09e9cc71587da, type: 3}
 --- !u!1001 &692503749
@@ -189,7 +193,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4515653340573004481, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4515653340573004481, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -252,6 +256,10 @@ PrefabInstance:
       propertyPath: EndRule
       value: 
       objectReference: {fileID: 11400000, guid: 45747d342cdf9ee4aab9cb0e9c48d438, type: 2}
+    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
+      propertyPath: BlockTunnelRule
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d27fbb754418c1488287c3aeac6c722, type: 2}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.size
       value: 4
@@ -353,13 +361,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 616574601216656014, guid: 23d631ddb62832a4aaf5817187fadfce, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3424304029687849766, guid: 23d631ddb62832a4aaf5817187fadfce, type: 3}
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
     - target: {fileID: 6927342301401624568, guid: 23d631ddb62832a4aaf5817187fadfce, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6927342301401624568, guid: 23d631ddb62832a4aaf5817187fadfce, type: 3}
       propertyPath: m_LocalPosition.x
