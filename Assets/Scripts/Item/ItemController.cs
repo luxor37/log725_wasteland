@@ -10,7 +10,9 @@ public class ItemController : MonoBehaviour
         Recovery,
         AttackBoost,
         Coin,
-        Shield
+        Shield,
+        Wind,
+        FireTornado
     }
 
     public StatusEnum statusName;

@@ -10,7 +10,8 @@ namespace Player
     public class PlayerAttack : MonoBehaviour
     {
         public enum AttackType { MELEE = 0, RANGED = 1 };
-
+        public ItemController.StatusEnum statusEffectMelee;
+        public ItemController.StatusEnum statusEffectRanged;
         public Transform attackPoint;
         public Transform rangedAttackStartPosition;
         public Vector3 attackRange = new Vector3(1, 1, 1);
@@ -74,8 +75,10 @@ namespace Player
             {
                 _animator.SetBool("RangedAttack", true);
                 var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("Bullet");
-                newProjectile.GetComponent<ProjectileController>().direction = transform.forward;
-                newProjectile.GetComponent<ProjectileController>().damage = rangedDamage;
+                var projectileController = newProjectile.GetComponent<ProjectileController>();
+                projectileController.direction = transform.forward;
+                projectileController.damage = rangedDamage;
+                projectileController.appliedStatus = statusEffectRanged;
                 Instantiate(newProjectile, rangedAttackStartPosition.position, attackPoint.rotation);
                 attacking = true;
             }
@@ -92,7 +95,7 @@ namespace Player
                     damagebleable.TakeDamage(meleeDamage);
                     var enemyStatusController = enemy.GetComponent<EnemyStatusController>();
                     // TODO: be able to change this with element attack system
-                    var newStatus = StatusManager.Instance.GetNewStatusObject(ItemController.StatusEnum.Fire, enemyStatusController);
+                    var newStatus = StatusManager.Instance.GetNewStatusObject(statusEffectMelee, enemyStatusController);
                     enemyStatusController.AddStatus(newStatus);
                     enemyStatusController.Knockback();
                 }

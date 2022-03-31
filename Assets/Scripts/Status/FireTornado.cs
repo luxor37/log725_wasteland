@@ -2,18 +2,18 @@
 
 namespace Status
 {
-    
-    public class FireStatus : IStatus
+
+    public class FireTornado : IStatus
     {
 
-        public float duration = 5f;
+        public float duration = 3f;
         public int initialDmg = 0;
-        public int perSecDmg = 50;
+        public int perSecDmg = 150;
+        public ParticleType particleToSpawn = ParticleType.FireTornado;
 
-        public FireStatus(StatusController controller) : base(controller)
+        public FireTornado(StatusController controller) : base(controller)
         {
-            particleToSpawn = ParticleType.Fire;
-            name = "Fire";
+            name = "FireTornado";
         }
 
         public override void StatusTick(float deltaTime)
@@ -23,18 +23,24 @@ namespace Status
             {
                 _controller.TakeDamage(initialDmg);
                 _controller.SetParticleSystem(particleToSpawn, duration);
-            } else if (timer - lastTick > 1f && perSecDmg > 0f)
+                // _controller.Spin(100);
+                //_controller.KnockUp(0.5f);
+            }
+            else if (timer - lastTick > 1f && perSecDmg > 0f)
             {
                 _controller.TakeDamage(perSecDmg);
                 lastTick = timer;
+                //_controller.FloatDown(1);
             }
+
+
 
             timer += deltaTime;
             if (timer > duration)
             {
                 EndStatus();
             }
-            
+
         }
     }
 }
