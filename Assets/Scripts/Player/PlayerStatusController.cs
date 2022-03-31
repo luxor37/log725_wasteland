@@ -63,7 +63,6 @@ namespace Player
             var itemcontroller = item.GetComponent<ItemController>();
             if (itemcontroller)
             {
-                Debug.Log("has item controller");
                 var status = StatusManager.Instance.GetNewStatusObject(itemcontroller.statusName, this);
                 AddStatus(status);
             }
