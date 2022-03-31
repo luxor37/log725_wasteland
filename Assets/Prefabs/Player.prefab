@@ -1470,6 +1470,7 @@ MonoBehaviour:
   isInvincible: 0
   floatingPoint: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
   damageIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
+  isHit: 0
   timeInvicible: 0
 --- !u!114 &6435963205110676294
 MonoBehaviour:
@@ -3994,7 +3995,8 @@ MonoBehaviour:
   isInvincible: 0
   floatingPoint: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
   damageIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
-  timeInvicible: 0
+  isHit: 0
+  timeInvicible: 2
 --- !u!114 &6435963205738042670
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ namespace Status
         protected ParticlesController _particlesController;
         protected NavMeshAgent _agent;
         protected Rigidbody _body;
-        protected bool isHit = false;
+        public bool isHit = false;
 
         public List<IStatus> statuses = new List<IStatus>();
 

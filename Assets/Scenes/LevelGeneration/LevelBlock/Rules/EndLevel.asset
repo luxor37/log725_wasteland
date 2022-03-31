@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db153a0d1955ce46b9dcc14d9181e24, type: 3}
   m_Name: EndLevel
   m_EditorClassIdentifier: 
-  PredecessorShape: {fileID: 0}
-  operations: []
+  PredecessorShape: {fileID: 11400000, guid: 04b0db23a83e598418e1ff255943e8fa, type: 2}
+  operations:
+  - {fileID: 11400000, guid: 642cbbec5fff1af48a44a620e7f17d47, type: 2}
   Conditions: 
   ConditionValues: 
   Operator: 0

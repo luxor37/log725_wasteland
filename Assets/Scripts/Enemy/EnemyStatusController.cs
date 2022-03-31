@@ -20,10 +20,5 @@ namespace Enemy
             base.TakeDamage(damage);
             Knockback();
         }
-
-        public bool getHit()
-        {
-            return this.isHit;
-        }
     }
 }

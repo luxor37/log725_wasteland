@@ -249,6 +249,10 @@ PrefabInstance:
       value: LevelGenerationManager
       objectReference: {fileID: 0}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
+      propertyPath: EndRule
+      value: 
+      objectReference: {fileID: 11400000, guid: 45747d342cdf9ee4aab9cb0e9c48d438, type: 2}
+    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.size
       value: 4
       objectReference: {fileID: 0}

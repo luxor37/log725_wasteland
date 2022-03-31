@@ -14,6 +14,8 @@ namespace Level
 
         [SerializeField]
         List<Rule> EnnemyRules;
+        
+        public Rule EndRule;
 
         [SerializeField]
         Shape AxiomShape;
@@ -27,23 +29,32 @@ namespace Level
             var axiom = AxiomShape;
             var terrainNodes = new List<Shape> { axiom };
             var contentNodes = new List<Shape>();
-            var ennemyNodes = new List<Shape>();
+            var enemyNodes = new List<Shape>();
 
             var counter = 0;
             while (terrainNodes.Count > 0)
             {
-                counter ++;
-                if(counter > MaxNumberBlockLevel)
-                    break;
-
                 var index = rnd.Next(terrainNodes.Count);
                 var shape = terrainNodes[index];
+
+                counter ++;
+                if (counter > MaxNumberBlockLevel)
+                {
+                    EndRule.CalculateRule(shape);
+                    break;
+                }
+
+                
 
                 //get the rules that can append to the chosen empty node (shape)
                 var rulesMatch = Rules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
 
                 if (rulesMatch.Count == 0)
+                {
+                    
                     break;
+                }
+
                 //Pick a random rule to apply
                 var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
                 var results = ruleChosen.CalculateRule(shape);
@@ -53,7 +64,7 @@ namespace Level
                 
                 terrainNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.EMPTY || x.Symbol == Shape.SymbolEnum.AXIOM));
                 contentNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.CONTENT));
-                ennemyNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.ENEMY));
+                enemyNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.ENEMY));
             }
 
             counter = 0;
@@ -78,14 +89,14 @@ namespace Level
             }
 
             counter = 0;
-            while (ennemyNodes.Count > 0)
+            while (enemyNodes.Count > 0)
             {
                 counter++;
                 if (counter > 1000)
                     break;
 
-                var index = rnd.Next(ennemyNodes.Count);
-                var shape = ennemyNodes[index];
+                var index = rnd.Next(enemyNodes.Count);
+                var shape = enemyNodes[index];
 
                 //get the rules that can append to the chosen empty node (shape)
                 var rulesMatch = ContentRules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
@@ -95,7 +106,7 @@ namespace Level
                 //Pick a random rule to apply
                 var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
                 ruleChosen.CalculateRule(shape);
-                ennemyNodes.RemoveAt(index);
+                enemyNodes.RemoveAt(index);
             }
         }
 

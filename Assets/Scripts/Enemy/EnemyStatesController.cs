@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Player;
+using Status;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,7 +41,7 @@ namespace Enemy
         public Parameter parameter;
         private IState currentState;
         private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
-        public EnemyStatusController _EnemyStatus;
+        public StatusController _EnemyStatus;
         public GameObject attackPoint;
 
         private void Start()
@@ -50,7 +51,7 @@ namespace Enemy
             parameter.originPosition = this.gameObject.transform.position;
             parameter._NavMeshAgent.stoppingDistance = parameter.attackRange;
             currentChaseRange = parameter.chaseRange;
-            _EnemyStatus = GetComponent<EnemyStatusController>();
+            _EnemyStatus = GetComponent<StatusController>();
             states.Add(StateType.Idle, new IdleState(this));
             states.Add(StateType.Chase, new ChaseState(this));
             states.Add(StateType.Attack, new AttackState(this));
@@ -93,7 +94,7 @@ namespace Enemy
         public bool findPlayer()
         {
             currentChaseRange = parameter.chaseRange;
-            if (_EnemyStatus.getHit())
+            if (_EnemyStatus.isHit)
             {
                 currentChaseRange = 20;
             }
@@ -114,8 +115,8 @@ namespace Enemy
 
         public void ZombieAttack()
         {
-            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.transform.position, new Vector3(parameter.attackRange,1,1),Quaternion.identity, parameter.layer);
-            foreach (Collider player in hitEnemies)
+            var hitEnemies = Physics.OverlapBox(attackPoint.transform.position, new Vector3(parameter.attackRange,1,1),Quaternion.identity, parameter.layer);
+            foreach (var player in hitEnemies)
             {
                 player.GetComponent<PlayerStatusController>().TakeDamage(100);
             }

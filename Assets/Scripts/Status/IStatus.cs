@@ -29,7 +29,7 @@ namespace Status
             _controller = controller;
         }
 
-        abstract public void StatusTick(float time);
+        public abstract void StatusTick(float time);
 
         public void EndStatus()
         {
