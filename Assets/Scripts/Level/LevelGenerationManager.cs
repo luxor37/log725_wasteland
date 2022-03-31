@@ -45,20 +45,46 @@ namespace Level
                 var index = rnd.Next(terrainNodes.Count);
                 var shape = terrainNodes[index];
 
+                //Get valid random node
                 while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) || shape.Symbol != Shape.SymbolEnum.EMPTY)
                 {
-                    if(PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
+                    if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
                         terrainNodes.RemoveAt(index);
                     index = rnd.Next(terrainNodes.Count);
                     shape = terrainNodes[index];
                 }
-                
+
+
                 counter ++;
                 if (counter > MaxNumberBlockLevel)
                 {
+                    var origin = new Vector3(0, 0, 0);
+
+                    //create a separate list to find the furthest valid one to place the exit
+                    var possibleExitNodes = new List<Shape>();
+                    possibleExitNodes.AddRange(terrainNodes);
+
+                    do
+                    {
+                        if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
+                            possibleExitNodes.RemoveAt(index);
+
+                        foreach (var node in possibleExitNodes)
+                        {
+                            if (Vector3.Distance(origin, node.Position) > Vector3.Distance(origin, shape.Position))
+                            {
+                                shape = node;
+                            }
+                        }
+                    } 
+                    while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) ||
+                             shape.Symbol != Shape.SymbolEnum.EMPTY);
+
                     EndRule.CalculateRule(shape);
                     break;
                 }
+
+                
 
                 //get the rules that can append to the chosen empty node (shape)
                 var rulesMatch = Rules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
