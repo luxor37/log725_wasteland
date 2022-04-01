@@ -37,7 +37,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Quit()
     {
-
+        PersistenceManager.Reset();
 
         Pause(false);
         Cursor.lockState = CursorLockMode.Confined;
