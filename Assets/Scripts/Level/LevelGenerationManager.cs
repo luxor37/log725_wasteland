@@ -32,6 +32,9 @@ namespace Level
 
         public void GenerateLevel()
         {
+            PlaceShapeOperation.occupiedObject = new List<Vector3>();
+            PlaceShapeOperation.occupiedEmpty = new List<Vector3>();
+
             var axiom = AxiomShape;
             var terrainNodes = new List<Shape>();
             var contentNodes = new List<Shape>();
@@ -195,6 +198,7 @@ namespace Level
         void Start()
         {
             GenerateLevel();
+            NavigationBaker.BakeSurfaces();
         }
     }
 }
