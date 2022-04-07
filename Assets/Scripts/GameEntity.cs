@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class GameEntity : MonoBehaviour, IDamageble
+public class GameEntity : MonoBehaviour
 {
     public int maxHealth;
     public int currentHealth;
@@ -58,9 +58,4 @@ public class GameEntity : MonoBehaviour, IDamageble
             Instantiate(floatingPoint, transform.position + new Vector3(0, 2f + offset, 0), Quaternion.identity);
         }
     }
-
-    // public virtual int CalculateDamage()
-    // {
-    //     return 0;
-    // }
 }

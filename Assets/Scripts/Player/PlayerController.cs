@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Status;
 using UnityEngine;
@@ -12,33 +13,29 @@ namespace Player
         private Animator _animator;
         private CharacterController _controller;
         private Vector3 _desiredMovement;
-        private bool _isGrounded = false;
-        public float moveSpeed = 5f;
-        public float climbingSpeed = 1f;
-        public float jumpForce = 5f;
-        public float gravityScale = 1f;
+        public float MoveSpeed = 5f;
+        public float ClimbingSpeed = 1f;
+        public float JumpForce = 5f;
+        public float GravityScale = 1f;
 
-
-        public bool isClimbing = false;
         [HideInInspector]
-        public float ladderAngle = 0;
+        public bool IsClimbing;
+        [HideInInspector]
+        public float LadderAngle = 0;
 
         public Text CoinCounter;
 
-        private PlayerAttack _playerAttack;
-
-        public float shieldCooldown = 3f;
+        public float ShieldCooldown = 3f;
         [HideInInspector]
-        public float shieldTimer = -1f;
+        public float ShieldTimer = -1f;
         [HideInInspector]
-        public bool isShielded = false;
+        public bool IsShielded;
 
         // Start is called before the first frame update
         void Start()
         {
             _controller = GetComponent<CharacterController>();
             _animator = GetComponentInChildren<Animator>();
-            _playerAttack = GetComponent<PlayerAttack>();
         }
 
         //So it is always after InputController's Update
@@ -49,37 +46,35 @@ namespace Player
                 CoinCounter.text = PersistenceManager.coins.ToString();
             }
 
-            if (!PauseMenu.isGamePaused)
+            if (PauseMenu.isGamePaused) return;
+
+            transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
+
+            _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, MoveSpeed, _controller.isGrounded || IsClimbing, JumpForce, GravityScale);
+
+            HandleShield();
+
+            if (IsClimbing)
             {
-
-                transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
-
-                _desiredMovement = PlayerMovementController.GetMovement(_desiredMovement.y, moveSpeed, _controller.isGrounded || isClimbing, jumpForce, gravityScale);
-
-                HandleShield();
-
-                if (isClimbing)
+                _desiredMovement = PlayerMovementController.GetClimbingMovement(ClimbingSpeed);
+                transform.localEulerAngles = new Vector3(0, LadderAngle, 0);
+                if (_controller.isGrounded)
                 {
-                    _desiredMovement = PlayerMovementController.GetClimbingMovement(climbingSpeed);
-                    transform.localEulerAngles = new Vector3(0, ladderAngle, 0);
-                    if (_controller.isGrounded)
-                    {
-                        isClimbing = false;
-                    }
+                    IsClimbing = false;
                 }
-
-                _controller.Move(_desiredMovement * Time.deltaTime);
-
-                transform.position = PlayerMovementController.VerifyWorldLimits(transform.position);
-
-                PlayerAnimationController.Animate(_animator, _controller.isGrounded, isClimbing);
             }
+
+            _controller.Move(_desiredMovement * Time.deltaTime);
+
+            transform.position = PlayerMovementController.VerifyWorldLimits(transform.position);
+
+            PlayerAnimationController.Animate(_animator, _controller.isGrounded, IsClimbing);
 
         }
 
         private void HandleShield()
         {
-            if(shieldTimer == -1f){
+            if(Math.Abs(ShieldTimer - (-1f)) <= 0){
                 if (InputController.IsShielding)
                 {
                     var controller = gameObject.GetComponent<PlayerStatusController>();
@@ -88,33 +83,27 @@ namespace Player
                         var status = StatusManager.Instance.GetNewStatusObject(StatusEnum.Shield, controller);
                         controller.AddStatus(status);
                     }
-                    isShielded = true;
+                    IsShielded = true;
                 }
-                if(isShielded){
+                if(IsShielded){
                     var statuses = gameObject.GetComponent<PlayerStatusController>().statuses;
 
-                    if(statuses.OfType<ShieldStatus>().Count() == 0){
-                        isShielded = false;
-                        shieldTimer = 0f;
+                    if(!statuses.OfType<ShieldStatus>().Any()){
+                        IsShielded = false;
+                        ShieldTimer = 0f;
                     }
                     
                 }
             }
             else
             {
-                shieldTimer += Time.deltaTime;
+                ShieldTimer += Time.deltaTime;
             }
 
-            if (shieldTimer > shieldCooldown)
+            if (ShieldTimer > ShieldCooldown)
             {
-                shieldTimer = -1f;
+                ShieldTimer = -1f;
             }
         }
-
-        public bool getIsGrounded()
-        {
-            return this._isGrounded;
-        }
-
     }
 }

@@ -1,38 +1,30 @@
-
 using System;
-using Enemy;
+using Player;
 using Status;
 using UnityEngine;
+using static ItemController;
 
-
-namespace Player
+namespace Assets.Scripts.Player
 {
     public class PlayerAttack : MonoBehaviour
     {
-        public enum AttackType { MELEE = 0, RANGED = 1 };
-        public ItemController.StatusEnum statusEffectMelee;
-        public ItemController.StatusEnum statusEffectRanged;
-        public Transform attackPoint;
-        public Transform rangedAttackStartPosition;
-        public Vector3 attackRange = new Vector3(1, 1, 1);
-        public LayerMask enemyLayers;
-        public int meleeDamage;
-        public int rangedDamage;
-        public AttackType attackType;
-        private bool attacking = false;
-
+        public enum AttackTypeEnum { Melee = 0, Ranged = 1 };
+        public StatusEnum StatusEffectMelee, StatusEffectRanged;
+        public Transform AttackPoint, RangedAttackStartPosition;
+        public Vector3 AttackRange = new Vector3(1, 1, 1);
+        public LayerMask EnemyLayers;
+        public int MeleeDamage, RangedDamage;
+        public AttackTypeEnum AttackType;
+        public GameObject RangedWeapon;
+        public float RangeCooldown = 1f;
+        
+        private float rangeTimer;
         private Animator _animator;
-        private PlayerController _playerController;
-
-        public GameObject rangedWeapon;
-        private float rangeTimer = 0f;
-        public float rangeCooldown = 1f;
 
         // Start is called before the first frame update
         void Start()
         {
             _animator = GetComponent<Animator>();
-            _playerController = GetComponent<PlayerController>();
         }
 
         // Update is called once per frame
@@ -40,83 +32,73 @@ namespace Player
         {
 
             rangeTimer += Time.deltaTime;
-            attackType = (AttackType)(InputController.AttackType % Enum.GetNames(typeof(AttackType)).Length);
-            if (attackType == AttackType.MELEE && rangedWeapon != null)
-                rangedWeapon.SetActive(false);
-            else if (attackType == AttackType.RANGED && rangedWeapon != null)
-                rangedWeapon.SetActive(true);
-            _animator.SetBool("isRanged", attackType == AttackType.RANGED);
+            AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
 
-            if (InputController.IsAttacking)
+            switch (AttackType)
             {
-                if (PlayerMovementController.canJump && attackType == AttackType.MELEE)
-                    Attack();
+                case AttackTypeEnum.Melee when RangedWeapon != null:
+                    RangedWeapon.SetActive(false);
+                    break;
+                case AttackTypeEnum.Ranged when RangedWeapon != null:
+                    RangedWeapon.SetActive(true);
+                    break;
+            }
 
-                if (attackType == AttackType.RANGED)
-                    RangeAttack();
-            }
-            else
-            {
-               // _animator.SetBool("RangedAttack", false);
-            }
+            _animator.SetBool("isRanged", AttackType == AttackTypeEnum.Ranged);
+
+            if (!InputController.IsAttacking) return;
+
+            if (PlayerMovementController.CanJump && AttackType == AttackTypeEnum.Melee) Attack();
+
+            if (AttackType == AttackTypeEnum.Ranged) RangeAttack();
         }
         private void Attack()
         {
             _animator.SetTrigger("Attack");
-            attacking = true;
         }
 
         private void RangeAttack()
         {
-            if (rangeTimer < rangeCooldown)
-                return;
+            if (rangeTimer < RangeCooldown) return;
+
             rangeTimer = 0f;
-            if (rangedAttackStartPosition != null)
-            {
-                _animator.SetBool("RangedAttack", true);
-                var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("Bullet");
-                var projectileController = newProjectile.GetComponent<ProjectileController>();
-                projectileController.direction = transform.forward;
-                projectileController.damage = rangedDamage;
-                projectileController.appliedStatus = statusEffectRanged;
-                Instantiate(newProjectile, rangedAttackStartPosition.position, attackPoint.rotation);
-                attacking = true;
-            }
+
+            if (RangedAttackStartPosition == null) return;
+
+            _animator.SetBool("RangedAttack", true);
+            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("Bullet");
+            var projectileController = newProjectile.GetComponent<ProjectileController>();
+            projectileController.direction = transform.forward;
+            projectileController.damage = RangedDamage;
+            projectileController.appliedStatus = StatusEffectRanged;
+            Instantiate(newProjectile, RangedAttackStartPosition.position, AttackPoint.rotation);
         }
 
         private void Hit()
         {
-            Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, attackRange, Quaternion.identity, enemyLayers);
-            foreach (Collider enemy in hitEnemies)
+            var hitEnemies = Physics.OverlapBox(AttackPoint.position, AttackRange, Quaternion.identity, EnemyLayers);
+            foreach (var enemy in hitEnemies)
             {
-                IDamageble damagebleable = enemy.GetComponent<IDamageble>();
-                if (damagebleable != null)
-                {
-                    damagebleable.TakeDamage(meleeDamage);
-                    var enemyStatusController = enemy.GetComponent<StatusController>();
-                    // TODO: be able to change this with element attack system
-                    var newStatus = StatusManager.Instance.GetNewStatusObject(statusEffectMelee, enemyStatusController);
-                    enemyStatusController.AddStatus(newStatus);
-                    enemyStatusController.Knockback();
-                }
+                var damageable = enemy.GetComponent<GameEntity>();
+                if (damageable == null) continue;
+                damageable.TakeDamage(MeleeDamage);
+                var enemyStatusController = enemy.GetComponent<StatusController>();
+                var newStatus = StatusManager.Instance.GetNewStatusObject(StatusEffectMelee, enemyStatusController);
+                enemyStatusController.AddStatus(newStatus);
+                enemyStatusController.Knockback();
             }
-        }
-
-        private void SetAttacking()
-        {
-            this.attacking = false;
-        }
-
-        public bool GetAttacking()
-        {
-            return this.attacking;
         }
 
         private void OnDrawGizmos()
         {
-            if (attackPoint == null)
+            if (AttackPoint == null)
                 return;
-            Gizmos.DrawWireCube(attackPoint.position, attackRange);
+            Gizmos.DrawWireCube(AttackPoint.position, AttackRange);
+        }
+
+        public void SetAttacking()
+        {
+
         }
     }
 }

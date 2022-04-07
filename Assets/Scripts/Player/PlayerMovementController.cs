@@ -4,7 +4,7 @@ namespace Player
 {
     public class PlayerMovementController
     {
-        public static bool canJump = true;
+        public static bool CanJump = true;
 
         public static Quaternion GetRotation(Quaternion currentRotation)
         {
@@ -67,13 +67,13 @@ namespace Player
             if (isGrounded)
             {
                 yMovement = 0f;
-                canJump = true;
+                CanJump = true;
             }
 
-            if (InputController.IsJumping && canJump)
+            if (InputController.IsJumping && CanJump)
             {
                 yMovement = jumpForce;
-                canJump = false;
+                CanJump = false;
             }
 
             if (!isGrounded)

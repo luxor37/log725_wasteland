@@ -23,13 +23,13 @@ public class Ladder : MonoBehaviour
         {
             if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up)
             {
-                player.isClimbing = true;
-                player.ladderAngle = 180;
+                player.IsClimbing = true;
+                player.LadderAngle = 180;
             }
 
             if (InputController.HorizontalDirection != HorizontalDirection.Iddle || InputController.IsJumping)
             {
-                player.isClimbing = false;
+                player.IsClimbing = false;
             }
         }
 
@@ -54,7 +54,7 @@ public class Ladder : MonoBehaviour
         {
             _areTouching = false;
             player = other.gameObject.GetComponent<PlayerController>();
-            player.isClimbing = false;
+            player.IsClimbing = false;
             if (instructions != null && !hideInstructions)
             {
                 instructions.characterSize = 0;

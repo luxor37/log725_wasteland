@@ -758,36 +758,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4107936044954218, guid: 5b0c0477fc1a4064da31fe4d20dea356, type: 3}
   m_PrefabInstance: {fileID: 643223676}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &357217051
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7297036590476558028, guid: 9a965236168170847980ea814573912b, type: 3}
-  m_PrefabInstance: {fileID: 1421077073}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 357217052}
-  m_Layer: 0
-  m_Name: 'SM_Bld_Bunker_Stairs_Double_01 Variant (Missing Prefab with guid: 9a965236168170847980ea814573912b)'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &357217052
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-  m_PrefabInstance: {fileID: 1421077073}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357217051}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &395483698
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,7 +891,7 @@ Transform:
   - {fileID: 1382983626}
   - {fileID: 1820288149}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &464956010 stripped
 Transform:
@@ -986,7 +956,7 @@ Transform:
   - {fileID: 985028811}
   - {fileID: 1522510163}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &535554451
 MonoBehaviour:
@@ -1197,7 +1167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9050307752631890967, guid: 443dccc6c267462419702a4cb31f5e64, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9050307752631890967, guid: 443dccc6c267462419702a4cb31f5e64, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2715,7 +2685,7 @@ Transform:
   - {fileID: 702731954}
   - {fileID: 2139341199}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1206986472
 GameObject:
@@ -3636,63 +3606,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78c3f73ed790607479ab45a5f5f0d4e9, type: 3}
---- !u!1001 &1421077073
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7297036590476558028, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_Name
-      value: SM_Bld_Bunker_Stairs_Double_01 Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -18.559116
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.853796
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7299288915885636902, guid: 9a965236168170847980ea814573912b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9a965236168170847980ea814573912b, type: 3}
 --- !u!1001 &1433867316
 PrefabInstance:
   m_ObjectHideFlags: 0

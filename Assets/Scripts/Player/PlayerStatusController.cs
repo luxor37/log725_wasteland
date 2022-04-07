@@ -1,14 +1,13 @@
-using System;
+using Assets.Scripts.Player;
 using Status;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Player
 {
     public class PlayerStatusController : StatusController
     {
-        public float timeInvicible;
-        private float Timer;
+        public float TimeInvincible;
+        private float _timer;
         
         // Start is called before the first frame update
         new void Start()
@@ -24,17 +23,17 @@ namespace Player
         {
             if (isInvincible && !isShielded)
             {
-                Timer += Time.deltaTime;
-                if (Timer < timeInvicible)
+                _timer += Time.deltaTime;
+                if (_timer < TimeInvincible)
                 {
-                    float remainder = Timer % 0.3f; 
+                    var remainder = _timer % 0.3f; 
                     transform.GetChild(0).gameObject.SetActive(remainder > 0.15f);
                 }
                 else
                 {
                     transform.GetChild(0).gameObject.SetActive(true);
                     isInvincible = false;
-                    Timer = 0;
+                    _timer = 0;
                 }
 
             }
@@ -60,10 +59,10 @@ namespace Player
             if (!item)
                 return;
 
-            var itemcontroller = item.GetComponent<ItemController>();
-            if (itemcontroller)
+            var itemController = item.GetComponent<ItemController>();
+            if (itemController)
             {
-                var status = StatusManager.Instance.GetNewStatusObject(itemcontroller.statusName, this);
+                var status = StatusManager.Instance.GetNewStatusObject(itemController.statusName, this);
                 AddStatus(status);
             }
         }
@@ -71,22 +70,22 @@ namespace Player
         public void AttackMultiplier(int multiplier, int flat)
         {
 
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().meleeDamage *= multiplier;
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().rangedDamage *= multiplier;
+            SwitchCharacter.currentCharacter.GetComponent<PlayerAttack>().MeleeDamage *= multiplier;
+            SwitchCharacter.currentCharacter.GetComponent<PlayerAttack>().RangedDamage *= multiplier;
             ShowStat("x" + multiplier, new Color(0, 1, 1, 1));
 
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().meleeDamage += flat;
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().rangedDamage += flat;
+            SwitchCharacter.currentCharacter.GetComponent<PlayerAttack>().MeleeDamage += flat;
+            SwitchCharacter.currentCharacter.GetComponent<PlayerAttack>().RangedDamage += flat;
             ShowStat("+" + flat, new Color(0, 1, 1, 1), 0.5f);
 
         }
 
         public void AttackMultiplierRevert(int multiplier, int flat)
         {
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().meleeDamage -= flat;
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().rangedDamage -= flat;
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().meleeDamage /= multiplier;
-            SwitchCharacter.currentCharacter.GetComponent<Player.PlayerAttack>().rangedDamage /= multiplier;
+            SwitchCharacter.currentCharacter.GetComponent<PlayerAttack>().MeleeDamage -= flat;
+            SwitchCharacter.currentCharacter.GetComponent<PlayerAttack>().RangedDamage -= flat;
+            SwitchCharacter.currentCharacter.GetComponent<PlayerAttack>().MeleeDamage /= multiplier;
+            SwitchCharacter.currentCharacter.GetComponent<PlayerAttack>().RangedDamage /= multiplier;
         }
 
         public void AddCoin()
@@ -101,7 +100,7 @@ namespace Player
                 Knockback();
         }
 
-        void PlayerDeath()
+        private static void PlayerDeath()
         {
             SceneTransitionManager.sceneTransitionManager.GameOver();
         }

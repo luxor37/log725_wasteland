@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3120466430056161979}
   - component: {fileID: 131670675145825737}
   - component: {fileID: 5805078815227996797}
-  - component: {fileID: 91042825}
+  - component: {fileID: 8674852678947354354}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -225,15 +225,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf028be530d5434c8a605bc8890197c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.125
-  offset: {x: 0, y: 2, z: 10}
-  enableYMinMax: 0
-  yMin: 5
-  yMax: 100
-  enableXMinMax: 0
-  xMin: -5
-  xMax: 3
---- !u!114 &91042825
+  Offset: {x: 0, y: 5, z: 20}
+  EnableYMinMax: 0
+  YMin: -200
+  YMax: 200
+  EnableXMinMax: 0
+  XMin: -200
+  XMax: 200
+--- !u!114 &8674852678947354354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

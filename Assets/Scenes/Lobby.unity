@@ -3912,7 +3912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4515653340573004481, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4515653340573004481, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3951,18 +3951,35 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5805078815227996797, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
-      propertyPath: enableXMinMax
+      propertyPath: YMax
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805078815227996797, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
+      propertyPath: YMin
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805078815227996797, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
+      propertyPath: EnableYMinMax
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5805078815227996797, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
-      propertyPath: enableYMinMax
+      propertyPath: enableXMinMax
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7665562177911325454, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8674852678947354354, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
+      propertyPath: xMax
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674852678947354354, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
+      propertyPath: xMin
+      value: -7
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 91042825, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: db0ce84cca60ade4cad924cdb48704b1, type: 3}
 --- !u!1001 &6718478502435529568
 PrefabInstance:

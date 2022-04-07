@@ -27,13 +27,13 @@ namespace Player
         // Update is called once per frame
         void Update()
         {
-            if (controller.isShielded)
+            if (controller.IsShielded)
                 ShieldCooldown.value = 0;
-            else if(controller.shieldTimer == -1f){
+            else if(controller.ShieldTimer == -1f){
                 ShieldCooldown.value = 1;
             }
             else{
-                ShieldCooldown.value = controller.shieldTimer/controller.shieldCooldown;
+                ShieldCooldown.value = controller.ShieldTimer/controller.ShieldCooldown;
             }
             HPStrip.value = entity.currentHealth;
 

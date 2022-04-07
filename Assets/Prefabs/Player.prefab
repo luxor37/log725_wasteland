@@ -1592,6 +1592,7 @@ Transform:
   - {fileID: 6435963204811315203}
   - {fileID: 6435963206375486999}
   - {fileID: 6435963206180799736}
+  - {fileID: 3026320251060876557}
   m_Father: {fileID: 6435963205115745609}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -1657,16 +1658,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560d494bb1995ce4a885f44fbe8f81f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  climbingSpeed: 1
-  jumpForce: 10
-  gravityScale: 1
-  isClimbing: 0
-  ladderAngle: 0
+  MoveSpeed: 5
+  ClimbingSpeed: 1
+  JumpForce: 7
+  GravityScale: 1
+  IsClimbing: 0
+  LadderAngle: 0
   CoinCounter: {fileID: 6435963206483647495}
-  shieldCooldown: 3
-  shieldTimer: -1
-  isShielded: 0
+  ShieldCooldown: 3
+  ShieldTimer: -1
+  IsShielded: 0
 --- !u!114 &6435963205110676292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,19 +1680,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16713de3b39761468457af89a79bf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusEffectMelee: 5
-  statusEffectRanged: 5
-  attackPoint: {fileID: 6435963206375486999}
-  rangedAttackStartPosition: {fileID: 0}
-  attackRange: {x: 1, y: 1, z: 1}
-  enemyLayers:
+  StatusEffectMelee: 5
+  StatusEffectRanged: 5
+  AttackPoint: {fileID: 6435963206375486999}
+  RangedAttackStartPosition: {fileID: 0}
+  AttackRange: {x: 1, y: 1, z: 1}
+  EnemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  meleeDamage: 200
-  rangedDamage: 0
-  attackType: 0
-  rangedWeapon: {fileID: 6435963206620430091}
-  rangeCooldown: 1
+  MeleeDamage: 200
+  RangedDamage: 0
+  AttackType: 0
+  RangedWeapon: {fileID: 6435963206224921655}
+  RangeCooldown: 1
 --- !u!114 &6435963205110676295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1710,7 +1711,8 @@ MonoBehaviour:
   floatingPoint: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
   damageIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
   isHit: 0
-  timeInvicible: 0
+  isShielded: 0
+  TimeInvincible: 0
 --- !u!114 &6435963205110676294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3282,7 +3284,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4184,16 +4186,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560d494bb1995ce4a885f44fbe8f81f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  climbingSpeed: 1
-  jumpForce: 5
-  gravityScale: 1
-  isClimbing: 0
-  ladderAngle: 0
+  MoveSpeed: 5
+  ClimbingSpeed: 1
+  JumpForce: 5
+  GravityScale: 1
+  IsClimbing: 0
+  LadderAngle: 0
   CoinCounter: {fileID: 6435963205143521153}
-  shieldCooldown: 3
-  shieldTimer: -1
-  isShielded: 0
+  ShieldCooldown: 3
+  ShieldTimer: -1
+  IsShielded: 0
 --- !u!114 &6435963205738042668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4206,19 +4208,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16713de3b39761468457af89a79bf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusEffectMelee: 0
-  statusEffectRanged: 0
-  attackPoint: {fileID: 6435963205655040025}
-  rangedAttackStartPosition: {fileID: 6435963205995065238}
-  attackRange: {x: 0.5, y: 2, z: 1}
-  enemyLayers:
+  StatusEffectMelee: 0
+  StatusEffectRanged: 0
+  AttackPoint: {fileID: 6435963205655040025}
+  RangedAttackStartPosition: {fileID: 6435963205995065238}
+  AttackRange: {x: 0.5, y: 2, z: 1}
+  EnemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  meleeDamage: 100
-  rangedDamage: 50
-  attackType: 0
-  rangedWeapon: {fileID: 6435963205852086123}
-  rangeCooldown: 0.3
+  MeleeDamage: 100
+  RangedDamage: 50
+  AttackType: 0
+  RangedWeapon: {fileID: 6435963205852086123}
+  RangeCooldown: 0.3
 --- !u!114 &6435963205738042671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4237,7 +4239,8 @@ MonoBehaviour:
   floatingPoint: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
   damageIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
   isHit: 0
-  timeInvicible: 2
+  isShielded: 0
+  TimeInvincible: 2
 --- !u!114 &6435963205738042670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8653,7 +8656,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9314,3 +9317,65 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
+--- !u!1001 &3022063721179606995
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6435963205110676297}
+    m_Modifications:
+    - target: {fileID: 1689707436974440, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_Name
+      value: SM_Chr_Attach_Knife_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+--- !u!4 &3026320251060876557 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4258179433929438, guid: 999cfdd227bab7c42a0c913084a37072, type: 3}
+  m_PrefabInstance: {fileID: 3022063721179606995}
+  m_PrefabAsset: {fileID: 0}
