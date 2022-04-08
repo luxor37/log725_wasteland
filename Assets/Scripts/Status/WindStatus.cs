@@ -6,7 +6,7 @@ namespace Status
     public class WindStatus : IStatus
     {
 
-        public float duration = 2f;
+        public float duration = 3f;
         public int initialDmg = 0;
         public int perSecDmg = 10;
 

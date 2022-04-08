@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 5020364137593412443}
   - component: {fileID: 1836888098882099839}
   m_Layer: 7
-  m_Name: Zombie2
+  m_Name: Runner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -489,7 +489,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadfc16a8ed266f4ebc9461cf0a3ad1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopDistance: 2
+  StopDistance: 2
 --- !u!114 &5020364137593412441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,7 +584,8 @@ MonoBehaviour:
   parameter:
     attackPoints: {fileID: 5020364137989647966}
     attackRange: 1.25
-    chaseRange: 5
+    Damage: 150
+    chaseRange: 12
     chaseTime: 5
     originPosition: {x: 0, y: 0, z: 0}
     _animator: {fileID: 0}
@@ -622,11 +623,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6387542a8b9b23f4ba37cf52d119ffb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
-  currentHealth: 1000
+  maxHealth: 400
+  currentHealth: 400
   isInvincible: 0
   floatingPoint: {fileID: 71825416474251899, guid: 9890adbfa83c38e409a0172a774a2f69, type: 3}
   damageIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
+  isHit: 0
+  isShielded: 0
 --- !u!1 &2141549620302089883
 GameObject:
   m_ObjectHideFlags: 0

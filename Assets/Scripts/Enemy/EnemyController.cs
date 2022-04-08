@@ -1,4 +1,3 @@
-using Player;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +7,7 @@ public class EnemyController : MonoBehaviour
     private GameObject _target;
     private Animator _animator;
 
-    public float stopDistance = 2f;
+    public float StopDistance = 2f;
 
     private void Awake()
     {
@@ -19,32 +18,24 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         _target = GameObject.FindGameObjectWithTag("Player");
-        move();
+        Move();
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
-    void move()
+    private void Move()
     {
         var target = new Vector3(_target.transform.position.x, _target.transform.position.y, 0);
         _navMeshAgent.SetDestination(target);
-        float remainingDistance = _navMeshAgent.remainingDistance;
-        _navMeshAgent.stoppingDistance = stopDistance;
+        var remainingDistance = _navMeshAgent.remainingDistance;
+        _navMeshAgent.stoppingDistance = StopDistance;
 
-        if (remainingDistance > stopDistance)
+        if (remainingDistance > StopDistance)
         {
             _animator.SetBool("isWalking", true);
         }
         else 
         {
             _animator.SetBool("isWalking", false);
-        }
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Character"){
-            var statusCtrl = other.GetComponent<PlayerStatusController>();
-            statusCtrl.TakeDamage(100);
         }
     }
 }

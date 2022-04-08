@@ -1,4 +1,5 @@
 using System;
+using Enemy;
 using Player;
 using Status;
 using UnityEngine;
@@ -76,7 +77,11 @@ namespace Assets.Scripts.Player
 
         private void Hit()
         {
-            var hitEnemies = Physics.OverlapBox(AttackPoint.position, AttackRange, Quaternion.identity, EnemyLayers);
+            if (gameObject.GetComponent<PlayerStatusController>().isHit) return;
+
+
+            var hitEnemies =
+                Physics.OverlapBox(AttackPoint.position, AttackRange, Quaternion.identity, EnemyLayers);
             foreach (var enemy in hitEnemies)
             {
                 var damageable = enemy.GetComponent<GameEntity>();

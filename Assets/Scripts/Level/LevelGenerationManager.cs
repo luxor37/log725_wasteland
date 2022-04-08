@@ -79,12 +79,10 @@ namespace Level
                         if (possibleExitNodes.Count == 0)
                             break;
 
-                        foreach (var node in possibleExitNodes)
+                        foreach (var node in possibleExitNodes.Where(node =>
+                            Vector3.Distance(origin, node.Position) > Vector3.Distance(origin, shape.Position)))
                         {
-                            if (Vector3.Distance(origin, node.Position) > Vector3.Distance(origin, shape.Position))
-                            {
-                                shape = node;
-                            }
+                            shape = node;
                         }
                     } 
                     while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) ||

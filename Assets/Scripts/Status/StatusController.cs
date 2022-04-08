@@ -73,6 +73,7 @@ namespace Status
                 isHit = true;
                 if (_animator)
                     _animator.SetTrigger("isHit");
+                AddStatus(StatusManager.Instance.GetNewStatusObject(ItemController.StatusEnum.IsHit, this));
             }
         }
 

@@ -1771,7 +1771,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 0.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1838,7 +1838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadfc16a8ed266f4ebc9461cf0a3ad1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopDistance: 2
+  StopDistance: 2
 --- !u!114 &952674516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1866,7 +1866,8 @@ MonoBehaviour:
   parameter:
     attackPoints: {fileID: 795778515}
     attackRange: 1.25
-    chaseRange: 5
+    Damage: 50
+    chaseRange: 12
     chaseTime: 5
     originPosition: {x: 0, y: 0, z: 0}
     _animator: {fileID: 0}

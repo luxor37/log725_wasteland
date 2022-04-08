@@ -12,7 +12,8 @@ public class ItemController : MonoBehaviour
         Coin,
         Shield,
         Wind,
-        FireTornado
+        FireTornado,
+        IsHit
     }
 
     public StatusEnum statusName;

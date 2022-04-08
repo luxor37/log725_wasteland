@@ -93,8 +93,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2.3029833, z: 1.9999995}
+  m_Center: {x: 0, y: -0.65149164, z: 0}
 --- !u!1 &9050307751691547556
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,6 +252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1892b9553073f443b4bdb05af4ea078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _areTouching: 0
+  hideInstructions: 0
   instructions: {fileID: 9050307751691547578}
 --- !u!1001 &9050307753356281208
 PrefabInstance:

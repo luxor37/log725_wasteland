@@ -41,6 +41,7 @@ public class StatusManager : MonoBehaviour
         statusDictionary[StatusEnum.Shield] = "Status.ShieldStatus";
         statusDictionary[StatusEnum.Wind] = "Status.WindStatus";
         statusDictionary[StatusEnum.FireTornado] = "Status.FireTornado";
+        statusDictionary[StatusEnum.IsHit] = "Status.IsHitStatus";
     }
 
 

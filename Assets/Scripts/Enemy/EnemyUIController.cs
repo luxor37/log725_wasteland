@@ -10,7 +10,7 @@ public class EnemyUIController : MonoBehaviour
     
     void Start()
     {
-        _enemyStatusController = this.gameObject.GetComponent<Status.StatusController>();
+        _enemyStatusController = gameObject.GetComponent<Status.StatusController>();
         healthBar.maxValue = _enemyStatusController.maxHealth;
         healthBar.value = _enemyStatusController.currentHealth;
     }

@@ -17,6 +17,7 @@ namespace Enemy
     {
         public Transform attackPoints;
         public float attackRange;
+        public int Damage = 50;
         
         public int chaseRange;
         public float chaseTime;
@@ -67,10 +68,7 @@ namespace Enemy
 
         public void TransitionState(StateType type)
         {
-            if (currentState != null)
-            {
-                currentState.OnExit();
-            }
+            currentState?.OnExit();
 
             currentState = states[type];
             currentState.OnEnter();
@@ -98,27 +96,30 @@ namespace Enemy
             {
                 currentChaseRange = 20;
             }
-            Vector3 chaseBox = new Vector3(currentChaseRange/2, 1, 1);
-            Collider[] players =  Physics.OverlapBox(parameter.attackPoints.position, chaseBox,Quaternion.identity,parameter.layer);
-            if (players.Length != 0 && parameter._NavMeshAgent.enabled == true)
+            var chaseBox = new Vector3(currentChaseRange/2, 1, 1);
+            var players =  Physics.OverlapBox(parameter.attackPoints.position, 
+                chaseBox,Quaternion.identity,parameter.layer);
+            if (players.Length != 0 && parameter._NavMeshAgent.enabled)
             {
-                this.parameter._target = players[0].transform;
-                parameter._NavMeshAgent.SetDestination(this.parameter._target.position);
+                parameter._target = players[0].transform;
+                parameter._NavMeshAgent.SetDestination(parameter._target.position);
+
                 return true;
             }
-            else
-            {
-                this.parameter._target = null;
-                return false;
-            }
+
+            parameter._target = null;
+            return false;
         }
 
         public void ZombieAttack()
         {
-            var hitEnemies = Physics.OverlapBox(attackPoint.transform.position, new Vector3(parameter.attackRange,1,1),Quaternion.identity, parameter.layer);
+            if (gameObject.GetComponent<EnemyStatusController>().isHit) return;
+
+            var hitEnemies = Physics.OverlapBox(attackPoint.transform.position, 
+                new Vector3(parameter.attackRange,1,1),Quaternion.identity, parameter.layer);
             foreach (var player in hitEnemies)
             {
-                player.GetComponent<PlayerStatusController>().TakeDamage(100);
+                player.GetComponent<PlayerStatusController>().TakeDamage(parameter.Damage);
             }
         }
 
@@ -126,7 +127,7 @@ namespace Enemy
         {
             if (parameter.attackPoints == null)
                 return;
-            Vector3 chaseBox = new Vector3(currentChaseRange, 1, 1);
+            Vector3 chaseBox = new Vector3(currentChaseRange, 4, 2);
             if (parameter._target != null)
             {
                 Gizmos.color = Color.red;

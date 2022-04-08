@@ -1,3 +1,4 @@
+using System;
 using Enemy;
 using Status;
 using UnityEngine;
@@ -37,7 +38,7 @@ class ProjectileController : MonoBehaviour
         {
             var statusController = other.GetComponent<StatusController>();
             statusController.TakeDamage(damage);
-            IStatus newStatus = StatusManager.Instance.GetNewStatusObject(appliedStatus, statusController);
+            var newStatus = StatusManager.Instance.GetNewStatusObject(appliedStatus, statusController);
             other.GetComponent<StatusController>().AddStatus(newStatus);
             var explosionPos = new Vector3(other.transform.position.x, other.transform.position.y+1, other.transform.position.z);
             exploseEffect = Instantiate(exploseEffect, explosionPos, Quaternion.identity);

@@ -29,7 +29,8 @@ namespace Item
             var itemToSpawn = getRandomItem? ItemManager.Instance.GetRandomItem() : ItemManager.Instance.GetItem(itemName);
             if (itemToSpawn != null)
             {
-                Instantiate(itemToSpawn, transform.position + new Vector3(UnityEngine.Random.Range(-1, 1), 0, 0), transform.rotation);
+                var spawnPosition = transform.position + new Vector3(UnityEngine.Random.Range(-1, 1), 0, 0);
+                Instantiate(itemToSpawn, new Vector3(spawnPosition.x, spawnPosition.y, 0), transform.rotation);
             }
                
         }

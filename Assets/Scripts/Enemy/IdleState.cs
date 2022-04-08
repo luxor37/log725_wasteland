@@ -11,8 +11,8 @@ namespace Enemy
 
         public IdleState(EnemyStatesController controller)
         {
-            this._enemyStatesController = controller;
-            this._parameter = controller.parameter;
+            _enemyStatesController = controller;
+            _parameter = controller.parameter;
         }
 
         public void OnEnter()
@@ -44,8 +44,8 @@ namespace Enemy
 
         public ChaseState(EnemyStatesController controller)
         {
-            this._enemyStatesController = controller;
-            this._parameter = controller.parameter;
+            _enemyStatesController = controller;
+            _parameter = controller.parameter;
         }
 
         public void OnEnter()
@@ -62,19 +62,19 @@ namespace Enemy
                 _enemyStatesController.FlipTo(_parameter._target.position);
                 _parameter._NavMeshAgent.SetDestination(this._parameter._target.transform.position);
                 _parameter._NavMeshAgent.stoppingDistance = _parameter.attackRange;
-                float remainingDistance = _parameter._NavMeshAgent.remainingDistance;
+                var remainingDistance = _parameter._NavMeshAgent.remainingDistance;
 
                 if (remainingDistance < _parameter.attackRange)
                 {
                     _parameter._animator.SetBool("isWalking", false);
-                    this._enemyStatesController.TransitionState(StateType.Attack);
+                    _enemyStatesController.TransitionState(StateType.Attack);
                 }
             }
             else
             {
-                if (timer > this._parameter.chaseTime)
+                if (timer > _parameter.chaseTime)
                 {
-                    this._enemyStatesController.TransitionState(StateType.Reset);
+                    _enemyStatesController.TransitionState(StateType.Reset);
                 }
             }
         }
@@ -92,8 +92,8 @@ namespace Enemy
 
         public AttackState(EnemyStatesController controller)
         {
-            this._enemyStatesController = controller;
-            this._parameter = controller.parameter;
+            _enemyStatesController = controller;
+            _parameter = controller.parameter;
         }
 
         public void OnEnter()
