@@ -5,8 +5,9 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     private bool _areTouching = false;
+    private bool isShopOpen = false;
 
-    public TextMesh instructions;
+    private TextMesh instructions;
 
     public int HealthCost = 5;
     public int AtkCost = 8;
@@ -16,6 +17,7 @@ public class Shop : MonoBehaviour
 
     void Start()
     {
+        instructions = GameObject.Find("interactPrompt").GetComponent<TextMesh>();
         if (instructions != null)
         {
             instructions.characterSize = 0;
@@ -25,15 +27,34 @@ public class Shop : MonoBehaviour
     
     void Update()
     {
-        if (!_areTouching || InputController.VerticalDirection != VerticalDirection.Up) return;
+        if (_areTouching && InputController.IsInteracting && !isShopOpen)
+        {
+            if (shopUi != null)
+            {
+                isShopOpen = true;
+                
+            }
+        }
+        else if (isShopOpen && (InputController.IsInteracting || InputController.IsPausing))
+            isShopOpen = false;
 
-        if (shopUi != null)
+        DisplayShop();
+    }
+
+    private void DisplayShop()
+    {
+        if (isShopOpen)
         {
             shopUi.alpha = 1;
             menu.interactable = true;
             menu.blocksRaycasts = true;
         }
-
+        else
+        {
+            shopUi.alpha = 0;
+            menu.interactable = false;
+            menu.blocksRaycasts = false;
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -59,6 +80,7 @@ public class Shop : MonoBehaviour
 
         if (shopUi != null)
         {
+            isShopOpen = false;
             shopUi.alpha = 0;
             menu.interactable = false;
             menu.blocksRaycasts = false;
