@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectiles:
   - {fileID: 5295617737151611340, guid: 48bca4ace4edd1848ae68e90ef6122ec, type: 3}
+  - {fileID: 8006828051857188900, guid: 58f94e7e73381774e9ee4ba3d85b799c, type: 3}
 --- !u!1 &616574601216656014
 GameObject:
   m_ObjectHideFlags: 0
