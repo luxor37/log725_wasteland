@@ -12,12 +12,12 @@ public class SwitchCharacter : MonoBehaviour
     void Start()
     {
 
-        for (int i = 0; i < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length; i++)
+        for (int i = 0; i < Enum.GetNames(typeof(PersistenceManager.ActiveCharacterEnum)).Length; i++)
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
 
-        var characterIndex = (int)PersistenceManager.activeCharacter;
+        var characterIndex = (int)PersistenceManager.ActiveCharacter;
 
         currentCharacter = transform.GetChild(characterIndex).gameObject;
 
@@ -26,20 +26,20 @@ public class SwitchCharacter : MonoBehaviour
 
     void Update()
     {
-        if (InputController.IsCharacterChanging && PersistenceManager.is2ndCharacterUnlocked)
+        if (InputController.IsCharacterChanging && PersistenceManager.Is2NdCharacterUnlocked)
         {
-            characterIndex = (int)PersistenceManager.activeCharacter;
+            characterIndex = (int)PersistenceManager.ActiveCharacter;
 
             currentPosition = transform.GetChild(characterIndex).gameObject.transform.position;
             InputController.IsCharacterChanging = false;
             transform.GetChild(characterIndex).gameObject.SetActive(false);
 
-            if (characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacter)).Length - 1)
+            if (characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacterEnum)).Length - 1)
                 characterIndex++;
             else
                 characterIndex = 0;
 
-            PersistenceManager.activeCharacter = (PersistenceManager.ActiveCharacter)characterIndex;
+            PersistenceManager.ActiveCharacter = (PersistenceManager.ActiveCharacterEnum)characterIndex;
 
             transform.GetChild(characterIndex).gameObject.transform.position = currentPosition;
             transform.GetChild(characterIndex).gameObject.SetActive(true);

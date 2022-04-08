@@ -1,25 +1,23 @@
-using Player;
 using UnityEngine;
 
 public class BuyCharacter : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Collider _bounds;
-    private bool _areTouching = false;
+    private bool _areTouching;
 
-    public TextMesh instructions;
+    public TextMesh Instructions;
 
-    public int cost = 5;
+    public int Cost = 5;
 
     void Start()
     {
-        if(PersistenceManager.is2ndCharacterUnlocked){
+        if(PersistenceManager.Is2NdCharacterUnlocked){
             Destroy(gameObject);
         }
         
-        if (instructions != null)
+        if (Instructions != null)
         {
-            instructions.characterSize = 0;
+            Instructions.characterSize = 0;
         }
     }
 
@@ -27,9 +25,10 @@ public class BuyCharacter : MonoBehaviour
     void Update()
     {
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up){
-            if(PersistenceManager.coins >= 5){
-                PersistenceManager.coins -= 5;
-                PersistenceManager.is2ndCharacterUnlocked = true;
+            if(PersistenceManager.coins >= Cost)
+            {
+                PersistenceManager.coins -= Cost;
+                PersistenceManager.Is2NdCharacterUnlocked = true;
                 Destroy(gameObject);
             }
         }
@@ -41,9 +40,9 @@ public class BuyCharacter : MonoBehaviour
         if (other.gameObject.tag == "Character")
         {
             _areTouching = true;
-            if (instructions != null)
+            if (Instructions != null)
             {
-                instructions.characterSize = 1;
+                Instructions.characterSize = 1;
             }
         }
     }
@@ -53,9 +52,9 @@ public class BuyCharacter : MonoBehaviour
         if (other.gameObject.tag == "Character")
         {
             _areTouching = false;
-            if (instructions != null)
+            if (Instructions != null)
             {
-                instructions.characterSize = 0;
+                Instructions.characterSize = 0;
             }
         }
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414754, b: 0.12107867, a: 1}
+  m_IndirectSpecularColor: {r: 0.18034673, g: 0.22579075, b: 0.30696118, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -253,34 +253,6 @@ PrefabInstance:
       value: LevelGenerationManager
       objectReference: {fileID: 0}
     - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: EndRule
-      value: 
-      objectReference: {fileID: 11400000, guid: 45747d342cdf9ee4aab9cb0e9c48d438, type: 2}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: StartRule
-      value: 
-      objectReference: {fileID: 11400000, guid: c90eb2cfa4582974a8519b488381586e, type: 2}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: BlockTunnelRule
-      value: 
-      objectReference: {fileID: 11400000, guid: 7d27fbb754418c1488287c3aeac6c722, type: 2}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: Rules.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: MaxNumberBlockLevel
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: Rules.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 73855807e2729e845bc8aa6895c0697d, type: 2}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: Rules.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: c103133a67ebc8845b1d80c1c6629f27, type: 2}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: Rules.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: c103133a67ebc8845b1d80c1c6629f27, type: 2}
@@ -296,26 +268,6 @@ PrefabInstance:
       propertyPath: Rules.Array.data[5]
       value: 
       objectReference: {fileID: 11400000, guid: 1464d71ec7e7de54d84efb87c6141d34, type: 2}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: EnnemyRules.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: ContentRules.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: EnnemyRules.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: ea54c1d3a8c51774b9d6158a5bf8793d, type: 2}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: EnnemyRules.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: fb3557ac869a38f47989fb70592de8fd, type: 2}
-    - target: {fileID: 2756983957792431937, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
-      propertyPath: ContentRules.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 46958b277ab09084ea813ee2833c016d, type: 2}
     - target: {fileID: 2756983957792431950, guid: 627a8acea0e64c2489d505c385b079dd, type: 3}
       propertyPath: m_RootOrder
       value: 4

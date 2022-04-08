@@ -824,8 +824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a139882d5b33442916bf0ca6acc46c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instructions: {fileID: 6718478503889964257}
-  cost: 5
+  Instructions: {fileID: 6718478503889964257}
+  Cost: 15
 --- !u!1 &6718478502411099576
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,7 +3395,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6718478503889964063}
-  m_Text: "Press up to \nhire (5 coins).\nPress 'k' to switch"
+  m_Text: 'Hire
+
+    15 $'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

@@ -20,11 +20,13 @@ public class EnemyController : MonoBehaviour
     {
         _target = GameObject.FindGameObjectWithTag("Player");
         move();
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     void move()
     {
-        _navMeshAgent.SetDestination(_target.transform.position);
+        var target = new Vector3(_target.transform.position.x, _target.transform.position.y, 0);
+        _navMeshAgent.SetDestination(target);
         float remainingDistance = _navMeshAgent.remainingDistance;
         _navMeshAgent.stoppingDistance = stopDistance;
 

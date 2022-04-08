@@ -26,7 +26,7 @@ namespace Level
         [SerializeField]
         Shape AxiomShape;
 
-        public int MaxNumberBlockLevel = 10;
+        public int MaxNumberBlockLevel = 1000000;
 
         private readonly System.Random rnd = new System.Random();
 

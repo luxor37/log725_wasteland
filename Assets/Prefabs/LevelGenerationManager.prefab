@@ -44,11 +44,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rules:
-  - {fileID: 11400000, guid: 93d2f646c07990e418457c21b1224ae5, type: 2}
-  - {fileID: 11400000, guid: 9ae01323168a8194b892d41e2f8bd761, type: 2}
-  - {fileID: 11400000, guid: 45160b85fe8db5545950f3af193ebff4, type: 2}
-  - {fileID: 11400000, guid: a86a11dabb02fa34080423fc7822625d, type: 2}
-  - {fileID: 11400000, guid: 0ced1c9a8b24c844b9056e8b8956dde8, type: 2}
-  - {fileID: 11400000, guid: 795cde583eb1a6f47b0acc6b65bc3f77, type: 2}
-  - {fileID: 11400000, guid: 0c1579b3f6fdfec4da950b48f7129d05, type: 2}
+  - {fileID: 11400000, guid: 73855807e2729e845bc8aa6895c0697d, type: 2}
+  - {fileID: 11400000, guid: c103133a67ebc8845b1d80c1c6629f27, type: 2}
+  ContentRules:
+  - {fileID: 11400000, guid: 46958b277ab09084ea813ee2833c016d, type: 2}
+  EnnemyRules:
+  - {fileID: 11400000, guid: ea54c1d3a8c51774b9d6158a5bf8793d, type: 2}
+  - {fileID: 11400000, guid: fb3557ac869a38f47989fb70592de8fd, type: 2}
+  StartRule: {fileID: 11400000, guid: c90eb2cfa4582974a8519b488381586e, type: 2}
+  EndRule: {fileID: 11400000, guid: 45747d342cdf9ee4aab9cb0e9c48d438, type: 2}
+  BlockTunnelRule: {fileID: 11400000, guid: 7d27fbb754418c1488287c3aeac6c722, type: 2}
   AxiomShape: {fileID: 11400000, guid: 121eaeea87b4a7340832ab0ba9e0b1b4, type: 2}
+  MaxNumberBlockLevel: 10
