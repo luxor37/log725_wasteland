@@ -41,10 +41,13 @@ class ProjectileController : MonoBehaviour
             var newStatus = StatusManager.Instance.GetNewStatusObject(appliedStatus, statusController);
             other.GetComponent<StatusController>().AddStatus(newStatus);
             var explosionPos = new Vector3(other.transform.position.x, other.transform.position.y+1, other.transform.position.z);
+            if (exploseEffect == null)
+                return;
             exploseEffect = Instantiate(exploseEffect, explosionPos, Quaternion.identity);
             exploseEffect.Play();
+            Destroy(gameObject);
         }
-        if (other.gameObject.tag != "Player")
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Character")
             Destroy(gameObject);
     }
 }

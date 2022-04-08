@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Dissolve_: 0.502
+    - Dissolve_: 0.783
     - NoisePower_: 1
     - NoiseScale_: 20
     - TwirlAmount_: 6

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8366856605311633905}
   - component: {fileID: 3502976256946584477}
   - component: {fileID: 4070249303318390191}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: windtornado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8006828051857188900}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 3.4142225, y: -2.4903448, z: -4.4766517}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &6051145240430771515
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -108,11 +108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd538ccbf625eb4ba89b92c0c104dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 2
   speed: 5
-  acceleration: -2
-  damage: 50
-  direction: {x: 0, y: 0, z: 0}
+  acceleration: 5
+  damage: 100
+  direction: {x: -1.0000001, y: 0, z: -0.00000011920929}
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
