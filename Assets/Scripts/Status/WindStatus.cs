@@ -23,13 +23,13 @@ namespace Status
             {
                 _controller.TakeDamage(initialDmg);
                 _controller.SetParticleSystem(particleToSpawn, duration);
-                _controller.KnockUp(0.5f);
+                _controller.KnockUp(0.2f);
             }
             else if (timer - lastTick > 1f && perSecDmg > 0f)
             {
                 _controller.TakeDamage(perSecDmg);
                 lastTick = timer;
-                _controller.FloatDown(1);
+                _controller.FloatDown(0.1f);
 
             }
         
