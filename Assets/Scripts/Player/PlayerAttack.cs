@@ -1,5 +1,4 @@
 using System;
-using Enemy;
 using Player;
 using Status;
 using UnityEngine;
@@ -31,9 +30,12 @@ namespace Assets.Scripts.Player
         // Update is called once per frame
         void Update()
         {
-
             rangeTimer += Time.deltaTime;
-            AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
+
+            if (PersistenceManager.ActiveCharacter == PersistenceManager.ActiveCharacterEnum.character2)
+                AttackType = AttackTypeEnum.Melee;
+            else
+                AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
 
             switch (AttackType)
             {

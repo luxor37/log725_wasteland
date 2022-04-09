@@ -43,7 +43,6 @@ public class InputController : MonoBehaviour
             IsAttacking = Input.GetButton("Attack");
             
             IsPausing = Input.GetButtonDown("Menu");
-            Debug.Log(IsPausing);
             IsCharacterChanging = Input.GetButtonDown("Switch");
 
             AttackType += Convert.ToInt32(Input.GetButtonDown("WeaponChange"));

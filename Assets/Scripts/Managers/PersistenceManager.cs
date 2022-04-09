@@ -17,7 +17,7 @@ public class PersistenceManager : MonoBehaviour
 
     public static ActiveCharacterEnum ActiveCharacter = ActiveCharacterEnum.character1;
 
-    public static int coins = 10;
+    public static int coins = 15;
 
     public static void Reset()
     {
