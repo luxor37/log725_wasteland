@@ -1,12 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scenes/MainMenu.unity.meta
-guid: 277a487062109ed4a8fa10582e982404
-========
-guid: a240bad3c70638f4fa7ff6ae295fa898
-folderAsset: yes
->>>>>>>> c30dff7 (health system and UI):Assets/Prefab.meta
+guid: cf7c677bbb7aac345a7c35e4f1b92a36
+timeCreated: 1569450245
+licenseType: Store
 DefaultImporter:
-  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

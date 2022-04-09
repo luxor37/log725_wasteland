@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class MenuSystem : MonoBehaviour
 {
-    public Slider progressSlider;
+    public Slider ProgressSlider;
 
     private void Start()
     {
-        progressSlider.gameObject.SetActive(false);
+        ProgressSlider.gameObject.SetActive(false);
     }
 
     public void QuitGame()
@@ -22,19 +22,19 @@ public class MenuSystem : MonoBehaviour
 #endif
     }
 
-    public void StartGame(int index)
+    public void StartGame()
     {
         Debug.Log("start game");
-        progressSlider.gameObject.SetActive(true);
-        StartCoroutine(LoadScene(index));
+        ProgressSlider.gameObject.SetActive(true);
+        StartCoroutine(LoadScene("Lobby"));
     }
 
-    IEnumerator LoadScene(int index)
+    IEnumerator LoadScene(string sceneName)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(index);
+        var operation = SceneManager.LoadSceneAsync(sceneName);
         while(!operation.isDone)
         {
-            progressSlider.value = Mathf.Clamp01(operation.progress / 0.9f);
+            ProgressSlider.value = Mathf.Clamp01(operation.progress / 0.9f);
             yield return null;
         }
     }
