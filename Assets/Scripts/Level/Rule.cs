@@ -64,10 +64,10 @@ namespace Level
             foreach(var operation in operations)
             {
                 operation.predecessor = inputShape;
-                operation.Apply(stack, result);
+                if (!operation.Apply(stack, result)) return new Tuple<List<Shape>, bool>(result, false);
             }
            
-            return new Tuple<List<Shape>, bool>(result, false);
+            return new Tuple<List<Shape>, bool>(result, true);
         }
     }
 }

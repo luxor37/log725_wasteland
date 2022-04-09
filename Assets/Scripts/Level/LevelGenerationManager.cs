@@ -42,6 +42,7 @@ namespace Level
 
             terrainNodes.AddRange(StartRule.CalculateRule(axiom).Item1);
 
+            //------Placing Level Blocks------
             var counter = 0;
             while (terrainNodes.Count > 0)
             {
@@ -49,147 +50,135 @@ namespace Level
                 var shape = terrainNodes[index];
 
                 //Get valid random node
-                while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) || shape.Symbol != Shape.SymbolEnum.EMPTY)
+                while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
                 {
-                    if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
-                        terrainNodes.RemoveAt(index);
+                    terrainNodes.RemoveAt(index);
 
-                    if (terrainNodes.Count == 0)
-                        break;
+                    if (terrainNodes.Count == 0) break;
 
                     index = rnd.Next(terrainNodes.Count);
                     shape = terrainNodes[index];
                 }
 
-
                 counter ++;
                 if (counter > MaxNumberBlockLevel)
                 {
-                    var origin = new Vector3(0, 0, 0);
-
-                    //create a separate list to find the furthest valid one to place the exit
-                    var possibleExitNodes = new List<Shape>();
-                    possibleExitNodes.AddRange(terrainNodes);
-
-                    do
-                    {
-                        if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
-                            possibleExitNodes.RemoveAt(index);
-
-                        if (possibleExitNodes.Count == 0)
-                            break;
-
-                        foreach (var node in possibleExitNodes.Where(node =>
-                            Vector3.Distance(origin, node.Position) > Vector3.Distance(origin, shape.Position)))
-                        {
-                            shape = node;
-                        }
-                    } 
-                    while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) ||
-                             shape.Symbol != Shape.SymbolEnum.EMPTY);
-
-                    EndRule.CalculateRule(shape);
+                    PlaceEndLevel(terrainNodes);
                     break;
                 }
-
-                
 
                 //get the rules that can append to the chosen empty node (shape)
                 var rulesMatch = Rules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
 
-                if (rulesMatch.Count == 0)
-                {
-                    break;
-                }
+                if (rulesMatch.Count == 0) break;
 
                 //Pick a random rule to apply
                 var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
                 var (results, succeeded) = ruleChosen.CalculateRule(shape);
 
-                if (succeeded)
-                    terrainNodes.RemoveAt(index);
+                if (succeeded) terrainNodes.RemoveAt(index);
 
-                if (results.Count == 0)
-                    continue;
-
-                var test = results.Where(x => x.Symbol == Shape.SymbolEnum.EMPTY).ToList();
-
-                test = test.Where(x => x.Position.x % 20 == 0).ToList();
-
-                terrainNodes.AddRange(test);
+                if (results.Count == 0) continue;
+                
+                terrainNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.EMPTY && x.Position.x % 20 == 0).ToList());
                 contentNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.CONTENT).ToList());
                 enemyNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.ENEMY).ToList());
                 
             }
 
+            //------Placing Blocked Tunnel Blocks------
+            PlaceBlockedTunnelBlocks(terrainNodes);
+
+            //------Placing Content------
+            PlaceContent(Shape.SymbolEnum.CONTENT, contentNodes, ContentRules);
+
+            //------Placing Enemies------
+            PlaceContent(Shape.SymbolEnum.ENEMY, enemyNodes, EnnemyRules);
+        }
+
+        private void PlaceBlockedTunnelBlocks(IList<Shape> terrainNodes)
+        {
             while (terrainNodes.Count > 0)
             {
                 var index = rnd.Next(terrainNodes.Count);
                 var shape = terrainNodes[index];
 
-                while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) || shape.Symbol != Shape.SymbolEnum.EMPTY || shape.Position.x % 20 != 0)
+                while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
                 {
-                    if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) || shape.Position.x % 20 != 0)
-                        terrainNodes.RemoveAt(index);
+                    terrainNodes.RemoveAt(index);
 
-                    if(terrainNodes.Count == 0)
-                        break;
+                    if (terrainNodes.Count == 0) break;
 
                     index = rnd.Next(terrainNodes.Count);
                     shape = terrainNodes[index];
                 }
 
+                if (terrainNodes.Count == 0) break;
+
                 BlockTunnelRule.CalculateRule(shape);
+
                 try
                 {
                     terrainNodes.RemoveAt(index);
                 }
-                catch (ArgumentOutOfRangeException ex)
+                catch (ArgumentOutOfRangeException)
                 {
                     Debug.Log("Out of range");
                 }
             }
+        }
 
-            counter = 0;
-            while (contentNodes.Count > 0)
+        private void PlaceEndLevel(IList<Shape> terrainNodes)
+        {
+            var index = rnd.Next(terrainNodes.Count);
+            var shape = terrainNodes[index];
+
+            var origin = new Vector3(0, 0, 0);
+
+            //create a separate list to find the furthest valid one to place the exit
+            var possibleExitNodes = new List<Shape>();
+            possibleExitNodes.AddRange(terrainNodes);
+
+            do
             {
-                counter++;
-                if (counter > 1000)
+                if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
+                    possibleExitNodes.RemoveAt(index);
+
+                if (possibleExitNodes.Count == 0)
                     break;
 
-                var index = rnd.Next(contentNodes.Count);
-                var shape = contentNodes[index];
-
-                //get the rules that can append to the chosen empty node (shape)
-                var rulesMatch = ContentRules.Where(rule => Shape.SymbolEnum.CONTENT == shape.Symbol).ToList();
-
-                if (rulesMatch.Count == 0) break;
-
-                //Pick a random rule to apply
-                var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
-                ruleChosen.CalculateRule(shape);
-                contentNodes.RemoveAt(index);
+                foreach (var node in possibleExitNodes.Where(node =>
+                    Vector3.Distance(origin, node.Position) > Vector3.Distance(origin, shape.Position)))
+                {
+                    shape = node;
+                }
             }
+            while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) ||
+                   shape.Symbol != Shape.SymbolEnum.EMPTY);
 
-            counter = 0;
-            while (enemyNodes.Count > 0)
+            EndRule.CalculateRule(shape);
+        }
+
+        private void PlaceContent(Shape.SymbolEnum contentType, IList<Shape> emptyNodes, IList<Rule> rules)
+        {
+            var counter = 0;
+            while (emptyNodes.Count > 0)
             {
                 counter++;
                 if (counter > 1000)
                     break;
 
-                var index = rnd.Next(enemyNodes.Count);
-                var shape = enemyNodes[index];
-
-                //get the rules that can append to the chosen empty node (shape)
-                var rulesMatch = EnnemyRules.Where(rule => Shape.SymbolEnum.ENEMY == shape.Symbol).ToList();
+                var index = rnd.Next(emptyNodes.Count);
+                var shape = emptyNodes[index];
+                
+                var rulesMatch = rules.Where(rule => shape.Symbol == contentType).ToList();
 
                 if (rulesMatch.Count == 0) break;
 
                 //Pick a random rule to apply
                 var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
                 ruleChosen.CalculateRule(shape);
-                enemyNodes.RemoveAt(index);
+                emptyNodes.RemoveAt(index);
             }
         }
 

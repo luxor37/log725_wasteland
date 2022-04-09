@@ -40,7 +40,7 @@ namespace Level
 
                 if (toPlace.isTwoLayer)
                 {
-                    //if (occupiedObject.Any(x => x == new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z))) return false;
+                    if (occupiedObject.Any(x => x == new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z))) return false;
 
                     occupiedObject.Add(new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z));
                     occupiedEmpty.Add(new Vector3(toPlace.Position.x, toPlace.Position.y - 14.75f, toPlace.Position.z));
