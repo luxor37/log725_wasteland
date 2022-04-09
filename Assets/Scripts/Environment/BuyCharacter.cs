@@ -5,20 +5,21 @@ public class BuyCharacter : MonoBehaviour
     // Start is called before the first frame update
     private bool _areTouching;
     
-    private TextMesh Instructions;
+    private TextMesh _instructions;
 
     public int Cost = 5;
 
     void Start()
     {
-        Instructions = GameObject.Find("interactPrompt").GetComponent<TextMesh>();
+        _instructions = GameObject.Find("interactPrompt").GetComponent<TextMesh>();
         if (PersistenceManager.Is2NdCharacterUnlocked){
+            _instructions.characterSize = 0;
             Destroy(gameObject);
         }
         
-        if (Instructions != null)
+        if (_instructions != null)
         {
-            Instructions.characterSize = 0;
+            _instructions.characterSize = 0;
         }
     }
 
@@ -30,6 +31,7 @@ public class BuyCharacter : MonoBehaviour
             {
                 PersistenceManager.coins -= Cost;
                 PersistenceManager.Is2NdCharacterUnlocked = true;
+                _instructions.characterSize = 0;
                 Destroy(gameObject);
             }
         }
@@ -41,9 +43,9 @@ public class BuyCharacter : MonoBehaviour
         if (other.gameObject.tag == "Character")
         {
             _areTouching = true;
-            if (Instructions != null && PersistenceManager.coins >= Cost)
+            if (_instructions != null && PersistenceManager.coins >= Cost)
             {
-                Instructions.characterSize = 1;
+                _instructions.characterSize = 1;
             }
         }
     }
@@ -53,9 +55,9 @@ public class BuyCharacter : MonoBehaviour
         if (other.gameObject.tag == "Character")
         {
             _areTouching = false;
-            if (Instructions != null)
+            if (_instructions != null)
             {
-                Instructions.characterSize = 0;
+                _instructions.characterSize = 0;
             }
         }
     }
