@@ -113,7 +113,7 @@ namespace Enemy
 
         public void ZombieAttack()
         {
-            if (gameObject.GetComponent<EnemyStatusController>().isHit) return;
+            if (gameObject.GetComponent<StatusController>().isHit) return;
 
             var hitEnemies = Physics.OverlapBox(attackPoint.transform.position, 
                 new Vector3(parameter.attackRange,1,1),Quaternion.identity, parameter.layer);
