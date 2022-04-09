@@ -3,6 +3,7 @@ using Player;
 using Status;
 using UnityEngine;
 using static ItemController;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.Player
 {
@@ -17,8 +18,11 @@ namespace Assets.Scripts.Player
         public AttackTypeEnum AttackType;
         public GameObject RangedWeapon;
         public float RangeCooldown = 1f;
-        
-        private float rangeTimer;
+        public string rangeProjectile = "";
+        [SerializeField]
+        private float rangeBuildup = 0f;
+
+        private float rangeTimer = 0;
         private Animator _animator;
 
         // Start is called before the first frame update
@@ -32,49 +36,69 @@ namespace Assets.Scripts.Player
         {
             rangeTimer += Time.deltaTime;
 
-            if (PersistenceManager.ActiveCharacter == PersistenceManager.ActiveCharacterEnum.character2)
-                AttackType = AttackTypeEnum.Melee;
-            else
-                AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
+
+        //    if (PersistenceManager.ActiveCharacter == PersistenceManager.ActiveCharacterEnum.character2)
+        //       AttackType = AttackTypeEnum.Melee;
+        //    else
+        //        AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
+
+
+            AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
+            
+           
 
             switch (AttackType)
             {
-                case AttackTypeEnum.Melee when RangedWeapon != null:
-                    RangedWeapon.SetActive(false);
+                case AttackTypeEnum.Melee when PlayerMovementController.CanJump:
+                    if (RangedWeapon != null)
+                        RangedWeapon.SetActive(false);
+                    _animator.SetBool("isRanged", false);
+                    if (!InputController.IsAttacking) return;
+                    Attack();
                     break;
                 case AttackTypeEnum.Ranged when RangedWeapon != null:
                     RangedWeapon.SetActive(true);
+                    _animator.SetBool("isRanged", true);
+                    if (!InputController.IsAttacking) return;
+                    RangeAttack();
+                    break;
+                case AttackTypeEnum.Ranged when RangedWeapon == null:
+                    // RangedWeapon.SetActive(false);
+                    _animator.SetBool("isRanged", false);
+                    if (!InputController.IsAttacking) return;
+                    Attack();
+                    RangeAttack();
                     break;
             }
 
-            _animator.SetBool("isRanged", AttackType == AttackTypeEnum.Ranged);
-
-            if (!InputController.IsAttacking) return;
-
-            if (PlayerMovementController.CanJump && AttackType == AttackTypeEnum.Melee) Attack();
-
-            if (AttackType == AttackTypeEnum.Ranged) RangeAttack();
         }
         private void Attack()
         {
             _animator.SetTrigger("Attack");
         }
 
-        private void RangeAttack()
+        private async Task RangeAttackAsync()
         {
-            if (rangeTimer < RangeCooldown) return;
-
-            rangeTimer = 0f;
-
+            await Task.Delay((int)(rangeBuildup * 1000));
             if (RangedAttackStartPosition == null) return;
 
             _animator.SetBool("RangedAttack", true);
-            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile("Bullet");
+            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile(rangeProjectile);
+            if (newProjectile == null)
+                return;
             var projectileController = newProjectile.GetComponent<ProjectileController>();
             projectileController.direction = transform.forward;
             projectileController.damage = RangedDamage;
             projectileController.appliedStatus = StatusEffectRanged;
-            Instantiate(newProjectile, RangedAttackStartPosition.position, AttackPoint.rotation);
+            Instantiate(newProjectile, RangedAttackStartPosition.position, newProjectile.transform.rotation);
+        }
+
+        private async void RangeAttack()
+        {
+            if (rangeTimer < RangeCooldown) return;
+            rangeTimer = 0f;
+            await RangeAttackAsync();
+           
         }
 
         private void Hit()

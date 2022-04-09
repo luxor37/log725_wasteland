@@ -34,8 +34,10 @@ public class InputController : MonoBehaviour
     {
         if (!disableControls)
         {
-            HorizontalAxis = GetAxis("Horizontal");
-            VerticalAxis = GetAxis("Vertical");
+
+            HorizontalAxis = IsAttacking ? 0 : GetAxis("Horizontal");
+            VerticalAxis = IsAttacking ? 0 : GetAxis("Vertical");
+
             HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
             VerticalDirection = GetVerticalDirection(VerticalAxis);
 
