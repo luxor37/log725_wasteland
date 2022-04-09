@@ -30,10 +30,13 @@ namespace Level
 
         private readonly System.Random rnd = new System.Random();
 
+        public static List<Vector3> OccupiedObject = new List<Vector3>();
+        public static List<Vector3> OccupiedEmpty = new List<Vector3>();
+
         public void GenerateLevel()
         {
-            PlaceShapeOperation.occupiedObject = new List<Vector3>();
-            PlaceShapeOperation.occupiedEmpty = new List<Vector3>();
+            OccupiedObject = new List<Vector3>();
+            OccupiedEmpty = new List<Vector3>();
 
             var axiom = AxiomShape;
             var terrainNodes = new List<Shape>();
@@ -50,7 +53,7 @@ namespace Level
                 var shape = terrainNodes[index];
 
                 //Get valid random node
-                while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
+                while (OccupiedObject.Any(x => x == shape.Position))
                 {
                     terrainNodes.RemoveAt(index);
 
@@ -103,7 +106,7 @@ namespace Level
                 var index = rnd.Next(terrainNodes.Count);
                 var shape = terrainNodes[index];
 
-                while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
+                while (OccupiedObject.Any(x => x == shape.Position))
                 {
                     terrainNodes.RemoveAt(index);
 
@@ -141,7 +144,7 @@ namespace Level
 
             do
             {
-                if (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position))
+                if (OccupiedObject.Any(x => x == shape.Position))
                     possibleExitNodes.RemoveAt(index);
 
                 if (possibleExitNodes.Count == 0)
@@ -153,7 +156,7 @@ namespace Level
                     shape = node;
                 }
             }
-            while (PlaceShapeOperation.occupiedObject.Any(x => x == shape.Position) ||
+            while (OccupiedObject.Any(x => x == shape.Position) ||
                    shape.Symbol != Shape.SymbolEnum.EMPTY);
 
             EndRule.CalculateRule(shape);
