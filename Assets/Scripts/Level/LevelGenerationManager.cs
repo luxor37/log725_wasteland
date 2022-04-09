@@ -33,6 +33,14 @@ namespace Level
         public static List<Vector3> OccupiedObject = new List<Vector3>();
         public static List<Vector3> OccupiedEmpty = new List<Vector3>();
 
+        /*
+         * Level Generation works by placing empty nodes and replacing each one with an
+         * appropriate level block surrounded by more empty nodes to be replaced.
+         *
+         * We keep track of occupied coordinates to avoid overlapping two level block
+         *
+         * Level block coordinates follow a pattern of (X % 20 = 0) and (Y % 14.75 = 0) and z = 0, forming a grid
+         */
         public void GenerateLevel()
         {
             OccupiedObject = new List<Vector3>();
@@ -72,17 +80,19 @@ namespace Level
 
                 //get the rules that can append to the chosen empty node (shape)
                 var rulesMatch = Rules.Where(rule => rule.PredecessorShape.Symbol == shape.Symbol).ToList();
-
                 if (rulesMatch.Count == 0) break;
 
                 //Pick a random rule to apply
                 var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
+
+                //Applying the rule
                 var (results, succeeded) = ruleChosen.CalculateRule(shape);
 
                 if (succeeded) terrainNodes.RemoveAt(index);
 
-                if (results.Count == 0) continue;
+                if (results.Count == 0 || !succeeded) continue;
                 
+                //Splitting the empty content nodes depending on type
                 terrainNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.EMPTY && x.Position.x % 20 == 0).ToList());
                 contentNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.CONTENT).ToList());
                 enemyNodes.AddRange(results.Where(x => x.Symbol == Shape.SymbolEnum.ENEMY).ToList());
