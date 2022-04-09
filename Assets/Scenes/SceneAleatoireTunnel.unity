@@ -410,6 +410,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6435963205110676292, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
+      propertyPath: rangeProjectile
+      value: windtornado
+      objectReference: {fileID: 0}
     - target: {fileID: 6435963205110676296, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -477,6 +481,10 @@ PrefabInstance:
     - target: {fileID: 6435963205653145597, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6435963205738042668, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
+      propertyPath: rangeProjectile
+      value: Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 6435963205738042672, guid: 3045cb527968e6a46bfefe8702f29d60, type: 3}
       propertyPath: m_IsActive
