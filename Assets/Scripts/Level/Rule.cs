@@ -11,7 +11,7 @@ namespace Level
         public Shape PredecessorShape;
         public List<Operation> operations;
 
-        Stack<Shape> stack = new Stack<Shape>();
+        private readonly Stack<Shape> stack = new Stack<Shape>();
         
         public Tuple<List<Shape>, bool> CalculateRule(Shape inputShape)
         {

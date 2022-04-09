@@ -48,9 +48,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c103133a67ebc8845b1d80c1c6629f27, type: 2}
   ContentRules:
   - {fileID: 11400000, guid: 46958b277ab09084ea813ee2833c016d, type: 2}
-  EnnemyRules:
-  - {fileID: 11400000, guid: ea54c1d3a8c51774b9d6158a5bf8793d, type: 2}
+  EnemyRules:
   - {fileID: 11400000, guid: fb3557ac869a38f47989fb70592de8fd, type: 2}
+  - {fileID: 11400000, guid: ea54c1d3a8c51774b9d6158a5bf8793d, type: 2}
   StartRule: {fileID: 11400000, guid: c90eb2cfa4582974a8519b488381586e, type: 2}
   EndRule: {fileID: 11400000, guid: 45747d342cdf9ee4aab9cb0e9c48d438, type: 2}
   BlockTunnelRule: {fileID: 11400000, guid: 7d27fbb754418c1488287c3aeac6c722, type: 2}

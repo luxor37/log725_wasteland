@@ -9,29 +9,28 @@ namespace Level
     public class LevelGenerationManager : MonoBehaviour
     {
         [SerializeField]
-        List<Rule> Rules;
+        public List<Rule> Rules;
 
         [SerializeField]
-        List<Rule> ContentRules;
+        public List<Rule> ContentRules;
 
         [SerializeField]
-        List<Rule> EnnemyRules;
+        public List<Rule> EnemyRules;
 
         public Rule StartRule;
-
         public Rule EndRule;
-
         public Rule BlockTunnelRule;
 
         [SerializeField]
-        Shape AxiomShape;
+        public Shape AxiomShape;
 
         public int MaxNumberBlockLevel = 1000000;
-
-        private readonly System.Random rnd = new System.Random();
-
+        
         public static List<Vector3> OccupiedObject = new List<Vector3>();
         public static List<Vector3> OccupiedEmpty = new List<Vector3>();
+
+        private readonly System.Random rnd = new System.Random();
+        private readonly List<Shape> terrainNodes = new List<Shape>();
 
         /*
          * Level Generation works by placing empty nodes and replacing each one with an
@@ -47,7 +46,6 @@ namespace Level
             OccupiedEmpty = new List<Vector3>();
 
             var axiom = AxiomShape;
-            var terrainNodes = new List<Shape>();
             var contentNodes = new List<Shape>();
             var enemyNodes = new List<Shape>();
 
@@ -57,24 +55,12 @@ namespace Level
             var counter = 0;
             while (terrainNodes.Count > 0)
             {
-                var index = rnd.Next(terrainNodes.Count);
-                var shape = terrainNodes[index];
-
-                //Get valid random node
-                while (OccupiedObject.Any(x => x == shape.Position))
-                {
-                    terrainNodes.RemoveAt(index);
-
-                    if (terrainNodes.Count == 0) break;
-
-                    index = rnd.Next(terrainNodes.Count);
-                    shape = terrainNodes[index];
-                }
+                var(index, shape) = GetValidTerrainNode();
 
                 counter ++;
                 if (counter > MaxNumberBlockLevel)
                 {
-                    PlaceEndLevel(terrainNodes);
+                    PlaceEndLevel();
                     break;
                 }
 
@@ -100,31 +86,40 @@ namespace Level
             }
 
             //------Placing Blocked Tunnel Blocks------
-            PlaceBlockedTunnelBlocks(terrainNodes);
+            PlaceBlockedTunnelBlocks();
 
             //------Placing Content------
             PlaceContent(Shape.SymbolEnum.CONTENT, contentNodes, ContentRules);
 
             //------Placing Enemies------
-            PlaceContent(Shape.SymbolEnum.ENEMY, enemyNodes, EnnemyRules);
+            PlaceContent(Shape.SymbolEnum.ENEMY, enemyNodes, EnemyRules);
         }
 
-        private void PlaceBlockedTunnelBlocks(IList<Shape> terrainNodes)
+        //Get valid random node
+        //While the chosen node points to occupied coords, we remove it from the list and pick another one randomly
+        private Tuple<int, Shape> GetValidTerrainNode()
+        {
+            var index = rnd.Next(terrainNodes.Count);
+            var shape = terrainNodes[index];
+
+            while (OccupiedObject.Any(x => x == shape.Position))
+            {
+                terrainNodes.RemoveAt(index);
+
+                if (terrainNodes.Count == 0) break;
+
+                index = rnd.Next(terrainNodes.Count);
+                shape = terrainNodes[index];
+            }
+
+            return new Tuple<int, Shape>(index, shape);
+        }
+
+        private void PlaceBlockedTunnelBlocks()
         {
             while (terrainNodes.Count > 0)
             {
-                var index = rnd.Next(terrainNodes.Count);
-                var shape = terrainNodes[index];
-
-                while (OccupiedObject.Any(x => x == shape.Position))
-                {
-                    terrainNodes.RemoveAt(index);
-
-                    if (terrainNodes.Count == 0) break;
-
-                    index = rnd.Next(terrainNodes.Count);
-                    shape = terrainNodes[index];
-                }
+                var (index, shape) = GetValidTerrainNode();
 
                 if (terrainNodes.Count == 0) break;
 
@@ -141,7 +136,7 @@ namespace Level
             }
         }
 
-        private void PlaceEndLevel(IList<Shape> terrainNodes)
+        private void PlaceEndLevel()
         {
             var index = rnd.Next(terrainNodes.Count);
             var shape = terrainNodes[index];
@@ -172,17 +167,17 @@ namespace Level
             EndRule.CalculateRule(shape);
         }
 
-        private void PlaceContent(Shape.SymbolEnum contentType, IList<Shape> emptyNodes, IList<Rule> rules)
+        private void PlaceContent(Shape.SymbolEnum contentType, IList<Shape> nodes, IList<Rule> rules)
         {
             var counter = 0;
-            while (emptyNodes.Count > 0)
+            while (nodes.Count > 0)
             {
                 counter++;
                 if (counter > 1000)
                     break;
 
-                var index = rnd.Next(emptyNodes.Count);
-                var shape = emptyNodes[index];
+                var index = rnd.Next(nodes.Count);
+                var shape = nodes[index];
                 
                 var rulesMatch = rules.Where(rule => shape.Symbol == contentType).ToList();
 
@@ -191,13 +186,15 @@ namespace Level
                 //Pick a random rule to apply
                 var ruleChosen = rulesMatch[Random.Range(0, rulesMatch.Count)];
                 ruleChosen.CalculateRule(shape);
-                emptyNodes.RemoveAt(index);
+                nodes.RemoveAt(index);
             }
         }
 
         void Start()
         {
             GenerateLevel();
+
+            //necessary to bake nav mesh between level blocks
             NavigationBaker.BakeSurfaces();
         }
     }
