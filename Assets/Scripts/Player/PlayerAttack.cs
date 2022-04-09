@@ -79,10 +79,11 @@ namespace Assets.Scripts.Player
 
         private async Task RangeAttackAsync()
         {
-            await Task.Delay((int)(rangeBuildup * 1000));
-            if (RangedAttackStartPosition == null) return;
-
             _animator.SetBool("RangedAttack", true);
+            await Task.Delay((int)(rangeBuildup * 1000));
+            if (RangedAttackStartPosition == null || !_animator.GetBool("RangedAttack")) return;
+
+           
             var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile(rangeProjectile);
             if (newProjectile == null)
                 return;
