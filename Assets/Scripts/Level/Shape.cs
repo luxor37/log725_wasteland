@@ -13,7 +13,8 @@ namespace Level
             AXIOM,
             CONTENT,
             ENEMY,
-            EMPTY
+            EMPTY,
+            TERRAIN
         }
 
         [HideInInspector]
