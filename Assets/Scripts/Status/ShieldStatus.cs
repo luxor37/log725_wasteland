@@ -17,25 +17,23 @@ namespace Status
 
         public override void StatusTick(float deltaTime)
         {
-            if (timer == 0f)
+            if (Timer == 0f)
             {
-                _controller.isInvincible = true;
-                _controller.isShielded = true;
-                _controller.SetParticleSystem(particleToSpawn, duration);
+                Controller.isInvincible = true;
+                Controller.isShielded = true;
+                Controller.SetParticleSystem(particleToSpawn, duration);
             }
-            else if (timer - lastTick > 1f)
+            else if (Timer - LastTick > 1f)
             {
                 
-                lastTick = timer;
+                LastTick = Timer;
             }
 
-            timer += deltaTime;
-            if (timer > duration)
-            {
-                EndStatus();
-                _controller.isInvincible = false;
-                _controller.isShielded = false;
-            }
+            Timer += deltaTime;
+            if (!(Timer > duration)) return;
+            EndStatus();
+            Controller.isInvincible = false;
+            Controller.isShielded = false;
 
         }
     }

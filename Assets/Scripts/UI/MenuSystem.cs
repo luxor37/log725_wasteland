@@ -29,7 +29,7 @@ public class MenuSystem : MonoBehaviour
         StartCoroutine(LoadScene("Lobby"));
     }
 
-    IEnumerator LoadScene(string sceneName)
+    private IEnumerator LoadScene(string sceneName)
     {
         var operation = SceneManager.LoadSceneAsync(sceneName);
         while(!operation.isDone)

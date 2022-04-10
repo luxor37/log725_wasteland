@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using static FXManager;
@@ -8,10 +9,10 @@ namespace Status
     // Status to be replaced with ScriptableObject
     public abstract class StatusController : GameEntity
     {
-        protected Animator _animator;
-        protected ParticlesController _particlesController;
-        protected NavMeshAgent _agent;
-        protected Rigidbody _body;
+        protected Animator Animator;
+        protected ParticlesController ParticlesController;
+        protected NavMeshAgent Agent;
+        protected Rigidbody Body;
         public bool isHit = false;
         public bool isShielded = false;
         public List<IStatus> statuses = new List<IStatus>();
@@ -20,17 +21,17 @@ namespace Status
 
         private void Start()
         {
-            _body = GetComponent<Rigidbody>();    
+            Body = GetComponent<Rigidbody>();    
         }
 
         protected void Update()
         {
-            foreach (IStatus status in statuses.ToArray())
+            foreach (var status in statuses.ToArray())
             {
                 status.StatusTick(Time.deltaTime);
             }
-            List<IStatus> ReactionStatuses = ReactionManager.Instance.GetReactions(statuses, this);
-            foreach (IStatus stat in ReactionStatuses)
+            var reactionStatuses = ReactionManager.Instance.GetReactions(statuses, this);
+            foreach (var stat in reactionStatuses)
                 AddStatus(stat);
         }
 
@@ -44,37 +45,32 @@ namespace Status
             if (status == null)
                 return;
             // check duplicate first
-            foreach (IStatus s in statuses)
+            foreach (var s in statuses.Where(s => s.name.Equals(status.name)))
             {
-                if (s.name.Equals(status.name))
-                {
-                    s.AddStack(1);
-                    return;
-                }
+                s.AddStack(1);
+                return;
             }
             statuses.Add(status);
            
         }
 
-        public void EndStatus(string name)
+        public void EndStatus(string statusName)
         {
-            if (_agent != null)
-                _agent.enabled = true;
-            var status = statuses.Find(s => s.name == name);
+            if (Agent != null)
+                Agent.enabled = true;
+            var status = statuses.Find(s => s.name == statusName);
             statuses.Remove(status);
-            if (_particlesController != null)
-                _particlesController.RemoveParticle(status.particleToSpawn);
+            if (ParticlesController != null)
+                ParticlesController.RemoveParticle(status.particleToSpawn);
         }
 
         public void Knockback()
         {
-            if (!isHit)
-            {
-                isHit = true;
-                if (_animator)
-                    _animator.SetTrigger("isHit");
-                AddStatus(StatusManager.Instance.GetNewStatusObject(ItemController.StatusEnum.IsHit, this));
-            }
+            if (isHit) return;
+            isHit = true;
+            if (Animator)
+                Animator.SetTrigger("isHit");
+            AddStatus(StatusManager.Instance.GetNewStatusObject(ItemController.StatusEnum.IsHit, this));
         }
 
         public void Hit()
@@ -89,42 +85,36 @@ namespace Status
 
         public void SetParticleSystem(ParticleType name, float duration, bool onBody=true)
         {
-            if (_particlesController)
-                _particlesController.ChangeParticles(name, duration, onBody);
+            if (ParticlesController)
+                ParticlesController.ChangeParticles(name, duration, onBody);
         }
 
         void DisableAI()
         {
-            if (_agent != null)
-                _agent.enabled = false;
+            if (Agent != null)
+                Agent.enabled = false;
         }
 
         public void KnockUp(float force)
         {
-            if (_body)
-            {
-                DisableAI();
-                _body.AddForce(new Vector3(0, force, 0), ForceMode.Impulse);
-            }
+            if (!Body) return;
+            DisableAI();
+            Body.AddForce(new Vector3(0, force, 0), ForceMode.Impulse);
         }
 
         public void FloatDown(float force)
         {
-            if (_body)
-            {
-                DisableAI();
-                _body.AddForce(new Vector3(0, -force, 0), ForceMode.Impulse);
-            }
+            if (!Body) return;
+            DisableAI();
+            Body.AddForce(new Vector3(0, -force, 0), ForceMode.Impulse);
         }
 
         public void Spin(float force)
         {
-            if (_body)
-            {
-                DisableAI();
-                _body.AddTorque(new Vector3(force, force, 0));
-            }
-            
+            if (!Body) return;
+            DisableAI();
+            Body.AddTorque(new Vector3(force, force, 0));
+
         }
 
     }

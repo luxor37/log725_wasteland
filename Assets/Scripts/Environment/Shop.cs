@@ -89,16 +89,16 @@ public class Shop : MonoBehaviour
 
     public void BuyHealth()
     {
-        if (PersistenceManager.coins < HealthCost) return;
+        if (PersistenceManager.Coins < HealthCost) return;
         Debug.Log("buying");
-        PersistenceManager.coins -= HealthCost;
+        PersistenceManager.Coins -= HealthCost;
         PersistenceManager.HealthPotionAmount += 1;
     }
 
     public void BuyAtkBoost()
     {
-        if (PersistenceManager.coins < AtkCost) return;
-        PersistenceManager.coins -= AtkCost;
+        if (PersistenceManager.Coins < AtkCost) return;
+        PersistenceManager.Coins -= AtkCost;
         PersistenceManager.AtkBoostAmount += 1;
     }
 }

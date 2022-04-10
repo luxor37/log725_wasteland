@@ -5,7 +5,7 @@ public class GameEntity : MonoBehaviour
 {
     public int maxHealth;
     public int currentHealth;
-    protected bool isDead;
+    protected bool IsDead;
     public event Action onDeath;
     public bool isInvincible = false;
 
@@ -21,11 +21,10 @@ public class GameEntity : MonoBehaviour
     //When call Die(), we trigger onDeath event
     protected void Die()
     {
-        isDead = true;
+        IsDead = true;
 
-        if (onDeath != null)
-            onDeath();
-        Destroy(this.gameObject);
+        onDeath?.Invoke();
+        Destroy(gameObject);
     }
 
     public virtual void TakeDamage(int damage)
@@ -34,7 +33,7 @@ public class GameEntity : MonoBehaviour
             damage = 0;
         ShowStat("-" + damage, damageIndicatorColor);
         currentHealth -= damage;
-        if (currentHealth <= 0 && isDead == false)
+        if (currentHealth <= 0 && IsDead == false)
         {
             Die();
         }
@@ -50,12 +49,11 @@ public class GameEntity : MonoBehaviour
             currentHealth = maxHealth;
     }
 
-    public void ShowStat(string value, Color color, float offset = 0){
-        if (floatingPoint != null)
-        {
-            floatingPoint.GetComponentInChildren<TextMesh>().color = color;
-            floatingPoint.GetComponentInChildren<TextMesh>().text = value;
-            Instantiate(floatingPoint, transform.position + new Vector3(0, 2f + offset, 0), Quaternion.identity);
-        }
+    public void ShowStat(string value, Color color, float offset = 0)
+    {
+        if (floatingPoint == null) return;
+        floatingPoint.GetComponentInChildren<TextMesh>().color = color;
+        floatingPoint.GetComponentInChildren<TextMesh>().text = value;
+        Instantiate(floatingPoint, transform.position + new Vector3(0, 2f + offset, 0), Quaternion.identity);
     }
 }

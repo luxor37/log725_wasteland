@@ -18,7 +18,7 @@ class ProjectileController : MonoBehaviour
 
     public StatusEnum appliedStatus = StatusEnum.Fire;
 
-    float timer = 0f;
+    private float timer;
 
     void Update()
     {
@@ -31,7 +31,7 @@ class ProjectileController : MonoBehaviour
         transform.position += direction.normalized * speed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Component other)
     {
 
         if (targetLayer.value == (targetLayer.value | (1 << other.gameObject.layer)))

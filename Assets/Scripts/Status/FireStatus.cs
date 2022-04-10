@@ -19,18 +19,18 @@ namespace Status
         public override void StatusTick(float deltaTime)
         {
             // damage
-            if (timer == 0f)
+            if (Timer == 0f)
             {
-                _controller.TakeDamage(initialDmg);
-                _controller.SetParticleSystem(particleToSpawn, duration);
-            } else if (timer - lastTick > 1f && perSecDmg > 0f)
+                Controller.TakeDamage(initialDmg);
+                Controller.SetParticleSystem(particleToSpawn, duration);
+            } else if (Timer - LastTick > 1f && perSecDmg > 0f)
             {
-                _controller.TakeDamage(perSecDmg);
-                lastTick = timer;
+                Controller.TakeDamage(perSecDmg);
+                LastTick = Timer;
             }
 
-            timer += deltaTime;
-            if (timer > duration)
+            Timer += deltaTime;
+            if (Timer > duration)
             {
                 EndStatus();
             }

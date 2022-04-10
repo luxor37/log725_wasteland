@@ -2,7 +2,6 @@
 
 namespace Status
 {
-
     public class FireTornado : IStatus
     {
 
@@ -19,24 +18,24 @@ namespace Status
         public override void StatusTick(float deltaTime)
         {
             // damage
-            if (timer == 0f)
+            if (Timer == 0f)
             {
-                _controller.TakeDamage(initialDmg);
-                _controller.SetParticleSystem(particleToSpawn, duration, false);
+                Controller.TakeDamage(initialDmg);
+                Controller.SetParticleSystem(particleToSpawn, duration, false);
                // _controller.Spin(100);
-                _controller.KnockUp(0.2f);
+                Controller.KnockUp(0.2f);
             }
-            else if (timer - lastTick > 1f && perSecDmg > 0f)
+            else if (Timer - LastTick > 1f && perSecDmg > 0f)
             {
-                _controller.TakeDamage(perSecDmg);
-                lastTick = timer;
-                _controller.FloatDown(0.1f);
+                Controller.TakeDamage(perSecDmg);
+                LastTick = Timer;
+                Controller.FloatDown(0.1f);
             }
 
 
 
-            timer += deltaTime;
-            if (timer > duration)
+            Timer += deltaTime;
+            if (Timer > duration)
             {
                 EndStatus();
             }

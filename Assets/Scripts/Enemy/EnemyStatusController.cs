@@ -9,10 +9,10 @@ namespace Enemy
         new void Start()
         {
             base.Start();
-            _animator = GetComponent<Animator>();
-            _particlesController = GetComponent<ParticlesController>();
-            _body = GetComponent<Rigidbody>();
-            _agent = GetComponent<NavMeshAgent>();
+            Animator = GetComponent<Animator>();
+            ParticlesController = GetComponent<ParticlesController>();
+            Body = GetComponent<Rigidbody>();
+            Agent = GetComponent<NavMeshAgent>();
         }
 
         public new void TakeDamage(int damage)

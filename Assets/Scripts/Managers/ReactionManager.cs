@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Status
@@ -17,54 +18,39 @@ namespace Status
             public ItemController.StatusEnum inputStatus2;
         }
 
-        private static ReactionManager instance = null;
-
         private void Awake()
         {
-            if (instance != null && instance != this)
+            if (Instance != null && Instance != this)
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
             else
             {
-                instance = this;
+                Instance = this;
             }
         }
 
-        public static ReactionManager Instance
-        {
-            get
-            {
-                return instance;
-            }
-
-        }
+        public static ReactionManager Instance { get; private set; }
 
         public List<IStatus> GetReactions(List<IStatus> statuses, StatusController controller)
         {
-            List<IStatus> reactions = new List<IStatus>();
+            var reactions = new List<IStatus>();
             // brute force
-            foreach (IStatus stat1 in statuses.ToArray())
+            foreach (var stat1 in statuses.ToArray())
             {
-                foreach(IStatus stat2 in statuses.ToArray())
+                foreach(var stat2 in statuses.ToArray())
                 {
-                    foreach (Reaction reaction in Reactions)
+                    foreach (var reaction in Reactions.Where(reaction => stat1.name == reaction.inputStatus1.ToString() && 
+                                                                         stat2.name == reaction.inputStatus2.ToString()))
                     {
-                        if (stat1.name == reaction.inputStatus1.ToString()
-                            && stat2.name == reaction.inputStatus2.ToString())
-                        {
-                            // Debug.Log(reaction.inputStatus1.ToString(), this);
-                            controller.EndStatus(stat1.name);
-                            controller.EndStatus(stat2.name);
-                            reactions.Add(StatusManager.Instance.GetNewStatusObject(reaction.name, controller));
-                        }
+                        controller.EndStatus(stat1.name);
+                        controller.EndStatus(stat2.name);
+                        reactions.Add(StatusManager.Instance.GetNewStatusObject(reaction.name, controller));
                     }
                 }
             }
             return reactions;
         }
-
-     
     }
 }
 

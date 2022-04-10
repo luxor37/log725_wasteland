@@ -1,6 +1,4 @@
-using System.Collections;
 using Player;
-using UnityEngine;
 
 namespace Status
 {
@@ -15,13 +13,10 @@ namespace Status
         public override void StatusTick(float deltaTime)
         {
             // damage
-            if (timer == 0f)
-            {
-                
-                ((PlayerStatusController)_controller).AddCoin();
-                EndStatus();
-            }
-            
+            if (Timer != 0f) return;
+            ((PlayerStatusController)Controller).AddCoin();
+            EndStatus();
+
         }
     }
 }

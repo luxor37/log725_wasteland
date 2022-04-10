@@ -8,40 +8,33 @@ public class StatusManager : MonoBehaviour
 {
     public Dictionary<StatusEnum, string> statusDictionary;
 
-    private static StatusManager instance = null;
-
-    public static StatusManager Instance
-    {
-        get
-        {
-            return instance;
-        }
-     
-    }
+    public static StatusManager Instance { get; private set; } = null;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
         }
     }
 
     private StatusManager()
     {
-        statusDictionary = new Dictionary<StatusEnum, string>();
-        statusDictionary[StatusEnum.Fire] = "Status.FireStatus";
-        statusDictionary[StatusEnum.Recovery] = "Status.RecoveryStatus";
-        statusDictionary[StatusEnum.AttackBoost] = "Status.AttackBoost";
-        statusDictionary[StatusEnum.Coin] = "Status.CoinStatus";
-        statusDictionary[StatusEnum.Shield] = "Status.ShieldStatus";
-        statusDictionary[StatusEnum.Wind] = "Status.WindStatus";
-        statusDictionary[StatusEnum.FireTornado] = "Status.FireTornado";
-        statusDictionary[StatusEnum.IsHit] = "Status.IsHitStatus";
+        statusDictionary = new Dictionary<StatusEnum, string>
+        {
+            [StatusEnum.Fire] = "Status.FireStatus",
+            [StatusEnum.Recovery] = "Status.RecoveryStatus",
+            [StatusEnum.AttackBoost] = "Status.AttackBoost",
+            [StatusEnum.Coin] = "Status.CoinStatus",
+            [StatusEnum.Shield] = "Status.ShieldStatus",
+            [StatusEnum.Wind] = "Status.WindStatus",
+            [StatusEnum.FireTornado] = "Status.FireTornado",
+            [StatusEnum.IsHit] = "Status.IsHitStatus"
+        };
     }
 
 
@@ -50,11 +43,9 @@ public class StatusManager : MonoBehaviour
         if (statusDictionary.ContainsKey(statusName))
         {
             object[] args = { controller };
-            var obj = Activator.CreateInstance(Type.GetType(statusDictionary[statusName]), args);
+            var obj = Activator.CreateInstance(Type.GetType(statusDictionary[statusName])!, args);
             return (IStatus) obj;
-        } else
-        {
-            return null;
-        }
+        } 
+        return null;
     }
 }

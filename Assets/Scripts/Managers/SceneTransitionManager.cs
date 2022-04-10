@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,14 +25,14 @@ public class SceneTransitionManager : MonoBehaviour
         StartCoroutine(GameOverRoutine());
     }
 
-    IEnumerator LoadSceneRoutine(){
+    private IEnumerator LoadSceneRoutine(){
         InputController.DisableControls = true;
         SceneTransitionAnim.SetTrigger("end");
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(scene);
     }
 
-    IEnumerator GameOverRoutine(){
+    private IEnumerator GameOverRoutine(){
         InputController.DisableControls = true;
         GameOverAnim.SetTrigger("end");
         SceneTransitionAnim.SetTrigger("end");

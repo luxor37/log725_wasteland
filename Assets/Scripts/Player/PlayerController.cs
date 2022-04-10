@@ -43,7 +43,7 @@ namespace Player
         {
             if (CoinCounter != null)
             {
-                CoinCounter.text = PersistenceManager.coins.ToString();
+                CoinCounter.text = PersistenceManager.Coins.ToString();
             }
 
             if (PauseMenu.IsGamePaused) return;
@@ -65,14 +65,13 @@ namespace Player
 
         private void Climbing()
         {
-            if (IsClimbing)
+            if (!IsClimbing) return;
+
+            _desiredMovement = PlayerMovementController.GetClimbingMovement(ClimbingSpeed);
+            transform.localEulerAngles = new Vector3(0, LadderAngle, 0);
+            if (_controller.isGrounded)
             {
-                _desiredMovement = PlayerMovementController.GetClimbingMovement(ClimbingSpeed);
-                transform.localEulerAngles = new Vector3(0, LadderAngle, 0);
-                if (_controller.isGrounded)
-                {
-                    IsClimbing = false;
-                }
+                IsClimbing = false;
             }
         }
 

@@ -1,5 +1,3 @@
-using Player;
-
 namespace Status
 {
     public class IsHitStatus : IStatus
@@ -14,18 +12,18 @@ namespace Status
         public override void StatusTick(float deltaTime)
         {
             // damage
-            if (timer == 0f)
+            if (Timer == 0f)
             {
 
-                (_controller).isHit = true;
+                (Controller).isHit = true;
             }
-            else if (timer - lastTick > 1f)
+            else if (Timer - LastTick > 1f)
             {
-                lastTick = timer;
+                LastTick = Timer;
             }
             
-            timer += deltaTime;
-            if (timer > Duration)
+            Timer += deltaTime;
+            if (Timer > Duration)
             {
                 EndStatus();
             }

@@ -8,18 +8,16 @@ namespace Projectile
     {
         public List<GameObject> projectiles;
 
-        static ProjectileManager instance;
-
-        public static ProjectileManager Instance => instance;
+        public static ProjectileManager Instance { get; private set; }
 
         private void Awake()
         {
-            if (instance != null && instance != this)
+            if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
             } else
             {
-                instance = this;
+                Instance = this;
             }
         }
 

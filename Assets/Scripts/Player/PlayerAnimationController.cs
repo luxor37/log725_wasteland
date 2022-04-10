@@ -10,24 +10,25 @@ namespace Player
             var hasHorizontal = !Mathf.Approximately(InputController.HorizontalAxis, 0.0f);
             animator.SetBool("isRunning", hasHorizontal);
 
-            if (!isGrounded && InputController.IsJumping)
-                _isJumping = true;
-
-            if (isGrounded)
+            switch (isGrounded)
             {
-                if (InputController.IsJumping)
+                case false when InputController.IsJumping:
                     _isJumping = true;
-                _isJumping = false;
+                    break;
+                case true:
+                {
+                    if (InputController.IsJumping)
+                        _isJumping = true;
+                    _isJumping = false;
+                    break;
+                }
             }
 
             animator.SetBool("IsClimbing", isClimbing && InputController.VerticalDirection == VerticalDirection.Up);
             animator.SetBool("IsClimbingDown", isClimbing && InputController.VerticalDirection == VerticalDirection.Down);
             if (isClimbing)
             {
-                if (InputController.VerticalDirection == VerticalDirection.Idle)
-                    animator.speed = 0;
-                else
-                    animator.speed = 1;
+                animator.speed = InputController.VerticalDirection == VerticalDirection.Idle ? 0 : 1;
             }
             else
                 animator.speed = 1;

@@ -22,31 +22,24 @@ public class FXManager : MonoBehaviour
         public ParticleSystem particle;
     }
 
-    private static FXManager instance = null;
+    private static FXManager _instance;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (_instance != null && _instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
-            instance = this;
+            _instance = this;
         }
     }
 
-    public static FXManager Instance
-    {
-        get
-        {
-            return instance;
-        }
+    public static FXManager Instance => _instance;
 
-    }
-
-    public ParticleSystem GetParticle(ParticleType name)
+    public ParticleSystem GetParticle(ParticleType type)
     {
-        return particles.Find(x => x.name == name).particle;
+        return particles.Find(x => x.name == type).particle;
     }
 }

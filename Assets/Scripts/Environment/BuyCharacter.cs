@@ -27,9 +27,9 @@ public class BuyCharacter : MonoBehaviour
     void Update()
     {
         if (!_areTouching || !InputController.IsInteracting) return;
-        if (PersistenceManager.coins < Cost) return;
+        if (PersistenceManager.Coins < Cost) return;
 
-        PersistenceManager.coins -= Cost;
+        PersistenceManager.Coins -= Cost;
         PersistenceManager.Is2NdCharacterUnlocked = true;
         _instructions.characterSize = 0;
         Destroy(gameObject);
@@ -41,7 +41,7 @@ public class BuyCharacter : MonoBehaviour
         if (other.gameObject.tag != "Character") return;
 
         _areTouching = true;
-        if (_instructions != null && PersistenceManager.coins >= Cost)
+        if (_instructions != null && PersistenceManager.Coins >= Cost)
         {
             _instructions.characterSize = 1;
         }

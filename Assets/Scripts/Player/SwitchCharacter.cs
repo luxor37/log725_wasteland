@@ -5,54 +5,54 @@ public class SwitchCharacter : MonoBehaviour
 {
     private Vector3 currentPosition;
 
-    private static int characterIndex = 0;
+    private static int _characterIndex;
 
     public static GameObject currentCharacter;
 
     void Start()
     {
 
-        for (int i = 0; i < Enum.GetNames(typeof(PersistenceManager.ActiveCharacterEnum)).Length; i++)
+        for (var i = 0; i < Enum.GetNames(typeof(PersistenceManager.ActiveCharacterEnum)).Length; i++)
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
 
-        var characterIndex = (int)PersistenceManager.ActiveCharacter;
+        var activeCharacter = (int)PersistenceManager.ActiveCharacter;
 
-        currentCharacter = transform.GetChild(characterIndex).gameObject;
+        currentCharacter = transform.GetChild(activeCharacter).gameObject;
 
-        transform.GetChild(characterIndex).gameObject.SetActive(true);
+        transform.GetChild(activeCharacter).gameObject.SetActive(true);
     }
 
     void Update()
     {
         if (InputController.IsCharacterChanging && PersistenceManager.Is2NdCharacterUnlocked)
         {
-            characterIndex = (int)PersistenceManager.ActiveCharacter;
+            _characterIndex = (int)PersistenceManager.ActiveCharacter;
 
-            currentPosition = transform.GetChild(characterIndex).gameObject.transform.position;
+            currentPosition = transform.GetChild(_characterIndex).gameObject.transform.position;
             InputController.IsCharacterChanging = false;
-            transform.GetChild(characterIndex).gameObject.SetActive(false);
+            transform.GetChild(_characterIndex).gameObject.SetActive(false);
 
-            if (characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacterEnum)).Length - 1)
-                characterIndex++;
+            if (_characterIndex < Enum.GetNames(typeof(PersistenceManager.ActiveCharacterEnum)).Length - 1)
+                _characterIndex++;
             else
-                characterIndex = 0;
+                _characterIndex = 0;
 
-            PersistenceManager.ActiveCharacter = (PersistenceManager.ActiveCharacterEnum)characterIndex;
+            PersistenceManager.ActiveCharacter = (PersistenceManager.ActiveCharacterEnum)_characterIndex;
 
-            transform.GetChild(characterIndex).gameObject.transform.position = currentPosition;
-            transform.GetChild(characterIndex).gameObject.SetActive(true);
+            transform.GetChild(_characterIndex).gameObject.transform.position = currentPosition;
+            transform.GetChild(_characterIndex).gameObject.SetActive(true);
         }
 
         try
         {
-            currentCharacter = transform.GetChild(characterIndex).gameObject;
-            gameObject.transform.position = transform.GetChild(characterIndex).gameObject.transform.position;
+            currentCharacter = transform.GetChild(_characterIndex).gameObject;
+            gameObject.transform.position = transform.GetChild(_characterIndex).gameObject.transform.position;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            Debug.Log("Cannot find character at index "+characterIndex+". Is it dead?");
+            Debug.Log("Cannot find character at index "+_characterIndex+". Is it dead?");
         }
     }
 }

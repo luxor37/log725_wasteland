@@ -24,7 +24,7 @@ public class InputController : MonoBehaviour
     void Update()
     {
         if (DisableControls) return;
-        HorizontalAxis = IsAttacking && (AttackType == AttackTypeEnum.Melee || ActiveCharacter == ActiveCharacterEnum.character2) ? 0 : GetAxis("Horizontal");
+        HorizontalAxis = IsAttacking && (AttackType == AttackTypeEnum.Melee || ActiveCharacter == ActiveCharacterEnum.Character2) ? 0 : GetAxis("Horizontal");
         VerticalAxis = GetAxis("Vertical");
 
         HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
@@ -64,7 +64,7 @@ public class InputController : MonoBehaviour
         {
             return HorizontalDirection.Right;
         }
-        else if (horizontalAxis < 0f)
+        if (horizontalAxis < 0f)
         {
             return HorizontalDirection.Left;
         }
@@ -78,7 +78,7 @@ public class InputController : MonoBehaviour
         {
             return VerticalDirection.Up;
         }
-        else if (verticalAxis < 0f)
+        if (verticalAxis < 0f)
         {
             return VerticalDirection.Down;
         }

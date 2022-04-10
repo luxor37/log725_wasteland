@@ -19,24 +19,20 @@ namespace Status
         public override void StatusTick(float deltaTime)
         {
             // damage
-            if (timer == 0f)
+            if (Timer == 0f)
             {
-                ((PlayerStatusController)_controller).AttackMultiplier(multiBoost, flatBoost);
-                _controller.SetParticleSystem(particleToSpawn, duration);
+                ((PlayerStatusController)Controller).AttackMultiplier(multiBoost, flatBoost);
+                Controller.SetParticleSystem(particleToSpawn, duration);
             }
-            else if (timer - lastTick > 1f)
+            else if (Timer - LastTick > 1f)
             {
-                lastTick = timer;
+                LastTick = Timer;
             }
-
             
-
-            timer += deltaTime;
-            if (timer > duration)
-            {
-                ((PlayerStatusController)_controller).AttackMultiplierRevert(multiBoost, flatBoost);
-                EndStatus();
-            }
+            Timer += deltaTime;
+            if (!(Timer > duration)) return;
+            ((PlayerStatusController)Controller).AttackMultiplierRevert(multiBoost, flatBoost);
+            EndStatus();
 
         }
     }

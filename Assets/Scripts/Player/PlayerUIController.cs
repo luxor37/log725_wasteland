@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,7 +30,7 @@ namespace Player
         {
             if (controller.IsShielded)
                 ShieldCooldown.value = 0;
-            else if(controller.ShieldTimer == -1f){
+            else if(Math.Abs(controller.ShieldTimer - (-1f)) <= 0){
                 ShieldCooldown.value = 1;
             }
             else{

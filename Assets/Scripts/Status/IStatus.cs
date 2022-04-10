@@ -13,21 +13,21 @@ namespace Status
         public ParticleType particleToSpawn;
 
 
-        protected StatusController _controller;
+        protected StatusController Controller;
 
-        protected float timer = 0f;
-        protected float lastTick = 0f;
+        protected float Timer = 0f;
+        protected float LastTick = 0f;
 
         protected IStatus(StatusController controller)
         {
-            _controller = controller;
+            Controller = controller;
         }
 
         public abstract void StatusTick(float time);
 
         public void EndStatus()
         {
-            _controller.EndStatus(name);
+            Controller.EndStatus(name);
         }
 
         public void AddStack(int stacks)

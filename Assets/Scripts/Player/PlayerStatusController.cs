@@ -14,8 +14,8 @@ namespace Player
         new void Start()
         {
             base.Start();
-            _animator = GetComponent<Animator>();
-            _particlesController = GameObject.FindGameObjectWithTag("Player").GetComponent<ParticlesController>();
+            Animator = GetComponent<Animator>();
+            ParticlesController = GameObject.FindGameObjectWithTag("Player").GetComponent<ParticlesController>();
 
             base.onDeath += PlayerDeath;
         }
@@ -91,7 +91,7 @@ namespace Player
 
         public void AddCoin()
         {
-            PersistenceManager.coins += 1;
+            PersistenceManager.Coins += 1;
         }
         
         public new void TakeDamage(int damage)

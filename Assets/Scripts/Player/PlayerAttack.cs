@@ -46,7 +46,7 @@ namespace Assets.Scripts.Player
         {
             rangeTimer += Time.deltaTime;
             
-            AttackType = ActiveCharacter == ActiveCharacterEnum.character2 ? 
+            AttackType = ActiveCharacter == ActiveCharacterEnum.Character2 ? 
                 AttackTypeEnum.Ranged : 
                 InputController.AttackType;
             

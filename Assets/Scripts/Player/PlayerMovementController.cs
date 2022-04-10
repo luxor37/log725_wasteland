@@ -8,12 +8,10 @@ namespace Player
 
         public static Quaternion GetRotation(Quaternion currentRotation)
         {
-            if (!Mathf.Approximately(InputController.HorizontalAxis, 0f))
-            {
-                var desiredMoveDirection = Camera.main.transform.right * InputController.HorizontalAxis;
-                return Quaternion.LookRotation(desiredMoveDirection);
-            }
-            return currentRotation;
+            if (Mathf.Approximately(InputController.HorizontalAxis, 0f)) return currentRotation;
+
+            var desiredMoveDirection = Camera.main.transform.right * InputController.HorizontalAxis;
+            return Quaternion.LookRotation(desiredMoveDirection);
         }
 
         public static Vector3 VerifyWorldLimits(Vector3 playerPosition)
