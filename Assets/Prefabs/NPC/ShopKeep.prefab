@@ -869,7 +869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthCost: 5
   AtkCost: 8
-  shopUi: {fileID: 1645349434648366004}
+  ShopUi: {fileID: 1645349434648366004}
 --- !u!1 &1645349434770165140
 GameObject:
   m_ObjectHideFlags: 0

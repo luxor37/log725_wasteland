@@ -1,5 +1,4 @@
 using Player;
-using Status;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
@@ -16,20 +15,19 @@ public class ItemController : MonoBehaviour
         IsHit
     }
 
-    public StatusEnum statusName;
+    public StatusEnum StatusName;
 
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Component other)
     {
-        if (other.gameObject.tag == "Character")
+        if (other.gameObject.tag != "Character") return;
+
+        var controller = other.GetComponent<PlayerStatusController>();
+        if (controller != null)
         {
-            var controller = other.GetComponent<PlayerStatusController>();
-            if (controller != null)
-            {
-                var status = StatusManager.Instance.GetNewStatusObject(statusName, controller);
-                controller.AddStatus(status);
-            }
-            Destroy(gameObject);
+            var status = StatusManager.Instance.GetNewStatusObject(StatusName, controller);
+            controller.AddStatus(status);
         }
+        Destroy(gameObject);
     }
 }

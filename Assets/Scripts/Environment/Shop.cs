@@ -12,7 +12,7 @@ public class Shop : MonoBehaviour
     public int HealthCost = 5;
     public int AtkCost = 8;
 
-    public CanvasGroup shopUi;
+    public CanvasGroup ShopUi;
     private CanvasGroup menu;
 
     void Start()
@@ -29,7 +29,7 @@ public class Shop : MonoBehaviour
     {
         if (_areTouching && InputController.IsInteracting && !isShopOpen)
         {
-            if (shopUi != null)
+            if (ShopUi != null)
             {
                 isShopOpen = true;
                 
@@ -45,13 +45,13 @@ public class Shop : MonoBehaviour
     {
         if (isShopOpen)
         {
-            shopUi.alpha = 1;
+            ShopUi.alpha = 1;
             menu.interactable = true;
             menu.blocksRaycasts = true;
         }
         else
         {
-            shopUi.alpha = 0;
+            ShopUi.alpha = 0;
             menu.interactable = false;
             menu.blocksRaycasts = false;
         }
@@ -78,10 +78,10 @@ public class Shop : MonoBehaviour
             instructions.characterSize = 0;
         }
 
-        if (shopUi != null)
+        if (ShopUi != null)
         {
             isShopOpen = false;
-            shopUi.alpha = 0;
+            ShopUi.alpha = 0;
             menu.interactable = false;
             menu.blocksRaycasts = false;
         }

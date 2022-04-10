@@ -64,7 +64,7 @@ namespace Player
 
             if (!itemController) return;
 
-            var status = StatusManager.Instance.GetNewStatusObject(itemController.statusName, this);
+            var status = StatusManager.Instance.GetNewStatusObject(itemController.StatusName, this);
             AddStatus(status);
         }
 
