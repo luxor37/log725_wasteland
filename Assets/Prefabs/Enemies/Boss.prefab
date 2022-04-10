@@ -1426,19 +1426,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069de8aa8ed2a4448be83e9adf1909f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 3325638623986566200}
-  _Gradient:
+  HealthBar: {fileID: 3325638623986566200}
+  Gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 0.9827944, g: 1, b: 0, a: 1}
-    key2: {r: 0.148332, g: 1, b: 0, a: 0}
-    key3: {r: 1, g: 1, b: 1, a: 0}
+    key1: {r: 1, g: 0.9295865, b: 0, a: 1}
+    key2: {r: 0.33350968, g: 1, b: 0, a: 0}
+    key3: {r: 0.008547783, g: 1, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 10987
-    ctime1: 30455
+    ctime0: 13493
+    ctime1: 35081
     ctime2: 65535
     ctime3: 65535
     ctime4: 0
@@ -1456,7 +1456,7 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  GradientHP: {fileID: 3325638623078095994}
+  GradientHp: {fileID: 3325638623078095994}
 --- !u!114 &3325638624332627124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1469,7 +1469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadfc16a8ed266f4ebc9461cf0a3ad1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopDistance: 2
+  StopDistance: 2
 --- !u!114 &3325638624332627130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1497,21 +1497,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7354c288e23846c7aebe79cb39367f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parameter:
-    attackPoints: {fileID: 3325638623833910478}
-    attackRange: 1.25
+  Parameter:
+    AttackPoint: {fileID: 3325638623833910478}
+    AttackRange: 1.25
     Damage: 100
-    chaseRange: 20
-    chaseTime: 5
-    originPosition: {x: 0, y: 0, z: 0}
-    _animator: {fileID: 0}
-    layer:
+    ChaseRange: 20
+    ChaseTime: 5
+    OriginPosition: {x: 0, y: 0, z: 0}
+    Animator: {fileID: 0}
+    Layer:
       serializedVersion: 2
       m_Bits: 512
-    _NavMeshAgent: {fileID: 0}
-    _target: {fileID: 0}
-  _EnemyStatus: {fileID: 0}
-  attackPoint: {fileID: 3325638623833910479}
+    NavMeshAgent: {fileID: 0}
+    Target: {fileID: 0}
 --- !u!114 &3325638624332627125
 MonoBehaviour:
   m_ObjectHideFlags: 0

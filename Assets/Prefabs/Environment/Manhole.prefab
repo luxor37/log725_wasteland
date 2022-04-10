@@ -60,8 +60,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb748c9d332f421408221a639c577b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instructions: {fileID: 3804559107734836421}
-  sceneName: LevelBoss
+  Instructions: {fileID: 3804559107734836421}
+  SceneName: SceneAleatoireTunnel
 --- !u!1 &3804559107734836423
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,8 +88,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3804559107734836423}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 3804559107528574572}
   m_RootOrder: 2
@@ -158,7 +158,7 @@ TextMesh:
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190335
+    rgba: 1811939327
 --- !u!1001 &3804559106707565089
 PrefabInstance:
   m_ObjectHideFlags: 0

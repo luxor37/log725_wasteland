@@ -715,5 +715,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8f15e5b97d5e24e8bc3ddb3066590b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneTransitionAnim: {fileID: 7502088343966130782}
-  gameOverAnim: {fileID: 6625853547681817456}
+  SceneTransitionAnim: {fileID: 7502088343966130782}
+  GameOverAnim: {fileID: 6625853547681817456}

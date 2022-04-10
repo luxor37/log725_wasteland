@@ -15,44 +15,43 @@ namespace Enemy
     [Serializable]
     public class Parameter
     {
-        public Transform attackPoints;
-        public float attackRange;
+        public Transform AttackPoint;
+        public float AttackRange = 1.25f;
         public int Damage = 50;
         
-        public int chaseRange;
-        public float chaseTime;
+        public int ChaseRange = 12;
+        public float ChaseTime = 5;
 
-        public Vector3 originPosition;
+        public Vector3 OriginPosition;
         
         [HideInInspector]
-        public Animator _animator;
+        public Animator Animator;
 
-        public LayerMask layer;
-
-        [HideInInspector]
-        public NavMeshAgent _NavMeshAgent;
+        public LayerMask Layer;
 
         [HideInInspector]
-        public Transform _target;
+        public NavMeshAgent NavMeshAgent;
+
+        [HideInInspector]
+        public Transform Target;
     }
 
     public class EnemyStatesController : MonoBehaviour
     {
         private float currentChaseRange;
-        public Parameter parameter;
+        public Parameter Parameter;
         private IState currentState;
-        private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
-        public StatusController _EnemyStatus;
-        public GameObject attackPoint;
+        private readonly Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
+        private StatusController _enemyStatus;
 
         private void Start()
         {
-            parameter._animator = GetComponent<Animator>();
-            parameter._NavMeshAgent = GetComponent<NavMeshAgent>();
-            parameter.originPosition = this.gameObject.transform.position;
-            parameter._NavMeshAgent.stoppingDistance = parameter.attackRange;
-            currentChaseRange = parameter.chaseRange;
-            _EnemyStatus = GetComponent<StatusController>();
+            Parameter.Animator = GetComponent<Animator>();
+            Parameter.NavMeshAgent = GetComponent<NavMeshAgent>();
+            Parameter.OriginPosition = gameObject.transform.position;
+            Parameter.NavMeshAgent.stoppingDistance = Parameter.AttackRange;
+            currentChaseRange = Parameter.ChaseRange;
+            _enemyStatus = GetComponent<StatusController>();
             states.Add(StateType.Idle, new IdleState(this));
             states.Add(StateType.Chase, new ChaseState(this));
             states.Add(StateType.Attack, new AttackState(this));
@@ -63,7 +62,7 @@ namespace Enemy
         private void Update()
         {
             currentState.OnUpdate();
-            findPlayer();
+            FindPlayer();
         }
 
         public void TransitionState(StateType type)
@@ -76,38 +75,35 @@ namespace Enemy
 
         public void FlipTo(Vector3 targetPosition)
         {
-            if (targetPosition != null)
+            if (transform.position.x > targetPosition.x)
             {
-                if (transform.position.x > targetPosition.x)
-                {
-                    transform.localScale = new Vector3(-1,1,1);
-                }
-                else if (transform.position.x < targetPosition.x)
-                {
-                    transform.localScale = new Vector3(1,1,1);
-                }
+                transform.localScale = new Vector3(-1,1,1);
+            }
+            else if (transform.position.x < targetPosition.x)
+            {
+                transform.localScale = new Vector3(1,1,1);
             }
         }
 
-        public bool findPlayer()
+        public bool FindPlayer()
         {
-            currentChaseRange = parameter.chaseRange;
-            if (_EnemyStatus.isHit)
+            currentChaseRange = Parameter.ChaseRange;
+            if (_enemyStatus.isHit)
             {
                 currentChaseRange = 20;
             }
             var chaseBox = new Vector3(currentChaseRange/2, 1, 1);
-            var players =  Physics.OverlapBox(parameter.attackPoints.position, 
-                chaseBox,Quaternion.identity,parameter.layer);
-            if (players.Length != 0 && parameter._NavMeshAgent.enabled)
+            var players =  Physics.OverlapBox(Parameter.AttackPoint.position, 
+                chaseBox,Quaternion.identity,Parameter.Layer);
+            if (players.Length != 0 && Parameter.NavMeshAgent.enabled)
             {
-                parameter._target = players[0].transform;
-                parameter._NavMeshAgent.SetDestination(parameter._target.position);
+                Parameter.Target = players[0].transform;
+                Parameter.NavMeshAgent.SetDestination(Parameter.Target.position);
 
                 return true;
             }
 
-            parameter._target = null;
+            Parameter.Target = null;
             return false;
         }
 
@@ -115,29 +111,27 @@ namespace Enemy
         {
             if (gameObject.GetComponent<StatusController>().isHit) return;
 
-            var hitEnemies = Physics.OverlapBox(attackPoint.transform.position, 
-                new Vector3(parameter.attackRange,1,1),Quaternion.identity, parameter.layer);
+            var hitEnemies = Physics.OverlapBox(Parameter.AttackPoint.transform.position, 
+                new Vector3(Parameter.AttackRange,1,1),Quaternion.identity, Parameter.Layer);
             foreach (var player in hitEnemies)
             {
-                player.GetComponent<PlayerStatusController>().TakeDamage(parameter.Damage);
+                player.GetComponent<PlayerStatusController>().TakeDamage(Parameter.Damage);
             }
         }
 
         private void OnDrawGizmos()
         {
-            if (parameter.attackPoints == null)
-                return;
-            Vector3 chaseBox = new Vector3(currentChaseRange, 4, 2);
-            if (parameter._target != null)
+            if (Parameter.AttackPoint == null) return;
+            var chaseBox = new Vector3(currentChaseRange, 4, 2);
+            if (Parameter.Target != null)
             {
                 Gizmos.color = Color.red;
-                
-                Gizmos.DrawWireCube(parameter.attackPoints.position, chaseBox);
+                Gizmos.DrawWireCube(Parameter.AttackPoint.position, chaseBox);
             }
             else
             {
                 Gizmos.color = Color.white;
-                Gizmos.DrawWireCube(parameter.attackPoints.position, chaseBox);
+                Gizmos.DrawWireCube(Parameter.AttackPoint.position, chaseBox);
             }
         }
     }

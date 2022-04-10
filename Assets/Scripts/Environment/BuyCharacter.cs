@@ -26,39 +26,35 @@ public class BuyCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_areTouching && InputController.IsInteracting){
-            if(PersistenceManager.coins >= Cost)
-            {
-                PersistenceManager.coins -= Cost;
-                PersistenceManager.Is2NdCharacterUnlocked = true;
-                _instructions.characterSize = 0;
-                Destroy(gameObject);
-            }
-        }
+        if (!_areTouching || !InputController.IsInteracting) return;
+        if (PersistenceManager.coins < Cost) return;
+
+        PersistenceManager.coins -= Cost;
+        PersistenceManager.Is2NdCharacterUnlocked = true;
+        _instructions.characterSize = 0;
+        Destroy(gameObject);
 
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Character")
+        if (other.gameObject.tag != "Character") return;
+
+        _areTouching = true;
+        if (_instructions != null && PersistenceManager.coins >= Cost)
         {
-            _areTouching = true;
-            if (_instructions != null && PersistenceManager.coins >= Cost)
-            {
-                _instructions.characterSize = 1;
-            }
+            _instructions.characterSize = 1;
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Character")
+        if (other.gameObject.tag != "Character") return;
+
+        _areTouching = false;
+        if (_instructions != null)
         {
-            _areTouching = false;
-            if (_instructions != null)
-            {
-                _instructions.characterSize = 0;
-            }
+            _instructions.characterSize = 0;
         }
     }
 }

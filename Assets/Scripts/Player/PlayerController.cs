@@ -46,7 +46,7 @@ namespace Player
                 CoinCounter.text = PersistenceManager.coins.ToString();
             }
 
-            if (PauseMenu.isGamePaused) return;
+            if (PauseMenu.IsGamePaused) return;
 
             transform.rotation = PlayerMovementController.GetRotation(transform.rotation);
 

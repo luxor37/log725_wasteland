@@ -3,63 +3,49 @@ using static PersistenceManager;
 
 public enum HorizontalDirection { Left, Right, Idle }
 public enum VerticalDirection { Up, Down, Idle }
-
 public enum AttackTypeEnum { Melee = 0, Ranged = 1 };
 
 public class InputController : MonoBehaviour
 {
-    public static bool disableControls = false;
-
     [Range(0.1f, 0.9f)]
     public float ControllerDeadZone = 0.2f;
-    public static float HorizontalAxis = 0f;
-    public static float VerticalAxis = 0f;
+    public static float HorizontalAxis;
+    public static float VerticalAxis;
     public static HorizontalDirection HorizontalDirection;
     public static VerticalDirection VerticalDirection;
-    public static bool IsJumping = false;
-    public static bool IsSprinting = false;
-    public static bool IsAttacking = false;
-    public static bool IsShielding = false;
-    public static bool IsPausing = false;
+    public static bool IsJumping, IsSprinting, IsAttacking, IsShielding, IsPausing, IsUsingItem1, 
+        IsUsingItem2, IsInteracting , DisableControls, IsCharacterChanging;
     public static AttackTypeEnum AttackType = AttackTypeEnum.Melee;
-    public static bool IsUsingItem1 = false;
-    public static bool IsUsingItem2 = false;
-    public static bool IsInteracting = false;
-
-    public static bool IsCharacterChanging = false;
-
+    
     void Start(){
-        disableControls = false;
+        DisableControls = false;
     }
 
     void Update()
     {
-        if (!disableControls)
-        {
+        if (DisableControls) return;
+        HorizontalAxis = IsAttacking && (AttackType == AttackTypeEnum.Melee || ActiveCharacter == ActiveCharacterEnum.character2) ? 0 : GetAxis("Horizontal");
+        VerticalAxis = GetAxis("Vertical");
 
-            HorizontalAxis = IsAttacking && (AttackType == AttackTypeEnum.Melee || ActiveCharacter == ActiveCharacterEnum.character2) ? 0 : GetAxis("Horizontal");
-            VerticalAxis = GetAxis("Vertical");
+        HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
+        VerticalDirection = GetVerticalDirection(VerticalAxis);
 
-            HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
-            VerticalDirection = GetVerticalDirection(VerticalAxis);
-
-            IsJumping = Input.GetButtonDown("Jump");
-            IsAttacking = Input.GetButton("Attack");
+        IsJumping = Input.GetButtonDown("Jump");
+        IsAttacking = Input.GetButton("Attack");
             
-            IsPausing = Input.GetButtonDown("Menu");
-            IsCharacterChanging = Input.GetButtonDown("Switch");
+        IsPausing = Input.GetButtonDown("Menu");
+        IsCharacterChanging = Input.GetButtonDown("Switch");
 
-            if(Input.GetButtonDown("MeleeWeapon"))
-                AttackType = AttackTypeEnum.Melee;
-            if(Input.GetButtonDown("RangedWeapon"))
-                AttackType = AttackTypeEnum.Ranged;
+        if(Input.GetButtonDown("MeleeWeapon"))
+            AttackType = AttackTypeEnum.Melee;
+        if(Input.GetButtonDown("RangedWeapon"))
+            AttackType = AttackTypeEnum.Ranged;
 
-            IsShielding = Input.GetButtonDown("Shield");
-            IsInteracting = Input.GetButtonDown("Interact");
+        IsShielding = Input.GetButtonDown("Shield");
+        IsInteracting = Input.GetButtonDown("Interact");
 
-            IsUsingItem1 = Input.GetButtonDown("UseItem1");
-            IsUsingItem2 = Input.GetButtonDown("UseItem2");
-        }
+        IsUsingItem1 = Input.GetButtonDown("UseItem1");
+        IsUsingItem2 = Input.GetButtonDown("UseItem2");
     }
 
     private float GetAxis(string axisName)
@@ -72,7 +58,7 @@ public class InputController : MonoBehaviour
         return 0f;
     }
 
-    private HorizontalDirection GetHorizontalDirection(float horizontalAxis)
+    private static HorizontalDirection GetHorizontalDirection(float horizontalAxis)
     {
         if (horizontalAxis > 0f)
         {
@@ -86,7 +72,7 @@ public class InputController : MonoBehaviour
         return HorizontalDirection.Idle;
     }
 
-    private VerticalDirection GetVerticalDirection(float verticalAxis)
+    private static VerticalDirection GetVerticalDirection(float verticalAxis)
     {
         if (verticalAxis > 0f)
         {

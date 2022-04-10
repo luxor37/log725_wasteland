@@ -3,62 +3,58 @@ using UnityEngine;
 
 public class Ladder : MonoBehaviour
 {
-    private Collider _bounds;
-    public bool _areTouching = false;
+    private bool _areTouching;
     private PlayerController player;
-    public bool hideInstructions = false;
-    public TextMesh instructions;
+    public bool HideInstructions = false;
+    public TextMesh Instructions;
 
     void Start()
     {
-        if (instructions != null)
+        if (Instructions != null)
         {
-            instructions.characterSize = 0;
+            Instructions.characterSize = 0;
         }
     }
 
     void Update()
     {
-        if (player != null)
-        {
-            if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up)
-            {
-                player.IsClimbing = true;
-                player.LadderAngle = 180;
-            }
+        if (player == null) return;
 
-            if (InputController.HorizontalDirection != HorizontalDirection.Idle || InputController.IsJumping)
-            {
-                player.IsClimbing = false;
-            }
+        if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up)
+        {
+            player.IsClimbing = true;
+            player.LadderAngle = 180;
+        }
+
+        if (InputController.HorizontalDirection != HorizontalDirection.Idle || InputController.IsJumping)
+        {
+            player.IsClimbing = false;
         }
 
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Character")
+        if (other.gameObject.tag != "Character") return;
+
+        _areTouching = true;
+        player = other.gameObject.GetComponent<PlayerController>();
+        if (Instructions != null)
         {
-            _areTouching = true;
-            player = other.gameObject.GetComponent<PlayerController>();
-            if (instructions != null)
-            {
-                instructions.characterSize = 1;
-            }
+            Instructions.characterSize = 1;
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Character")
+        if (other.gameObject.tag != "Character") return;
+
+        _areTouching = false;
+        player = other.gameObject.GetComponent<PlayerController>();
+        player.IsClimbing = false;
+        if (Instructions != null && !HideInstructions)
         {
-            _areTouching = false;
-            player = other.gameObject.GetComponent<PlayerController>();
-            player.IsClimbing = false;
-            if (instructions != null && !hideInstructions)
-            {
-                instructions.characterSize = 0;
-            }
+            Instructions.characterSize = 0;
         }
     }
 }

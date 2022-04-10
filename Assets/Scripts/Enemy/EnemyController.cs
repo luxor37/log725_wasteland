@@ -29,13 +29,6 @@ public class EnemyController : MonoBehaviour
         var remainingDistance = _navMeshAgent.remainingDistance;
         _navMeshAgent.stoppingDistance = StopDistance;
 
-        if (remainingDistance > StopDistance)
-        {
-            _animator.SetBool("isWalking", true);
-        }
-        else 
-        {
-            _animator.SetBool("isWalking", false);
-        }
+        _animator.SetBool("isWalking", remainingDistance > StopDistance);
     }
 }

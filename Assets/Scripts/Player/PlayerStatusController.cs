@@ -1,6 +1,7 @@
 using Assets.Scripts.Player;
 using Status;
 using UnityEngine;
+using static SceneTransitionManager;
 
 namespace Player
 {
@@ -35,10 +36,7 @@ namespace Player
                     isInvincible = false;
                     _timer = 0;
                 }
-
             }
-
-           
         }
 
         private void Update()
@@ -59,12 +57,15 @@ namespace Player
             if (!item)
                 return;
 
+            if (item is null) return;
+
             var itemController = item.GetComponent<ItemController>();
-            if (itemController)
-            {
-                var status = StatusManager.Instance.GetNewStatusObject(itemController.statusName, this);
-                AddStatus(status);
-            }
+
+
+            if (!itemController) return;
+
+            var status = StatusManager.Instance.GetNewStatusObject(itemController.statusName, this);
+            AddStatus(status);
         }
 
         public void AttackMultiplier(int multiplier, int flat)
@@ -102,7 +103,7 @@ namespace Player
 
         private static void PlayerDeath()
         {
-            SceneTransitionManager.sceneTransitionManager.GameOver();
+            SceneTransitionManagerSingleton.GameOver();
         }
 
 

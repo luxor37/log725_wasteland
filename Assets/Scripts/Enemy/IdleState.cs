@@ -4,26 +4,26 @@ namespace Enemy
 {
     public class IdleState : IState
     {
-        private EnemyStatesController _enemyStatesController;
-        private Parameter _parameter;
+        private readonly EnemyStatesController _enemyStatesController;
+        private readonly Parameter _parameter;
 
         private float timer;
 
         public IdleState(EnemyStatesController controller)
         {
             _enemyStatesController = controller;
-            _parameter = controller.parameter;
+            _parameter = controller.Parameter;
         }
 
         public void OnEnter()
         {
-            _parameter._animator.SetBool("isWalking", false);
+            _parameter.Animator.SetBool("isWalking", false);
         }
 
         public void OnUpdate()
         {
 
-            if (_parameter._target != null)
+            if (_parameter.Target != null)
             {
                 _enemyStatesController.TransitionState(StateType.Chase);
             }
@@ -37,42 +37,41 @@ namespace Enemy
 
     public class ChaseState : IState
     {
-        private EnemyStatesController _enemyStatesController;
-        private Parameter _parameter;
+        private readonly EnemyStatesController _enemyStatesController;
+        private readonly Parameter _parameter;
 
         private float timer;
 
         public ChaseState(EnemyStatesController controller)
         {
             _enemyStatesController = controller;
-            _parameter = controller.parameter;
+            _parameter = controller.Parameter;
         }
 
         public void OnEnter()
         {
-            _parameter._animator.SetBool("isWalking", true);
+            _parameter.Animator.SetBool("isWalking", true);
         }
 
         public void OnUpdate()
         {
 
             timer += Time.deltaTime;
-            if (_enemyStatesController.findPlayer())
+            if (_enemyStatesController.FindPlayer())
             {
-                _enemyStatesController.FlipTo(_parameter._target.position);
-                _parameter._NavMeshAgent.SetDestination(this._parameter._target.transform.position);
-                _parameter._NavMeshAgent.stoppingDistance = _parameter.attackRange;
-                var remainingDistance = _parameter._NavMeshAgent.remainingDistance;
+                _enemyStatesController.FlipTo(_parameter.Target.position);
+                _parameter.NavMeshAgent.SetDestination(this._parameter.Target.transform.position);
+                _parameter.NavMeshAgent.stoppingDistance = _parameter.AttackRange;
+                var remainingDistance = _parameter.NavMeshAgent.remainingDistance;
 
-                if (remainingDistance < _parameter.attackRange)
-                {
-                    _parameter._animator.SetBool("isWalking", false);
-                    _enemyStatesController.TransitionState(StateType.Attack);
-                }
+                if (!(remainingDistance < _parameter.AttackRange)) return;
+
+                _parameter.Animator.SetBool("isWalking", false);
+                _enemyStatesController.TransitionState(StateType.Attack);
             }
             else
             {
-                if (timer > _parameter.chaseTime)
+                if (timer > _parameter.ChaseTime)
                 {
                     _enemyStatesController.TransitionState(StateType.Reset);
                 }
@@ -87,37 +86,37 @@ namespace Enemy
 
     public class AttackState : IState
     {
-        private EnemyStatesController _enemyStatesController;
-        private Parameter _parameter;
+        private readonly EnemyStatesController _enemyStatesController;
+        private readonly Parameter _parameter;
 
         public AttackState(EnemyStatesController controller)
         {
             _enemyStatesController = controller;
-            _parameter = controller.parameter;
+            _parameter = controller.Parameter;
         }
 
         public void OnEnter()
         {
-            _parameter._animator.SetBool("isWalking", false);
+            _parameter.Animator.SetBool("isWalking", false);
         }
 
         public void OnUpdate()
         {
-            if (_parameter._target != null)
+            if (_parameter.Target != null)
             {
-                _enemyStatesController.FlipTo(_parameter._target.position);
+                _enemyStatesController.FlipTo(_parameter.Target.position);
             }
             else
             {
                 Debug.Log("Target is null. Is is dead?");
             }
             
-            if (_enemyStatesController.findPlayer())
+            if (_enemyStatesController.FindPlayer())
             {
-                if (_parameter.attackRange > _parameter._NavMeshAgent.remainingDistance)
+                if (_parameter.AttackRange > _parameter.NavMeshAgent.remainingDistance)
                 {
-                    _parameter._animator.SetTrigger("Attack");
-                    _parameter._animator.SetBool("isWalking", true);
+                    _parameter.Animator.SetTrigger("Attack");
+                    _parameter.Animator.SetBool("isWalking", true);
                 }
                 else
                 {
@@ -138,36 +137,36 @@ namespace Enemy
 
     public class ResetState : IState
     {
-        private EnemyStatesController _enemyStatesController;
-        private Parameter _parameter;
+        private readonly EnemyStatesController _enemyStatesController;
+        private readonly Parameter _parameter;
 
         public ResetState(EnemyStatesController controller)
         {
-            this._enemyStatesController = controller;
-            this._parameter = controller.parameter;
+            _enemyStatesController = controller;
+            _parameter = controller.Parameter;
         }
 
         public void OnEnter()
         {
-            _parameter._animator.SetBool("isWalking", true);
-            _parameter._NavMeshAgent.stoppingDistance = 0.5f;
-            if (_parameter._NavMeshAgent.enabled)
-                _parameter._NavMeshAgent.SetDestination(_parameter.originPosition);
+            _parameter.Animator.SetBool("isWalking", true);
+            _parameter.NavMeshAgent.stoppingDistance = 0.5f;
+            if (_parameter.NavMeshAgent.enabled)
+                _parameter.NavMeshAgent.SetDestination(_parameter.OriginPosition);
         }
 
         public void OnUpdate()
         {
-            _enemyStatesController.FlipTo(_parameter.originPosition);
+            _enemyStatesController.FlipTo(_parameter.OriginPosition);
 
-            if (_enemyStatesController.findPlayer())
+            if (_enemyStatesController.FindPlayer())
             {
                 _enemyStatesController.TransitionState(StateType.Chase);
             }
-            if (_parameter._NavMeshAgent.enabled && _parameter._NavMeshAgent.remainingDistance < 0.5)
-            {
-                _parameter._animator.SetBool("isWalking", false);
-                _enemyStatesController.TransitionState(StateType.Idle);
-            }
+
+            if (!_parameter.NavMeshAgent.enabled || !(_parameter.NavMeshAgent.remainingDistance < 0.5)) return;
+
+            _parameter.Animator.SetBool("isWalking", false);
+            _enemyStatesController.TransitionState(StateType.Idle);
         }
 
         public void OnExit()

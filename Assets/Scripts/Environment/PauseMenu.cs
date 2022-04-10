@@ -1,11 +1,11 @@
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using static SceneTransitionManager;
 
 public class PauseMenu : MonoBehaviour
 {
     [HideInInspector]
-    public static bool isGamePaused = false;
+    public static bool IsGamePaused;
 
     private CanvasGroup menu;
 
@@ -21,16 +21,16 @@ public class PauseMenu : MonoBehaviour
     {
         if (InputController.IsPausing)
         {
-            Pause(!isGamePaused);
-            menu.alpha = isGamePaused ? 1 : 0;
-            menu.interactable = isGamePaused;
-            menu.blocksRaycasts = isGamePaused;
+            Pause(!IsGamePaused);
+            menu.alpha = IsGamePaused ? 1 : 0;
+            menu.interactable = IsGamePaused;
+            menu.blocksRaycasts = IsGamePaused;
         }
     }
 
     void Pause(bool isPaused)
     {
-        isGamePaused = isPaused;
+        IsGamePaused = isPaused;
 
         Time.timeScale = isPaused ? 0 : 1;
     }
@@ -41,12 +41,12 @@ public class PauseMenu : MonoBehaviour
 
         Pause(false);
         Cursor.lockState = CursorLockMode.Confined;
-        SceneTransitionManager.sceneTransitionManager.LoadScene("MainMenu");
+        SceneTransitionManagerSingleton.LoadScene("MainMenu");
     }
 
     public void ReturnToLobby()
     {
         Pause(false);
-        SceneTransitionManager.sceneTransitionManager.LoadScene("Lobby");
+        SceneTransitionManagerSingleton.LoadScene("Lobby");
     }
 }

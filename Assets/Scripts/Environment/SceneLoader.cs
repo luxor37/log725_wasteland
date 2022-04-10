@@ -1,24 +1,20 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static SceneTransitionManager;
 
 public class SceneLoader : MonoBehaviour
 {
-    public static int LevelCompletedCount = 0;
-    private Collider _bounds;
-    private bool _areTouching = false;
+    private bool _areTouching;
 
-    public TextMesh instructions;
-
-
-
-    public string sceneName;
+    public TextMesh Instructions;
+    
+    public string SceneName;
 
     void Start()
     {
-        if (instructions != null)
+        if (Instructions != null)
         {
-            instructions.characterSize = 0;
+            Instructions.characterSize = 0;
         }
     }
 
@@ -26,32 +22,30 @@ public class SceneLoader : MonoBehaviour
     void Update()
     {
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
-            SceneTransitionManager.sceneTransitionManager.LoadScene(sceneName);
+            SceneTransitionManagerSingleton.LoadScene(SceneName);
         if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up)
-            SceneTransitionManager.sceneTransitionManager.LoadScene(SceneManager.GetActiveScene().name.Equals("SceneAleatoire") ? "LevelBoss" : "SceneAleatoire");
+            SceneTransitionManagerSingleton.LoadScene(SceneManager.GetActiveScene().name.Equals("SceneAleatoire") ? "LevelBoss" : "SceneAleatoire");
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Character")
+        if (other.gameObject.tag != "Character") return;
+
+        _areTouching = true;
+        if (Instructions != null)
         {
-            _areTouching = true;
-            if (instructions != null)
-            {
-                instructions.characterSize = 1;
-            }
+            Instructions.characterSize = 1;
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Character")
+        if (other.gameObject.tag != "Character") return;
+
+        _areTouching = false;
+        if (Instructions != null)
         {
-            _areTouching = false;
-            if (instructions != null)
-            {
-                instructions.characterSize = 0;
-            }
+            Instructions.characterSize = 0;
         }
     }
 }
