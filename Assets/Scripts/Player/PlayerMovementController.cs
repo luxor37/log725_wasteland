@@ -19,24 +19,16 @@ namespace Player
         public static Vector3 VerifyWorldLimits(Vector3 playerPosition)
         {
             if (playerPosition.y > WorldConfig.YMax)
-            {
                 playerPosition.y = WorldConfig.YMax;
-            }
 
             if (playerPosition.y < WorldConfig.YMin)
-            {
                 playerPosition.y = WorldConfig.YMin;
-            }
 
             if (playerPosition.x > WorldConfig.XMax)
-            {
                 playerPosition.x = WorldConfig.XMax;
-            }
 
             if (playerPosition.x < WorldConfig.XMin)
-            {
                 playerPosition.x = WorldConfig.XMin;
-            }
 
             return playerPosition;
         }
@@ -54,7 +46,7 @@ namespace Player
 
         private static float GetHorizontalMovement(float moveSpeed)
         {
-            float speed = InputController.IsSprinting ? moveSpeed * 2f : moveSpeed;
+            var speed = InputController.IsSprinting ? moveSpeed * 2f : moveSpeed;
 
             //User input to Movement
             return -InputController.HorizontalAxis * speed;

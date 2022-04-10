@@ -1,15 +1,17 @@
-using System;
 using UnityEngine;
+using static PersistenceManager;
 
-public enum HorizontalDirection { Left, Right, Iddle }
-public enum VerticalDirection { Up, Down, Iddle }
+public enum HorizontalDirection { Left, Right, Idle }
+public enum VerticalDirection { Up, Down, Idle }
+
+public enum AttackTypeEnum { Melee = 0, Ranged = 1 };
 
 public class InputController : MonoBehaviour
 {
     public static bool disableControls = false;
 
     [Range(0.1f, 0.9f)]
-    public float controllerDeadZone = 0.2f;
+    public float ControllerDeadZone = 0.2f;
     public static float HorizontalAxis = 0f;
     public static float VerticalAxis = 0f;
     public static HorizontalDirection HorizontalDirection;
@@ -19,7 +21,7 @@ public class InputController : MonoBehaviour
     public static bool IsAttacking = false;
     public static bool IsShielding = false;
     public static bool IsPausing = false;
-    public static int AttackType = 0;
+    public static AttackTypeEnum AttackType = AttackTypeEnum.Melee;
     public static bool IsUsingItem1 = false;
     public static bool IsUsingItem2 = false;
     public static bool IsInteracting = false;
@@ -35,8 +37,8 @@ public class InputController : MonoBehaviour
         if (!disableControls)
         {
 
-            HorizontalAxis = IsAttacking ? 0 : GetAxis("Horizontal");
-            VerticalAxis = IsAttacking ? 0 : GetAxis("Vertical");
+            HorizontalAxis = IsAttacking && (AttackType == AttackTypeEnum.Melee || ActiveCharacter == ActiveCharacterEnum.character2) ? 0 : GetAxis("Horizontal");
+            VerticalAxis = GetAxis("Vertical");
 
             HorizontalDirection = GetHorizontalDirection(HorizontalAxis);
             VerticalDirection = GetVerticalDirection(VerticalAxis);
@@ -47,7 +49,10 @@ public class InputController : MonoBehaviour
             IsPausing = Input.GetButtonDown("Menu");
             IsCharacterChanging = Input.GetButtonDown("Switch");
 
-            AttackType += Convert.ToInt32(Input.GetButtonDown("WeaponChange"));
+            if(Input.GetButtonDown("MeleeWeapon"))
+                AttackType = AttackTypeEnum.Melee;
+            if(Input.GetButtonDown("RangedWeapon"))
+                AttackType = AttackTypeEnum.Ranged;
 
             IsShielding = Input.GetButtonDown("Shield");
             IsInteracting = Input.GetButtonDown("Interact");
@@ -59,7 +64,7 @@ public class InputController : MonoBehaviour
 
     private float GetAxis(string axisName)
     {
-        if (Input.GetAxis(axisName) > controllerDeadZone || Input.GetAxis(axisName) < controllerDeadZone)
+        if (Input.GetAxis(axisName) > ControllerDeadZone || Input.GetAxis(axisName) < ControllerDeadZone)
         {
             return Input.GetAxis(axisName);
         }
@@ -78,7 +83,7 @@ public class InputController : MonoBehaviour
             return HorizontalDirection.Left;
         }
 
-        return HorizontalDirection.Iddle;
+        return HorizontalDirection.Idle;
     }
 
     private VerticalDirection GetVerticalDirection(float verticalAxis)
@@ -92,6 +97,6 @@ public class InputController : MonoBehaviour
             return VerticalDirection.Down;
         }
 
-        return VerticalDirection.Iddle;
+        return VerticalDirection.Idle;
     }
 }

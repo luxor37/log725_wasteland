@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Projectile
@@ -9,19 +10,13 @@ namespace Projectile
 
         static ProjectileManager instance;
 
-        public static ProjectileManager Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+        public static ProjectileManager Instance => instance;
 
         private void Awake()
         {
             if (instance != null && instance != this)
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             } else
             {
                 instance = this;
@@ -30,12 +25,7 @@ namespace Projectile
 
         public GameObject GetProjectile(string name)
         {
-            foreach (GameObject projectile in projectiles)
-            {
-                if (projectile.name.Equals(name))
-                    return projectile;
-            }
-            return null;
+            return projectiles.FirstOrDefault(projectile => projectile.name.Equals(name));
         }
 
         public GameObject getIndex(int i)

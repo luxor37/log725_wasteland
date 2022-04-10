@@ -27,7 +27,7 @@ public class Ladder : MonoBehaviour
                 player.LadderAngle = 180;
             }
 
-            if (InputController.HorizontalDirection != HorizontalDirection.Iddle || InputController.IsJumping)
+            if (InputController.HorizontalDirection != HorizontalDirection.Idle || InputController.IsJumping)
             {
                 player.IsClimbing = false;
             }

@@ -1,16 +1,14 @@
-using System;
 using Player;
 using Status;
 using UnityEngine;
 using static ItemController;
+using static PersistenceManager;
 using System.Threading.Tasks;
 
 namespace Assets.Scripts.Player
 {
     public class PlayerAttack : MonoBehaviour
     {
-        [SerializeField]
-        private enum AttackTypeEnum { Melee = 0, Ranged = 1 };
         [SerializeField]
         private StatusEnum StatusEffectMelee, StatusEffectRanged;
         [SerializeField]
@@ -47,18 +45,11 @@ namespace Assets.Scripts.Player
         void Update()
         {
             rangeTimer += Time.deltaTime;
-
-
-            if (PersistenceManager.ActiveCharacter == PersistenceManager.ActiveCharacterEnum.character2)
-               AttackType = AttackTypeEnum.Ranged;
-            else
-                AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
-
-
-           // AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
             
-           
-
+            AttackType = ActiveCharacter == ActiveCharacterEnum.character2 ? 
+                AttackTypeEnum.Ranged : 
+                InputController.AttackType;
+            
             switch (AttackType)
             {
                 case AttackTypeEnum.Melee when PlayerMovementController.CanJump:
@@ -75,7 +66,7 @@ namespace Assets.Scripts.Player
                     RangeAttack();
                     break;
                 case AttackTypeEnum.Ranged when RangedWeapon == null:
-                    // RangedWeapon.SetActive(false);
+                    //RangedWeapon.SetActive(false);
                     _animator.SetBool("isRanged", false);
                     if (!InputController.IsAttacking) return;
                     Attack();

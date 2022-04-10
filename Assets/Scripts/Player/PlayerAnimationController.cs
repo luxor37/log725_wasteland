@@ -4,29 +4,27 @@ namespace Player
 {
     public class PlayerAnimationController
     {
-        private static bool isJumping = false;
+        private static bool _isJumping;
         public static void Animate(Animator animator, bool isGrounded, bool isClimbing)
         {
-            bool hasHorizontal = !Mathf.Approximately(InputController.HorizontalAxis, 0.0f);
+            var hasHorizontal = !Mathf.Approximately(InputController.HorizontalAxis, 0.0f);
             animator.SetBool("isRunning", hasHorizontal);
 
             if (!isGrounded && InputController.IsJumping)
-            {
-                isJumping = true;
-            }
+                _isJumping = true;
 
             if (isGrounded)
             {
                 if (InputController.IsJumping)
-                    isJumping = true;
-                isJumping = false;
+                    _isJumping = true;
+                _isJumping = false;
             }
 
             animator.SetBool("IsClimbing", isClimbing && InputController.VerticalDirection == VerticalDirection.Up);
             animator.SetBool("IsClimbingDown", isClimbing && InputController.VerticalDirection == VerticalDirection.Down);
             if (isClimbing)
             {
-                if (InputController.VerticalDirection == VerticalDirection.Iddle)
+                if (InputController.VerticalDirection == VerticalDirection.Idle)
                     animator.speed = 0;
                 else
                     animator.speed = 1;
@@ -34,7 +32,7 @@ namespace Player
             else
                 animator.speed = 1;
 
-            animator.SetBool("isJumping", isJumping);
+            animator.SetBool("isJumping", _isJumping);
             animator.SetBool("isGrounded", isGrounded);
         }
     }

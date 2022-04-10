@@ -54,6 +54,17 @@ namespace Player
 
             HandleShield();
 
+            Climbing();
+
+            _controller.Move(_desiredMovement * Time.deltaTime);
+
+            transform.position = PlayerMovementController.VerifyWorldLimits(transform.position);
+
+            PlayerAnimationController.Animate(_animator, _controller.isGrounded, IsClimbing);
+        }
+
+        private void Climbing()
+        {
             if (IsClimbing)
             {
                 _desiredMovement = PlayerMovementController.GetClimbingMovement(ClimbingSpeed);
@@ -63,13 +74,6 @@ namespace Player
                     IsClimbing = false;
                 }
             }
-
-            _controller.Move(_desiredMovement * Time.deltaTime);
-
-            transform.position = PlayerMovementController.VerifyWorldLimits(transform.position);
-
-            PlayerAnimationController.Animate(_animator, _controller.isGrounded, IsClimbing);
-
         }
 
         private void HandleShield()
