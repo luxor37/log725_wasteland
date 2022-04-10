@@ -2244,6 +2244,7 @@ MonoBehaviour:
   RangeCooldown: 1
   rangeProjectile: windtornado
   rangeBuildup: 0.5
+  meleeEffect: {fileID: 0}
 --- !u!114 &6435963205110676295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4775,6 +4776,7 @@ MonoBehaviour:
   RangeCooldown: 0.3
   rangeProjectile: Bullet
   rangeBuildup: 0
+  meleeEffect: {fileID: 198175801688348628, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
 --- !u!114 &6435963205738042671
 MonoBehaviour:
   m_ObjectHideFlags: 0

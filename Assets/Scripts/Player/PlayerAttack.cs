@@ -9,18 +9,30 @@ namespace Assets.Scripts.Player
 {
     public class PlayerAttack : MonoBehaviour
     {
-        public enum AttackTypeEnum { Melee = 0, Ranged = 1 };
-        public StatusEnum StatusEffectMelee, StatusEffectRanged;
-        public Transform AttackPoint, RangedAttackStartPosition;
-        public Vector3 AttackRange = new Vector3(1, 1, 1);
-        public LayerMask EnemyLayers;
+        [SerializeField]
+        private enum AttackTypeEnum { Melee = 0, Ranged = 1 };
+        [SerializeField]
+        private StatusEnum StatusEffectMelee, StatusEffectRanged;
+        [SerializeField]
+        private Transform AttackPoint, RangedAttackStartPosition;
+        [SerializeField]
+        private Vector3 AttackRange = new Vector3(1, 1, 1);
+        [SerializeField]
+        private LayerMask EnemyLayers;
+        [SerializeField]
         public int MeleeDamage, RangedDamage;
-        public AttackTypeEnum AttackType;
-        public GameObject RangedWeapon;
-        public float RangeCooldown = 1f;
-        public string rangeProjectile = "";
+        [SerializeField]
+        private AttackTypeEnum AttackType;
+        [SerializeField]
+        private GameObject RangedWeapon;
+        [SerializeField]
+        private float RangeCooldown = 1f;
+        [SerializeField]
+        private string rangeProjectile = "";
         [SerializeField]
         private float rangeBuildup = 0f;
+        [SerializeField]
+        private ParticleSystem meleeEffect;
 
         private float rangeTimer = 0;
         private Animator _animator;
@@ -37,13 +49,13 @@ namespace Assets.Scripts.Player
             rangeTimer += Time.deltaTime;
 
 
-        //    if (PersistenceManager.ActiveCharacter == PersistenceManager.ActiveCharacterEnum.character2)
-        //       AttackType = AttackTypeEnum.Melee;
-        //    else
-        //        AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
+            if (PersistenceManager.ActiveCharacter == PersistenceManager.ActiveCharacterEnum.character2)
+               AttackType = AttackTypeEnum.Ranged;
+            else
+                AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
 
 
-            AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
+           // AttackType = (AttackTypeEnum)(InputController.AttackType % Enum.GetNames(typeof(AttackTypeEnum)).Length);
             
            
 
@@ -118,6 +130,8 @@ namespace Assets.Scripts.Player
                 var newStatus = StatusManager.Instance.GetNewStatusObject(StatusEffectMelee, enemyStatusController);
                 enemyStatusController.AddStatus(newStatus);
                 enemyStatusController.Knockback();
+                if (meleeEffect != null)
+                    Instantiate(meleeEffect, new Vector3(damageable.transform.position.x, AttackPoint.position.y, AttackPoint.position.z), Quaternion.identity);
             }
         }
 
