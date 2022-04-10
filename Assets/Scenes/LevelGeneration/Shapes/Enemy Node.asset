@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ff8b9a5c07751346a93413ac2b019e1, type: 3}
-  m_Name: BackWallShape
+  m_Name: Enemy Node
   m_EditorClassIdentifier: 
+  isTwoLayer: 0
   Position: {x: 0, y: 0, z: 0}
-  Symbol: 1
-  ShapeObject: {fileID: 4250738389649438822, guid: 1637f55f35a01a540a785534eb979e61, type: 3}
+  Symbol: 10
+  ShapeObject: {fileID: 0}
   Attributes: 
   AttributeValues: 

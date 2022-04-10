@@ -303,9 +303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03aa8f8135490ac4aa0ddad8ed0d5859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 6991970859609725653, guid: fddb5624bea45e34f942fac25477a99a, type: 3}
+  Items:
   - {fileID: 5565158768523833674, guid: 8c3844c77b65dc543a9bd8c6ff5e3460, type: 3}
+  - {fileID: 6991970859609725653, guid: fddb5624bea45e34f942fac25477a99a, type: 3}
   - {fileID: 4656488479160663002, guid: d371976b87b76354eb9015c437dcaa80, type: 3}
 --- !u!1 &5323601605096615996
 GameObject:
