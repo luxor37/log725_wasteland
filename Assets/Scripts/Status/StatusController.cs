@@ -87,10 +87,10 @@ namespace Status
             isHit = false;
         }
 
-        public void SetParticleSystem(ParticleType name, float duration)
+        public void SetParticleSystem(ParticleType name, float duration, bool onBody=true)
         {
             if (_particlesController)
-                _particlesController.ChangeParticles(name, duration);
+                _particlesController.ChangeParticles(name, duration, onBody);
         }
 
         void DisableAI()
@@ -122,7 +122,7 @@ namespace Status
             if (_body)
             {
                 DisableAI();
-                _body.AddTorque(new Vector3(force, force, -force));
+                _body.AddTorque(new Vector3(force, force, 0));
             }
             
         }

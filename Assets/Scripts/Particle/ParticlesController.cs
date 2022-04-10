@@ -19,20 +19,23 @@ public class ParticlesController : MonoBehaviour
         maxDurationMap = new Dictionary<ParticleType, float>();
     }
 
-    public void ChangeParticles(ParticleType name, float duration)
+    public void ChangeParticles(ParticleType name, float duration, bool onBody=true)
     {
 
         if (particlesMap.ContainsKey(name))
             return;
         var newParticles = fxManager.GetParticle(name);
-        if (newParticles != null)
+        if (newParticles == null)
+            return;
+       
+        durationsMap[name] = 0f;
+        maxDurationMap[name] = duration;
+        if (onBody)
         {
-            durationsMap[name] = 0f;
-            maxDurationMap[name] = duration;
             particlesMap[name] = Instantiate(newParticles, gameObject.transform);
+        } else
+            particlesMap[name] = Instantiate(newParticles, gameObject.transform.position, Quaternion.identity);
 
-        }
-            
     }
 
     private void Update()
