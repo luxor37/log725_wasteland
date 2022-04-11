@@ -33,9 +33,17 @@ public class PauseMenu : MonoBehaviour
             menu.interactable = IsGamePaused;
             menu.blocksRaycasts = IsGamePaused;
         }
+
+        if (IsGamePaused && InputController.IsShielding)
+        {
+            Pause(!IsGamePaused);
+            menu.alpha = IsGamePaused ? 1 : 0;
+            menu.interactable = IsGamePaused;
+            menu.blocksRaycasts = IsGamePaused;
+        }
     }
 
-    void Pause(bool isPaused)
+    private void Pause(bool isPaused)
     {
         if(eventSystem != null && FirstSelected != null)
             eventSystem.SetSelectedGameObject(FirstSelected);

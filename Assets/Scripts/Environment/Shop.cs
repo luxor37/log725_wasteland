@@ -48,7 +48,7 @@ public class Shop : MonoBehaviour
                 Time.timeScale = 0;
             }
         }
-        else if (isShopOpen && (IsInteracting || IsPausing))
+        else if (isShopOpen && (IsInteracting || IsPausing || IsShielding))
         {
             PauseMenu.IsGamePaused = false;
             Time.timeScale = 1;
