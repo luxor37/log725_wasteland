@@ -68,6 +68,10 @@ namespace Assets.Scripts.Player
                     case AttackTypeEnum.Ranged when RangedWeapon != null:
                         RangeAttack();
                         break;
+                    case AttackTypeEnum.Ranged when RangedWeapon == null:
+                        RangeAttack();
+                        Attack();
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
