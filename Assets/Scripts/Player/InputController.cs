@@ -17,6 +17,8 @@ public class InputController : MonoBehaviour
         IsUsingItem2, IsInteracting , DisableControls, IsCharacterChanging;
     public static AttackTypeEnum AttackType = AttackTypeEnum.Melee;
 
+    private static bool _isUsingItem2Continuous, _isUsingItem1Continuous, _isInteractingContinuous = false;
+
     void Start(){
         DisableControls = false;
     }
@@ -42,10 +44,53 @@ public class InputController : MonoBehaviour
             AttackType = AttackTypeEnum.Ranged;
 
         IsShielding = Input.GetButtonDown("Shield");
-        IsInteracting = Input.GetButtonDown("Interact") || Input.GetAxis("Interact") > 0f;
+        
+        if (!IsInteracting && !_isInteractingContinuous)
+        {
+            IsInteracting = Input.GetButtonDown("Interact") || Input.GetAxis("Interact") > 0f;
+            _isInteractingContinuous = IsInteracting;
+        }
+        else if (_isInteractingContinuous && Input.GetAxis("Interact") > 0f)
+        {
+            IsInteracting = false;
+        }
+        else
+        {
+            IsInteracting = false;
+            _isInteractingContinuous = false;
+        }
 
-        IsUsingItem1 = Input.GetButtonDown("UseItem1");
-        IsUsingItem2 = Input.GetButtonDown("UseItem2");
+
+        if (!IsUsingItem1 && !_isUsingItem1Continuous)
+        {
+            IsUsingItem1 = Input.GetButtonDown("UseItem1") || Input.GetAxis("UseItem1") < 0f;
+            _isUsingItem1Continuous = IsUsingItem1;
+        }
+        else if (_isUsingItem1Continuous && Input.GetAxis("UseItem1") < 0f)
+        {
+            IsUsingItem1 = false;
+        }
+        else
+        {
+            IsUsingItem1 = false;
+            _isUsingItem1Continuous = false;
+        }
+
+
+        if (!IsUsingItem2 && !_isUsingItem2Continuous)
+        {
+            IsUsingItem2 = Input.GetButtonDown("UseItem2") || Input.GetAxis("UseItem2") > 0f;
+            _isUsingItem2Continuous = IsUsingItem2;
+        }
+        else if (_isUsingItem2Continuous && Input.GetAxis("UseItem2") > 0f)
+        {
+            IsUsingItem2 = false;
+        }
+        else
+        {
+            IsUsingItem2 = false;
+            _isUsingItem2Continuous = false;
+        }
     }
 
     private float GetAxis(string axisName)

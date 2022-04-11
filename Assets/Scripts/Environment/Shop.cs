@@ -14,8 +14,6 @@ public class Shop : MonoBehaviour
     public CanvasGroup ShopUi;
     private CanvasGroup menu;
 
-    private float inputDelayTimer = 0f;
-
     void Start()
     {
         instructions = GameObject.Find("interactPrompt").GetComponent<TextMesh>();
@@ -28,16 +26,7 @@ public class Shop : MonoBehaviour
     
     void Update()
     {
-        var isInteracting = false;
-        if (inputDelayTimer == 0f)
-        {
-            isInteracting = IsInteracting;
-            inputDelayTimer = 1f * Time.deltaTime;
-        }
-        else
-            inputDelayTimer--;
-
-        if (_areTouching && isInteracting && !isShopOpen)
+        if (_areTouching && IsInteracting && !isShopOpen)
         {
             if (ShopUi != null)
             {
@@ -45,7 +34,7 @@ public class Shop : MonoBehaviour
                 
             }
         }
-        else if (isShopOpen && (isInteracting || IsPausing))
+        else if (isShopOpen && (IsInteracting || IsPausing))
             isShopOpen = false;
 
         DisplayShop();
