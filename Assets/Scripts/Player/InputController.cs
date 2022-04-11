@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static PersistenceManager;
 
@@ -26,6 +27,7 @@ public class InputController : MonoBehaviour
     void Update()
     {
         if (DisableControls) return;
+
         HorizontalAxis = IsAttacking && (AttackType == AttackTypeEnum.Melee || ActiveCharacter == ActiveCharacterEnum.Character2) ? 0 : GetAxis("Horizontal");
         VerticalAxis = GetAxis("Vertical");
 
@@ -45,52 +47,40 @@ public class InputController : MonoBehaviour
 
         IsShielding = Input.GetButtonDown("Shield");
         
-        if (!IsInteracting && !_isInteractingContinuous)
+        (IsInteracting, _isInteractingContinuous) = GetControllerAxisButtonInput(
+            IsInteracting,
+            (Input.GetButtonDown("Interact") || Input.GetAxis("Interact") > 0f),
+            _isInteractingContinuous);
+
+        (IsUsingItem1, _isUsingItem1Continuous) = GetControllerAxisButtonInput(
+            IsUsingItem1,
+            Input.GetButtonDown("UseItem1") || Input.GetAxis("UseItem1") < 0f,
+            _isUsingItem1Continuous);
+
+        (IsUsingItem2, _isUsingItem2Continuous) = GetControllerAxisButtonInput(
+            IsUsingItem2, 
+            Input.GetButtonDown("UseItem2") || Input.GetAxis("UseItem2") > 0f,
+            _isUsingItem2Continuous);
+    }
+
+    private Tuple<bool, bool> GetControllerAxisButtonInput(bool isInteracting, bool input, bool isInteractingContinuous)
+    {
+        if (!isInteracting && !isInteractingContinuous)
         {
-            IsInteracting = Input.GetButtonDown("Interact") || Input.GetAxis("Interact") > 0f;
-            _isInteractingContinuous = IsInteracting;
+            isInteracting = input;
+            isInteractingContinuous = isInteracting;
         }
-        else if (_isInteractingContinuous && Input.GetAxis("Interact") > 0f)
+        else if (isInteractingContinuous && input)
         {
-            IsInteracting = false;
+            isInteracting = false;
         }
         else
         {
-            IsInteracting = false;
-            _isInteractingContinuous = false;
+            isInteracting = false;
+            isInteractingContinuous = false;
         }
 
-
-        if (!IsUsingItem1 && !_isUsingItem1Continuous)
-        {
-            IsUsingItem1 = Input.GetButtonDown("UseItem1") || Input.GetAxis("UseItem1") < 0f;
-            _isUsingItem1Continuous = IsUsingItem1;
-        }
-        else if (_isUsingItem1Continuous && Input.GetAxis("UseItem1") < 0f)
-        {
-            IsUsingItem1 = false;
-        }
-        else
-        {
-            IsUsingItem1 = false;
-            _isUsingItem1Continuous = false;
-        }
-
-
-        if (!IsUsingItem2 && !_isUsingItem2Continuous)
-        {
-            IsUsingItem2 = Input.GetButtonDown("UseItem2") || Input.GetAxis("UseItem2") > 0f;
-            _isUsingItem2Continuous = IsUsingItem2;
-        }
-        else if (_isUsingItem2Continuous && Input.GetAxis("UseItem2") > 0f)
-        {
-            IsUsingItem2 = false;
-        }
-        else
-        {
-            IsUsingItem2 = false;
-            _isUsingItem2Continuous = false;
-        }
+        return new Tuple<bool, bool>(isInteracting, isInteractingContinuous);
     }
 
     private float GetAxis(string axisName)
