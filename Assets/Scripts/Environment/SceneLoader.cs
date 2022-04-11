@@ -1,30 +1,30 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using static SceneTransitionManager;
 
 public class SceneLoader : MonoBehaviour
 {
     private bool _areTouching;
 
-    public TextMesh Instructions;
-    
+    private TextMesh instructions;
+
     public string SceneName;
 
     void Start()
     {
-        if (Instructions != null)
+        instructions = GameObject.Find("interactPrompt").GetComponent<TextMesh>();
+        if (instructions != null)
         {
-            Instructions.characterSize = 0;
+            instructions.characterSize = 0;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_areTouching && InputController.VerticalDirection == VerticalDirection.Down)
+        if (_areTouching && InputController.IsInteracting)
             SceneTransitionManagerSingleton.LoadScene(SceneName);
-        if (_areTouching && InputController.VerticalDirection == VerticalDirection.Up)
-            SceneTransitionManagerSingleton.LoadScene(SceneManager.GetActiveScene().name.Equals("SceneAleatoire") ? "LevelBoss" : "SceneAleatoire");
+        if (_areTouching && InputController.IsInteracting)
+            SceneTransitionManagerSingleton.LoadScene("SceneAleatoireTunnel");
     }
 
     public void OnTriggerEnter(Collider other)
@@ -32,9 +32,9 @@ public class SceneLoader : MonoBehaviour
         if (other.gameObject.tag != "Character") return;
 
         _areTouching = true;
-        if (Instructions != null)
+        if (instructions != null)
         {
-            Instructions.characterSize = 1;
+            instructions.characterSize = 1;
         }
     }
 
@@ -43,9 +43,9 @@ public class SceneLoader : MonoBehaviour
         if (other.gameObject.tag != "Character") return;
 
         _areTouching = false;
-        if (Instructions != null)
+        if (instructions != null)
         {
-            Instructions.characterSize = 0;
+            instructions.characterSize = 0;
         }
     }
 }

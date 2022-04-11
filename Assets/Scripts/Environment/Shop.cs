@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static InputController;
 
 public class Shop : MonoBehaviour
@@ -11,8 +12,12 @@ public class Shop : MonoBehaviour
     public int HealthCost = 5;
     public int AtkCost = 8;
 
+    public GameObject FirstSelected;
+
     public CanvasGroup ShopUi;
     private CanvasGroup menu;
+
+    private EventSystem eventSystem;
 
     void Start()
     {
@@ -22,6 +27,8 @@ public class Shop : MonoBehaviour
             instructions.characterSize = 0;
             menu = gameObject.GetComponentInChildren<CanvasGroup>();
         }
+
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
     }
     
     void Update()
@@ -31,11 +38,22 @@ public class Shop : MonoBehaviour
             if (ShopUi != null)
             {
                 isShopOpen = true;
-                
+
+                if (eventSystem != null && FirstSelected != null)
+                    eventSystem.SetSelectedGameObject(FirstSelected);
+                else
+                    Debug.Log("Could not set event system");
+
+                PauseMenu.IsGamePaused = true;
+                Time.timeScale = 0;
             }
         }
         else if (isShopOpen && (IsInteracting || IsPausing))
+        {
+            PauseMenu.IsGamePaused = false;
+            Time.timeScale = 1;
             isShopOpen = false;
+        }
 
         DisplayShop();
     }
@@ -89,7 +107,6 @@ public class Shop : MonoBehaviour
     public void BuyHealth()
     {
         if (PersistenceManager.Coins < HealthCost) return;
-        Debug.Log("buying");
         PersistenceManager.Coins -= HealthCost;
         PersistenceManager.HealthPotionAmount += 1;
     }

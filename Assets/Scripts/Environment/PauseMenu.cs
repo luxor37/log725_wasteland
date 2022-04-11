@@ -1,13 +1,18 @@
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static SceneTransitionManager;
 
 public class PauseMenu : MonoBehaviour
 {
+    public GameObject FirstSelected;
+
     [HideInInspector]
     public static bool IsGamePaused;
 
     private CanvasGroup menu;
+
+    private EventSystem eventSystem;
 
     void Start()
     {
@@ -15,6 +20,8 @@ public class PauseMenu : MonoBehaviour
         menu.alpha = 0;
         menu.interactable = false;
         menu.blocksRaycasts = false;
+
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
     }
 
     void Update()
@@ -30,6 +37,11 @@ public class PauseMenu : MonoBehaviour
 
     void Pause(bool isPaused)
     {
+        if(eventSystem != null && FirstSelected != null)
+            eventSystem.SetSelectedGameObject(FirstSelected);
+        else
+            Debug.Log("Could not set event system");
+
         IsGamePaused = isPaused;
 
         Time.timeScale = isPaused ? 0 : 1;
