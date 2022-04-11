@@ -1,9 +1,11 @@
+using System;
 using Player;
 using Status;
 using UnityEngine;
 using static ItemController;
 using static PersistenceManager;
 using System.Threading.Tasks;
+using Projectile;
 
 namespace Assets.Scripts.Player
 {
@@ -49,31 +51,27 @@ namespace Assets.Scripts.Player
             AttackType = ActiveCharacter == ActiveCharacterEnum.Character2 ? 
                 AttackTypeEnum.Ranged : 
                 InputController.AttackType;
-            
-            switch (AttackType)
-            {
-                case AttackTypeEnum.Melee when PlayerMovementController.CanJump:
-                    if (RangedWeapon != null)
-                        RangedWeapon.SetActive(false);
-                    _animator.SetBool("isRanged", false);
-                    if (!InputController.IsAttacking) return;
-                    Attack();
-                    break;
-                case AttackTypeEnum.Ranged when RangedWeapon != null:
-                    RangedWeapon.SetActive(true);
-                    _animator.SetBool("isRanged", true);
-                    if (!InputController.IsAttacking) return;
-                    RangeAttack();
-                    break;
-                case AttackTypeEnum.Ranged when RangedWeapon == null:
-                    //RangedWeapon.SetActive(false);
-                    _animator.SetBool("isRanged", false);
-                    if (!InputController.IsAttacking) return;
-                    Attack();
-                    RangeAttack();
-                    break;
-            }
 
+            _animator.SetBool("isAttacking", InputController.IsAttacking);
+            _animator.SetBool("isRanged", AttackType == AttackTypeEnum.Ranged);
+
+            if (RangedWeapon != null)
+                RangedWeapon.SetActive(AttackType == AttackTypeEnum.Ranged);
+
+            if (InputController.IsAttacking)
+            {
+                switch (AttackType)
+                {
+                    case AttackTypeEnum.Melee when PlayerMovementController.CanJump:
+                        Attack();
+                        break;
+                    case AttackTypeEnum.Ranged when RangedWeapon != null:
+                        RangeAttack();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
         }
         private void Attack()
         {
@@ -87,9 +85,10 @@ namespace Assets.Scripts.Player
             if (RangedAttackStartPosition == null || !_animator.GetBool("RangedAttack")) return;
 
            
-            var newProjectile = Projectile.ProjectileManager.Instance.GetProjectile(rangeProjectile);
-            if (newProjectile == null)
-                return;
+            var newProjectile = ProjectileManager.Instance.GetProjectile(rangeProjectile);
+
+            if (newProjectile == null) return;
+
             var projectileController = newProjectile.GetComponent<ProjectileController>();
             projectileController.direction = transform.forward;
             projectileController.damage = RangedDamage;
@@ -124,6 +123,12 @@ namespace Assets.Scripts.Player
                 if (meleeEffect != null)
                     Instantiate(meleeEffect, new Vector3(damageable.transform.position.x, AttackPoint.position.y, AttackPoint.position.z), Quaternion.identity);
             }
+
+            if(hitEnemies.Length > 0 && ActiveCharacter == ActiveCharacterEnum.Character1 && AttackType == AttackTypeEnum.Melee)
+                GameObject.Find("punchHit").GetComponent<AudioSource>().Play();
+
+            if (hitEnemies.Length == 0 && ActiveCharacter == ActiveCharacterEnum.Character1 && AttackType == AttackTypeEnum.Melee)
+                GameObject.Find("punchSwoosh").GetComponent<AudioSource>().Play();
         }
 
         private void OnDrawGizmos()

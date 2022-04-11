@@ -1,4 +1,5 @@
-﻿using static FXManager;
+﻿using UnityEngine;
+using static FXManager;
 
 namespace Status
 {
