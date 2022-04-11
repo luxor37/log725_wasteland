@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b189c82522f1348acaa8b2100f25f6, type: 3}
   m_Name: Place Shape StraightTunnel
   m_EditorClassIdentifier: 
-  predecessor: {fileID: 11400000, guid: 41fab41c9afd7b2439e658c251531b25, type: 2}
+  predecessor: {fileID: 0}
   ShapeToPlace: {fileID: 11400000, guid: 4685839389fd8134aa2d740bffffa33e, type: 2}

@@ -16,7 +16,7 @@ public class InputController : MonoBehaviour
     public static bool IsJumping, IsSprinting, IsAttacking, IsShielding, IsPausing, IsUsingItem1, 
         IsUsingItem2, IsInteracting , DisableControls, IsCharacterChanging;
     public static AttackTypeEnum AttackType = AttackTypeEnum.Melee;
-    
+
     void Start(){
         DisableControls = false;
     }
@@ -42,7 +42,7 @@ public class InputController : MonoBehaviour
             AttackType = AttackTypeEnum.Ranged;
 
         IsShielding = Input.GetButtonDown("Shield");
-        IsInteracting = Input.GetButtonDown("Interact");
+        IsInteracting = Input.GetButtonDown("Interact") || Input.GetAxis("Interact") > 0f;
 
         IsUsingItem1 = Input.GetButtonDown("UseItem1");
         IsUsingItem2 = Input.GetButtonDown("UseItem2");
@@ -84,5 +84,11 @@ public class InputController : MonoBehaviour
         }
 
         return VerticalDirection.Idle;
+    }
+
+    private void GameManagerRegisterInput()
+    {
+        
+
     }
 }

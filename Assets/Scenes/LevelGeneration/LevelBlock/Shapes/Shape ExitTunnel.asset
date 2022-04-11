@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTwoLayer: 0
   Position: {x: 0, y: 0, z: 0}
-  Symbol: 9
+  Symbol: 4
   ShapeObject: {fileID: 2483801916122771464, guid: 5e78d9dd393adea4387e676a47c15160, type: 3}
-  Attributes: 
-  AttributeValues: 
