@@ -10,12 +10,12 @@ public class PersistenceManager : MonoBehaviour
     
     public static bool Is2NdCharacterUnlocked;
 
-    public static int HealthPotionAmount = 1;
-    public static int AtkBoostAmount = 1;
+    public static int HealthPotionAmount = 0;
+    public static int AtkBoostAmount = 0;
 
     public static ActiveCharacterEnum ActiveCharacter = ActiveCharacterEnum.Character1;
 
-    public static int Coins = 150;
+    public static int Coins = 0;
 
     public static void Reset()
     {
