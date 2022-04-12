@@ -23,8 +23,6 @@ public class SceneLoader : MonoBehaviour
     {
         if (_areTouching && InputController.IsInteracting)
             SceneTransitionManagerSingleton.LoadScene(SceneName);
-        if (_areTouching && InputController.IsInteracting)
-            SceneTransitionManagerSingleton.LoadScene("SceneAleatoireTunnel");
     }
 
     public void OnTriggerEnter(Collider other)

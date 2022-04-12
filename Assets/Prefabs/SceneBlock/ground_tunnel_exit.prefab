@@ -3053,10 +3053,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Manhole (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 3804559107528574579, guid: 576464305a5dd6d45be017fbbe74f612, type: 3}
-      propertyPath: SceneName
-      value: LevelBoss
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 576464305a5dd6d45be017fbbe74f612, type: 3}
 --- !u!4 &37950647491595229 stripped
@@ -3552,10 +3548,6 @@ PrefabInstance:
     - target: {fileID: 3804559107528574573, guid: 576464305a5dd6d45be017fbbe74f612, type: 3}
       propertyPath: m_Name
       value: Manhole
-      objectReference: {fileID: 0}
-    - target: {fileID: 3804559107528574579, guid: 576464305a5dd6d45be017fbbe74f612, type: 3}
-      propertyPath: SceneName
-      value: LevelBoss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 576464305a5dd6d45be017fbbe74f612, type: 3}

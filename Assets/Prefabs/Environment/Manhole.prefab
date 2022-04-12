@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb748c9d332f421408221a639c577b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: SceneAleatoireTunnel
+  SceneName: LevelBoss
 --- !u!1001 &3804559106707565089
 PrefabInstance:
   m_ObjectHideFlags: 0
