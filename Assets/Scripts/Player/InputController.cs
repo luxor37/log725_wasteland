@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR;
 using static PersistenceManager;
 
 public enum HorizontalDirection { Left, Right, Idle }
@@ -20,8 +21,11 @@ public class InputController : MonoBehaviour
 
     private static bool _isUsingItem2Continuous, _isUsingItem1Continuous, _isInteractingContinuous = false;
 
+    private TextMesh instructions;
+
     void Start(){
         DisableControls = false;
+        instructions = GameObject.Find("interactPrompt").GetComponent<TextMesh>();
     }
 
     void Update()
@@ -61,6 +65,16 @@ public class InputController : MonoBehaviour
             IsUsingItem2, 
             Input.GetButtonDown("UseItem2") || Input.GetAxis("UseItem2") > 0f,
             _isUsingItem2Continuous);
+        
+        if (instructions != null)
+        {
+            instructions.text = _mState switch
+            {
+                EInputState.MouseKeyboard => "'F' to interact",
+                EInputState.Controller => "'d-pad up' to interact",
+                _ => instructions.text
+            };
+        }
     }
 
     private Tuple<bool, bool> GetControllerAxisButtonInput(bool isInteracting, bool input, bool isInteractingContinuous)
@@ -125,5 +139,77 @@ public class InputController : MonoBehaviour
     {
         
 
+    }
+
+
+
+    //https://answers.unity.com/questions/131899/how-do-i-check-what-input-device-is-currently-beei.html
+    //https://answers.unity.com/storage/temp/134371-xbox-one-controller-unity-windows-macos.jpg
+
+    public enum EInputState
+    {
+        MouseKeyboard,
+        Controller
+    };
+    private EInputState _mState = EInputState.MouseKeyboard;
+
+    private void OnGUI()
+    {
+        switch (_mState)
+        {
+            case EInputState.MouseKeyboard:
+                if (IsControllerInput())
+                {
+                    _mState = EInputState.Controller;
+                    Debug.Log("DREAM - JoyStick being used");
+                }
+                break;
+            case EInputState.Controller:
+                if (IsMouseKeyboard())
+                {
+                    _mState = EInputState.MouseKeyboard;
+                    Debug.Log("DREAM - Mouse & Keyboard being used");
+                }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public EInputState GetInputState()
+    {
+        return _mState;
+    }
+    
+    private static bool IsMouseKeyboard()
+    {
+        // mouse & keyboard buttons
+        return Event.current.isKey ||
+               Event.current.isMouse;
+    }
+
+    private static bool IsControllerInput()
+    {
+        // joystick buttons
+        return Input.GetKey(KeyCode.Joystick1Button0) ||
+               Input.GetKey(KeyCode.Joystick1Button1) ||
+               Input.GetKey(KeyCode.Joystick1Button2) ||
+               Input.GetKey(KeyCode.Joystick1Button3) ||
+               Input.GetKey(KeyCode.Joystick1Button4) ||
+               Input.GetKey(KeyCode.Joystick1Button5) ||
+               Input.GetKey(KeyCode.Joystick1Button6) ||
+               Input.GetKey(KeyCode.Joystick1Button7) ||
+               Input.GetKey(KeyCode.Joystick1Button8) ||
+               Input.GetKey(KeyCode.Joystick1Button9) ||
+               Input.GetKey(KeyCode.Joystick1Button10) ||
+               Input.GetKey(KeyCode.Joystick1Button11) ||
+               Input.GetKey(KeyCode.Joystick1Button12) ||
+               Input.GetKey(KeyCode.Joystick1Button13) ||
+               Input.GetKey(KeyCode.Joystick1Button14) ||
+               Input.GetKey(KeyCode.Joystick1Button15) ||
+               Input.GetKey(KeyCode.Joystick1Button16) ||
+               Input.GetKey(KeyCode.Joystick1Button17) ||
+               Input.GetKey(KeyCode.Joystick1Button18) ||
+               Input.GetKey(KeyCode.Joystick1Button19);
     }
 }
