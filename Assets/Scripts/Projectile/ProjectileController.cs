@@ -20,15 +20,33 @@ class ProjectileController : MonoBehaviour
 
     private float timer;
 
+    private bool _hasHit = false;
+
+    private AudioSource _sfx;
+
+    void Start()
+    {
+        _sfx = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer > duration)
+        if (timer > duration && !_sfx.isPlaying)
         {
             Destroy(gameObject);
         }
-        speed = Mathf.Max(0f, speed + acceleration * Time.deltaTime);
-        transform.position += direction.normalized * speed * Time.deltaTime;
+
+        if (!_hasHit)
+        {
+            speed = Mathf.Max(0f, speed + acceleration * Time.deltaTime);
+            transform.position += direction.normalized * speed * Time.deltaTime;
+        }
+        else
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<TrailRenderer>().enabled = false;
+        }
     }
 
     private void OnTriggerEnter(Component other)
@@ -45,9 +63,10 @@ class ProjectileController : MonoBehaviour
                 return;
             exploseEffect = Instantiate(exploseEffect, explosionPos, Quaternion.identity);
             exploseEffect.Play();
-            Destroy(gameObject);
+            _hasHit = true;
         }
         if (other.gameObject.tag != "Player" && other.gameObject.tag != "Character")
-            Destroy(gameObject);
+            _hasHit = true;
     }
+    
 }
